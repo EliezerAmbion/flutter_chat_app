@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import '../screens/auth_screens.dart';
 
 import '../screens/chat_screen.dart';
 import 'firebase_options.dart';
@@ -19,10 +20,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Chat',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      title: 'Flutter Chat',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.grey.shade400,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.blueGrey.shade900,
+          secondary: Colors.grey.shade900,
+          tertiary: Colors.blue,
         ),
-        home: ChatScreen());
+
+        // ElevatedButton Theme
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      ),
+      home: const AuthScreen(),
+    );
   }
 }
