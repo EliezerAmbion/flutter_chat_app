@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
 class AuthFormWidget extends StatefulWidget {
-  const AuthFormWidget({super.key});
+  final void Function(
+    String email,
+    String password,
+    String userName,
+    bool isLogin,
+    BuildContext ctx,
+  ) submitFn;
+
+  const AuthFormWidget({
+    super.key,
+    required this.submitFn,
+  });
 
   @override
   State<AuthFormWidget> createState() => _AuthFormWidgetState();
@@ -24,10 +35,13 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
 
     // .save will run in every TextFormField and trigger the onSaved function
     _formKey.currentState!.save();
-
-    print(_userEmail);
-    print(_userName);
-    print(_userPassword);
+    widget.submitFn(
+      _userEmail.trim(),
+      _userPassword.trim(),
+      _userName.trim(),
+      _isLogin,
+      context,
+    );
 
     // Use those values to send our auth request to Firebase
   }

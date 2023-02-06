@@ -5,6 +5,8 @@ import '../screens/auth_screens.dart';
 import '../screens/chat_screen.dart';
 import 'firebase_options.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -38,7 +40,17 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const AuthScreen(),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          // user is logged in
+          if (snapshot.hasData) {
+            return const ChatScreen();
+          } else {
+            return const AuthScreen();
+          }
+        },
+      ),
     );
   }
 }
