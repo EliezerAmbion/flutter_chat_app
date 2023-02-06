@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AuthFormWidget extends StatefulWidget {
   const AuthFormWidget({super.key});
@@ -9,6 +8,30 @@ class AuthFormWidget extends StatefulWidget {
 }
 
 class _AuthFormWidgetState extends State<AuthFormWidget> {
+  final _formKey = GlobalKey<FormState>();
+  bool _isLogin = true;
+
+  String _userEmail = '';
+  String _userName = '';
+  String _userPassword = '';
+
+  void _submit() {
+    final bool isValid = _formKey.currentState!.validate();
+    if (!isValid) return;
+
+    // this will close the soft keyboard
+    FocusScope.of(context).unfocus();
+
+    // .save will run in every TextFormField and trigger the onSaved function
+    _formKey.currentState!.save();
+
+    print(_userEmail);
+    print(_userName);
+    print(_userPassword);
+
+    // Use those values to send our auth request to Firebase
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -18,19 +41,56 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Form(
+              key: _formKey,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
+                // email
                 TextFormField(
+                  key: const ValueKey('email'),
+                  validator: (value) {
+                    if (value!.isEmpty || !value.contains('@')) {
+                      return 'Please enter a valid email address!';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _userEmail = value!;
+                  },
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     labelText: 'Email Address',
                   ),
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
+
+                // username
+                if (!_isLogin)
+                  TextFormField(
+                    key: const ValueKey('username'),
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 4) {
+                        return 'Please enter at least 4 character';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _userName = value!;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                    ),
                   ),
-                ),
+
+                // password
                 TextFormField(
+                  key: const ValueKey('password'),
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 7) {
+                      return 'Password must be at least 7 characters long';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _userPassword = value!;
+                  },
                   decoration: const InputDecoration(labelText: 'Password'),
                   obscureText: true,
                 ),
@@ -42,9 +102,9 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Login',
+                  onPressed: _submit,
+                  child: Text(
+                    _isLogin ? 'Login' : 'Signup',
                   ),
                 ),
 
@@ -53,10 +113,16 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
                   style: TextButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.tertiary,
                   ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Create a new account',
-                    style: TextStyle(
+                  onPressed: () {
+                    setState(() {
+                      _isLogin = !_isLogin;
+                    });
+                  },
+                  child: Text(
+                    _isLogin
+                        ? 'Create a new account'
+                        : 'Already have an account?',
+                    style: const TextStyle(
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                     ),
