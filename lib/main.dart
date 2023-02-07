@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         // color scheme
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Colors.blueGrey.shade900,
-          secondary: Colors.blueGrey.shade700,
+          secondary: Colors.blueGrey.shade600,
           tertiary: Colors.amber,
         ),
 
