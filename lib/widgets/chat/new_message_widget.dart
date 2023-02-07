@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../custom_field_widget.dart';
+
 class NewMessageWidget extends StatefulWidget {
   const NewMessageWidget({super.key});
 
@@ -35,8 +37,33 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
         children: [
           Expanded(
             child: TextField(
+              cursorColor: Theme.of(context).colorScheme.tertiary,
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1!.color,
+              ),
               controller: _controller,
-              decoration: const InputDecoration(labelText: 'Send a message...'),
+              decoration: InputDecoration(
+                labelText: 'Send a message...',
+
+                // label inside
+                labelStyle: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText2!.color,
+                ),
+
+                // label above
+                floatingLabelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                ),
+                fillColor: Theme.of(context).colorScheme.secondary,
+                // fillColor: Colors.white,
+                filled: true,
+              ),
               onChanged: (value) {
                 setState(() {
                   _enteredMessage = value;
@@ -46,7 +73,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
           ),
           IconButton(
             onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             color: Theme.of(context).colorScheme.tertiary,
           )
         ],
