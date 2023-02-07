@@ -19,25 +19,46 @@ class CustomFieldWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextFormField(
+        cursorColor: Theme.of(context).colorScheme.tertiary,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
         obscureText: obscureText,
+
+        // text style
+        style: TextStyle(
+          color: Theme.of(context).textTheme.bodyText1!.color,
+        ),
+
         decoration: InputDecoration(
           labelText: labelText,
           // hintText: hintText,
-          labelStyle: TextStyle(color: Colors.grey.shade500),
+
+          // label inside
+          labelStyle: TextStyle(
+            color: Theme.of(context).textTheme.bodyText2!.color,
+          ),
+
+          // label above
           floatingLabelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.tertiary,
           ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+
+          // border unfocused
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
+
+          // border focused
           focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.primary),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
           ),
-          fillColor: Colors.grey.shade100,
+          fillColor: Theme.of(context).colorScheme.secondary,
+          // fillColor: Colors.white,
           filled: true,
         ),
       ),

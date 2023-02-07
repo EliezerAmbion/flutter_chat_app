@@ -25,12 +25,25 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Chat',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.grey.shade300,
+        scaffoldBackgroundColor: Color.fromARGB(255, 23, 30, 34),
+        fontFamily: 'MontReg',
+
+        // color scheme
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Color.fromARGB(255, 28, 38, 43),
-          secondary: Colors.grey.shade900,
-          tertiary: Colors.blue,
+          primary: Colors.blueGrey.shade900,
+          secondary: Colors.blueGrey.shade700,
+          tertiary: Colors.amber,
         ),
+
+        // text theme
+        textTheme: ThemeData.light().textTheme.copyWith(
+              bodyText1: TextStyle(
+                color: Colors.grey.shade50,
+              ),
+              bodyText2: TextStyle(
+                color: Colors.grey.shade500,
+              ),
+            ),
 
         // ElevatedButton Theme
         elevatedButtonTheme: ElevatedButtonThemeData(

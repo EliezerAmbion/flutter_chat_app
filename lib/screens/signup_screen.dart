@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_field_widget.dart';
+import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -106,21 +107,30 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 50),
-                const Icon(
-                  Icons.lock,
-                  size: 100,
-                ),
+                const SizedBox(height: 100),
 
-                const SizedBox(height: 20),
-
-                // welcome back message
+                // Lets create an account
                 Text(
-                  'Let\'s create an account for you!',
-                  style: TextStyle(color: Colors.grey[700]),
+                  'Create new Account',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    fontFamily: 'MontBold',
+                    fontSize: 24,
+                  ),
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
+
+                Text(
+                  'Let\s create one for you!',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    fontFamily: 'MontReg',
+                    fontSize: 16,
+                  ),
+                ),
+
+                const SizedBox(height: 60),
 
                 // email field
                 CustomFieldWidget(
@@ -135,7 +145,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
 
                 // email field
                 CustomFieldWidget(
@@ -150,7 +160,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
 
                 // password field
                 CustomFieldWidget(
@@ -165,29 +175,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
 
                 // button
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      padding: const EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: _signup,
-                    child: const Text(
-                      'Signup',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                CustomFormButtonWidget(
+                  onPressed: _signup,
+                  text: 'SIGNUP',
                 ),
 
                 const SizedBox(height: 40),
@@ -208,7 +201,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Text(
                           'Or continue with:',
                           style: TextStyle(
-                            color: Colors.grey.shade800,
+                            color: Theme.of(context).textTheme.bodyText1!.color,
                           ),
                         ),
                       ),
@@ -243,16 +236,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 // not a member?
                 RichText(
                   text: TextSpan(
-                    text: 'Not a member? ',
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                    text: 'Already a member? ',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                    ),
                     children: [
                       TextSpan(
-                        text: 'Register Now!',
+                        text: 'Login now!',
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.togglePages,
-                        style: const TextStyle(
-                          color: Colors.blue,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.tertiary,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),
