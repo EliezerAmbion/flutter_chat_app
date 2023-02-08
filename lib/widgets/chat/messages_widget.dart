@@ -10,8 +10,6 @@ class MessagesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // this is to check the current user
-      // The purpose of this is to check if that chat comes from you by using the futureSnapshot.
       future: Future.value(FirebaseAuth.instance.currentUser),
       builder: (context, futureSnapshot) {
         if (futureSnapshot.connectionState == ConnectionState.waiting) {
@@ -36,8 +34,8 @@ class MessagesWidget extends StatelessWidget {
               itemCount: chatDocs.length,
               itemBuilder: (context, index) => MessageBubbleWidget(
                 message: chatDocs[index]['text'],
-                // futureSnapshot.data!.uid is to check whether the chat is from you or not
                 isMe: chatDocs[index]['userId'] == futureSnapshot.data!.uid,
+                userName: chatDocs[index]['username'],
                 // optional: this is to ensure that flutter is always able to efficiently update data in lists
                 key: ValueKey(chatDocs[index].id),
               ),

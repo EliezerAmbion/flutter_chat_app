@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/main.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
   final String message;
+  final String userName;
   final bool isMe;
 
   const MessageBubbleWidget({
     required super.key,
     required this.message,
     required this.isMe,
+    required this.userName,
   });
 
   @override
@@ -16,6 +17,7 @@ class MessageBubbleWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
+        Text(userName),
         Container(
           decoration: BoxDecoration(
             color: isMe

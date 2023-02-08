@@ -156,6 +156,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     if (value!.isEmpty || value.length < 4) {
                       return 'Username must be at least 4 characters long.';
                     }
+                    if (value.length > 10) {
+                      return 'Username must not exceed 10 characters';
+                    }
                     return null;
                   },
                 ),
