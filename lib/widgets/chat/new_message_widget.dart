@@ -20,21 +20,18 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
     // FocusScope.of(context).unfocus();
 
     final user = await FirebaseAuth.instance.currentUser;
-    final userData = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .get();
+    // final userData = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(user!.uid)
+    //     .get();
 
     FirebaseFirestore.instance.collection('chat').add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
-      'userId': user.uid,
-      'username': userData['username'],
+      'userId': user!.uid,
+      'displayName': user.displayName,
     });
     _controller.clear();
-
-    print('userData ==============> ${userData}');
-    print('user ==============> ${user}');
   }
 
   @override

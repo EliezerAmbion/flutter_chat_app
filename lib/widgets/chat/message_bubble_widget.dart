@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
   final String message;
-  final String username;
+  final String displayName;
   final bool isMe;
 
   const MessageBubbleWidget({
     required super.key,
     required this.message,
     required this.isMe,
-    required this.username,
+    required this.displayName,
   });
 
   @override
@@ -17,7 +17,6 @@ class MessageBubbleWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        Text(username),
         Container(
           decoration: BoxDecoration(
             color: isMe
@@ -33,21 +32,40 @@ class MessageBubbleWidget extends StatelessWidget {
             ),
           ),
           width: 140,
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 16,
+          padding: const EdgeInsets.only(
+            top: 2,
+            bottom: 12,
+            right: 16,
+            left: 16,
           ),
           margin: const EdgeInsets.symmetric(
             vertical: 4,
             horizontal: 8,
           ),
-          child: Text(
-            message,
-            style: TextStyle(
-              color: isMe
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).textTheme.bodyText1!.color,
-            ),
+          child: Column(
+            crossAxisAlignment:
+                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Text(
+                  displayName,
+                  style: TextStyle(
+                    color: isMe
+                        ? Theme.of(context).textTheme.bodyText1!.color
+                        : Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+              Text(
+                message,
+                style: TextStyle(
+                  color: isMe
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).textTheme.bodyText1!.color,
+                ),
+              ),
+            ],
           ),
         ),
       ],

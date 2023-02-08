@@ -55,15 +55,20 @@ class _SignupScreenState extends State<SignupScreen> {
       Navigator.of(context).pop();
 
       // to add the username of a user in firebase
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(
-            authResult.user!.uid,
-          )
-          .set({
-        'username': _usernameController.text,
-        'email': _emailController.text,
-      });
+      // NOTE: commented out because you don't need username anymore
+      // you used displayName upon signup. See below!
+      // await FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(
+      //       authResult.user!.uid,
+      //     )
+      //     .set({
+      //   'username': _usernameController.text,
+      //   'email': _emailController.text,
+      // });
+
+      // set the displayName upon signup
+      await authResult.user?.updateDisplayName(_usernameController.text);
     } on FirebaseAuthException catch (error) {
       // pop the loading circle then show error
       Navigator.of(context).pop();
