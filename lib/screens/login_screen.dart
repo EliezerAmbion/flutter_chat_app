@@ -3,8 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_field_widget.dart';
-import '../widgets/social_media_button.dart';
 import '../widgets/custom_form_button_widget.dart';
+import '../widgets/social_media_button.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback togglePages;

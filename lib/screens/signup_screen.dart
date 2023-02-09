@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
+import '../widgets/user_image_picker_widget.dart';
 
 class SignupScreen extends StatefulWidget {
   final VoidCallback togglePages;
@@ -112,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 100),
+                const SizedBox(height: 50),
 
                 // Lets create an account
                 Text(
@@ -135,7 +135,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
+
+                UserImagePickerWidget(),
+
+                const SizedBox(height: 20),
 
                 // email field
                 CustomFieldWidget(
