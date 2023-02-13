@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/chat_screen.dart';
+// import '../screens/chat_screen.dart';
+import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
+import '../screens/profile_screen.dart';
+import '../screens/search_screen.dart';
 import '../screens/signup_screen.dart';
 import 'firebase_options.dart';
 
@@ -55,6 +58,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const Main(),
+      routes: {
+        SearchScreen.routeName: (context) => SearchScreen(),
+        ProfileScreen.routeName: (context) => ProfileScreen(),
+      },
     );
   }
 }
@@ -88,7 +95,8 @@ class _MainState extends State<Main> {
       builder: (context, snapshot) {
         // if user is logged in
         if (snapshot.hasData) {
-          return const ChatScreen();
+          // return const ChatScreen();
+          return const HomeScreen();
 
           // if user is NOT logged in
         } else {

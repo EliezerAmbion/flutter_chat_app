@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,18 +18,15 @@ class ChatScreen extends StatelessWidget {
         title: const Text('Flutter Chat'),
         actions: [
           IconButton(
-              onPressed: _logout,
-              icon: const Icon(
-                Icons.logout,
-              ))
+            onPressed: _logout,
+            icon: const Icon(Icons.logout),
+          )
         ],
       ),
       body: Container(
         child: Column(
           children: const [
-            Expanded(
-              child: MessagesWidget(),
-            ),
+            Expanded(child: MessagesWidget()),
             NewMessageWidget(),
           ],
         ),

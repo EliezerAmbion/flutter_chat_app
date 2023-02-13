@@ -31,20 +31,19 @@ class MessageBubbleWidget extends StatelessWidget {
                   isMe ? const Radius.circular(0) : const Radius.circular(12),
             ),
           ),
-          width: 140,
+          width: 190,
           padding: const EdgeInsets.only(
-            top: 2,
-            bottom: 12,
+            top: 8,
+            bottom: 15,
             right: 16,
             left: 16,
           ),
           margin: const EdgeInsets.symmetric(
-            vertical: 4,
-            horizontal: 8,
+            vertical: 5,
+            horizontal: 10,
           ),
           child: Column(
-            crossAxisAlignment:
-                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 6),

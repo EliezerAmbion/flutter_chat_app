@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../services/auth_service.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
-import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback togglePages;
