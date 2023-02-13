@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
+import '../services/auth_service.dart';
+
 // import '../widgets/user_image_picker_widget.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -32,72 +34,12 @@ class _SignupScreenState extends State<SignupScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
-    // this will close the soft keyboard
-    FocusScope.of(context).unfocus();
-
-    showDialog(
+    await AuthService().createUserWithEmailAndPassword(
       context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+      emailController: _emailController,
+      passwordController: _passwordController,
+      usernameController: _usernameController,
     );
-
-    try {
-      UserCredential authResult;
-
-      authResult = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      // pop the loading circle
-      Navigator.of(context).pop();
-
-      // To search for the users collection.
-      // NOTE: It will be automatically add it if there are none.
-
-      // Inside the users collection, search for the user.uid.
-      // NOTE: It will be automatically add it if there are none.
-
-      // Then set the documents you want/need
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(
-            authResult.user!.uid,
-          )
-          .set({
-        'email': _emailController.text,
-        'groups': [],
-        'uid': authResult.user!.uid,
-      });
-
-      // set the displayName upon signup
-      await authResult.user?.updateDisplayName(_usernameController.text);
-    } on FirebaseAuthException catch (error) {
-      // pop the loading circle then show error
-      Navigator.of(context).pop();
-
-      // show error
-      if (error.code.isNotEmpty) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              // generic message for login
-              error.message.toString(),
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            duration: const Duration(seconds: 4),
-            backgroundColor: Theme.of(context).errorColor,
-          ),
-        );
-      }
-    } catch (error) {
-      print(error);
-    }
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
+import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback togglePages;
@@ -29,48 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
-    showDialog(
+    await AuthService().signInWithEmailAndPassword(
       context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+      emailController: _emailController,
+      passwordController: _passwordController,
     );
-
-    try {
-      UserCredential authResult;
-
-      authResult = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      // pop loading circle
-      Navigator.of(context).pop();
-    } on FirebaseAuthException catch (error) {
-      // pop the loading circle then show the error
-      Navigator.of(context).pop();
-
-      // show the error
-      if (error.code.isNotEmpty) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text(
-              // generic message for login
-              'email and/or password incorrect!',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            duration: const Duration(seconds: 4),
-            backgroundColor: Theme.of(context).errorColor,
-          ),
-        );
-      }
-    } catch (error) {
-      print(error);
-    }
   }
 
   @override
