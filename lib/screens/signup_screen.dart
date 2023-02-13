@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
-import '../widgets/user_image_picker_widget.dart';
+// import '../widgets/user_image_picker_widget.dart';
 
 class SignupScreen extends StatefulWidget {
   final VoidCallback togglePages;
@@ -54,18 +55,23 @@ class _SignupScreenState extends State<SignupScreen> {
       // pop the loading circle
       Navigator.of(context).pop();
 
-      // to add the username of a user in firebase
-      // NOTE: commented out because you don't need username anymore
-      // you used displayName upon signup. See below!
-      // await FirebaseFirestore.instance
-      //     .collection('users')
-      //     .doc(
-      //       authResult.user!.uid,
-      //     )
-      //     .set({
-      //   'username': _usernameController.text,
-      //   'email': _emailController.text,
-      // });
+      // To search for the users collection.
+      // NOTE: It will be automatically add it if there are none.
+
+      // Inside the users collection, search for the user.uid.
+      // NOTE: It will be automatically add it if there are none.
+
+      // Then set the documents you want/need
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(
+            authResult.user!.uid,
+          )
+          .set({
+        'email': _emailController.text,
+        'groups': [],
+        'uid': authResult.user!.uid,
+      });
 
       // set the displayName upon signup
       await authResult.user?.updateDisplayName(_usernameController.text);
@@ -146,6 +152,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   labelText: 'Email Address',
                   controller: _emailController,
                   obscureText: false,
+                  suffixIcon: Icons.email_outlined,
                   validator: (value) {
                     if (value!.isEmpty || !value.contains('@')) {
                       return 'Please enter a valid email address!';
@@ -161,6 +168,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   labelText: 'Username',
                   controller: _usernameController,
                   obscureText: false,
+                  suffixIcon: Icons.person_outline,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 4) {
                       return 'Username must be at least 4 characters long.';
@@ -179,6 +187,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   labelText: 'Password',
                   controller: _passwordController,
                   obscureText: true,
+                  suffixIcon: Icons.lock_outline,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 7) {
                       return 'Password must be at least 7 characters long';

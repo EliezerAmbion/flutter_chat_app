@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomFieldWidget extends StatelessWidget {
   final String labelText;
   final bool obscureText;
+  final IconData suffixIcon;
   final TextEditingController controller;
   final String? Function(String?)? validator;
 
@@ -12,6 +13,7 @@ class CustomFieldWidget extends StatelessWidget {
     required this.controller,
     required this.obscureText,
     required this.validator,
+    required this.suffixIcon,
   });
 
   @override
@@ -20,7 +22,7 @@ class CustomFieldWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextFormField(
         cursorColor: Theme.of(context).colorScheme.tertiary,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
         obscureText: obscureText,
@@ -32,6 +34,10 @@ class CustomFieldWidget extends StatelessWidget {
 
         decoration: InputDecoration(
           labelText: labelText,
+          suffixIcon: Icon(
+            suffixIcon,
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
           // hintText: hintText,
 
           // label inside
