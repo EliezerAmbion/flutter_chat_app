@@ -112,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 50),
+                const SizedBox(height: 100),
 
                 // Lets create an account
                 Text(
@@ -135,11 +135,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 60),
 
-                UserImagePickerWidget(),
-
-                const SizedBox(height: 20),
+                // NOTE: use this if you want to continue to upload an image
+                // UserImagePickerWidget(),
+                // const SizedBox(height: 20),
 
                 // email field
                 CustomFieldWidget(
