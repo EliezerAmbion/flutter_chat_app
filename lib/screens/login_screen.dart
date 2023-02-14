@@ -77,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: false,
                   suffixIcon: Icons.email_outlined,
                   horizontalPadding: 25,
+                  autoFill: AutofillHints.email,
                   validator: (value) {
                     if (value!.isEmpty || !value.contains('@')) {
                       return 'Please enter a valid email address!';
@@ -94,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   suffixIcon: Icons.lock_outline,
                   horizontalPadding: 25,
+                  autoFill: AutofillHints.password,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 7) {
                       return 'Password must be at least 7 characters long';

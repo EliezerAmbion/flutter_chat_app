@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               obscureText: false,
               horizontalPadding: 0,
               suffixIcon: Icons.group,
+              autoFill: AutofillHints.name,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Group Name can\'t be empty';

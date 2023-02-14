@@ -7,6 +7,7 @@ class CustomFieldWidget extends StatelessWidget {
   final double horizontalPadding;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final String? autoFill;
 
   const CustomFieldWidget({
     super.key,
@@ -16,6 +17,7 @@ class CustomFieldWidget extends StatelessWidget {
     required this.validator,
     required this.suffixIcon,
     required this.horizontalPadding,
+    required this.autoFill,
   });
 
   @override
@@ -28,6 +30,7 @@ class CustomFieldWidget extends StatelessWidget {
         validator: validator,
         controller: controller,
         obscureText: obscureText,
+        autofillHints: [autoFill!],
 
         // text style
         style: TextStyle(
