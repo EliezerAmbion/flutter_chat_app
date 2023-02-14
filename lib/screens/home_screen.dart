@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/helpers/helper_widgets.dart';
-import 'package:flutter_chat_app/services/database_service.dart';
-import 'package:flutter_chat_app/widgets/custom_field_widget.dart';
+import '../widgets/group_tile_widget.dart';
 
+import '../helpers/helper_widgets.dart';
+import '../services/database_service.dart';
 import '../widgets/custom_appbar_widget.dart';
 import '../widgets/custom_drawer_widget.dart';
+import '../widgets/custom_field_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    _groupController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     getUserData();
     super.initState();
@@ -36,6 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
       displayName = user!.displayName;
       uid = user.uid;
     });
+  }
+
+  String getId(String text) {
+    return text.substring(0, text.indexOf('_'));
+  }
+
+  String getName(String text) {
+    return text.substring(text.indexOf('_') + 1);
   }
 
   createGroup() async {
@@ -139,10 +154,32 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator(),
             );
           }
+
+          // fallback:
+          // the purpose of this is to omit the error showing in vscode
+          // if there is no users collection
+          if (!latestSnapshot.data.exists &&
+              latestSnapshot.data.data() == null) {
+            return Text('No data');
+          }
+
+          // if ther is a user but no groups yet
           if (latestSnapshot.data['groups'].length == 0) {
             return noGroupWidget();
           }
-          return Text('test');
+          Map<String, dynamic> userData = latestSnapshot.data.data();
+
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              int reverseIndex = userData['groups'].length - index - 1;
+
+              return GroupTileWidget(
+                groupName: getName(userData['groups'][reverseIndex]),
+                displayName: userData['displayName'],
+              );
+            },
+            itemCount: userData['groups'].length,
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(

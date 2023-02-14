@@ -5,6 +5,8 @@ import '../widgets/chat/messages_widget.dart';
 import '../widgets/chat/new_message_widget.dart';
 
 class ChatScreen extends StatelessWidget {
+  static const routeName = '/chat-screen';
+
   const ChatScreen({super.key});
 
   void _logout() async {

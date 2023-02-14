@@ -50,9 +50,10 @@ class AuthService {
         'email': emailController.text,
         'groups': [],
         'uid': authResult.user!.uid,
+        'displayName': usernameController.text,
       });
 
-      // set the displayName upon signup
+      // set the displayName upon signup in the auth
       await authResult.user?.updateDisplayName(usernameController.text);
     } on FirebaseAuthException catch (error) {
       // pop the loading circle then show error

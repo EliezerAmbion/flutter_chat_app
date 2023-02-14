@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
       routes: {
         SearchScreen.routeName: (context) => SearchScreen(),
         ProfileScreen.routeName: (context) => ProfileScreen(),
+        ChatScreen.routeName: (context) => ChatScreen(),
       },
     );
   }
@@ -95,7 +96,6 @@ class _MainState extends State<Main> {
       builder: (context, snapshot) {
         // if user is logged in
         if (snapshot.hasData) {
-          // return const ChatScreen();
           return const HomeScreen();
 
           // if user is NOT logged in
