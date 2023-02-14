@@ -35,40 +35,123 @@ class _HomeScreenState extends State<HomeScreen> {
 
   createGroup() async {
     print('test');
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text(
+                'Create a Group',
+                textAlign: TextAlign.left,
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    onChanged: (val) {
+                      setState(() {
+                        groupName = val;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.tertiary),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('CANCEL'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      final groupDocRef = await FirebaseFirestore.instance
+                          .collection('groups')
+                          .add({
+                        'groupName': groupName,
+                        'groupIcon': '',
+                        'admin': '${uid}_$displayName',
+                        'members': [],
+                        'groupId': '',
+                        'recentMessage': '',
+                        'recentMessageSender': '',
+                      });
 
-    try {
-      await FirebaseFirestore.instance.collection('groups').add({
-        "groupName": groupName,
-        "groupIcon": "",
-        "admin": "${uid}_$displayName",
-        "members": [],
-        "groupId": "",
-        "recentMessage": "",
-        "recentMessageSender": "",
-      });
-    } on FirebaseAuthException catch (error) {
-      // pop the loading circle then show error
-      Navigator.of(context).pop();
+                      await groupDocRef.update({
+                        'member':
+                            FieldValue.arrayUnion(['${uid}_$displayName']),
+                        'groupId': groupDocRef.id,
+                      });
 
-      // show error
-      if (error.code.isNotEmpty) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              // generic message for login
-              error.message.toString(),
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            duration: const Duration(seconds: 4),
-            backgroundColor: Theme.of(context).errorColor,
-          ),
+                      final userDocRef = await FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(uid);
+
+                      userDocRef.update({
+                        "groups": FieldValue.arrayUnion(
+                            ["${groupDocRef.id}_$groupName"])
+                      });
+                    } on FirebaseAuthException catch (error) {
+                      // pop the loading circle then show error
+                      Navigator.of(context).pop();
+
+                      // show error
+                      if (error.code.isNotEmpty) {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              // generic message for login
+                              error.message.toString(),
+                              textAlign: TextAlign.center,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            duration: const Duration(seconds: 4),
+                            backgroundColor: Theme.of(context).errorColor,
+                          ),
+                        );
+                      }
+                    } catch (error) {
+                      print(error);
+                    }
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Group created successfully.'),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+                  ),
+                  child: const Text('CREATE'),
+                )
+              ],
+            );
+          },
         );
-      }
-    } catch (error) {
-      print(error);
-    }
+      },
+    );
   }
 
   Widget noGroupWidget() {
