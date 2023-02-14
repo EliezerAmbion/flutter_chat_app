@@ -39,11 +39,17 @@ class AuthService {
       // NOTE: It will be automatically add it if there are none.
 
       // Then set the documents you want/need in the .set
+
+      // .doc(uid).set()
+      // FirebaseFirestore.instance.collection('groups').doc(uid).set()
+      // Is used to set a new document with a specific ID, or update an existing document with the specified ID.
+
+      // .add() NOTE: there is no .doc(uid)
+      // FirebaseFirestore.instance.collection('groups').add()
+      // Is used to create a new document with a randomly generated ID.
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(
-            authResult.user!.uid,
-          )
+          .doc(authResult.user!.uid)
           .set({
         'email': emailController.text,
         'groups': [],
