@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomFieldWidget extends StatelessWidget {
-  final String labelText;
+  final String? labelText;
   final bool obscureText;
   final IconData suffixIcon;
+  final double horizontalPadding;
   final TextEditingController controller;
   final String? Function(String?)? validator;
 
@@ -14,12 +15,13 @@ class CustomFieldWidget extends StatelessWidget {
     required this.obscureText,
     required this.validator,
     required this.suffixIcon,
+    required this.horizontalPadding,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: TextFormField(
         cursorColor: Theme.of(context).colorScheme.tertiary,
         // autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -63,6 +65,7 @@ class CustomFieldWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.tertiary,
             ),
           ),
+
           fillColor: Theme.of(context).colorScheme.secondary,
           // fillColor: Colors.white,
           filled: true,

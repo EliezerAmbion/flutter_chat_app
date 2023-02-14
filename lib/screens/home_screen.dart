@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/main.dart';
+import 'package:flutter_chat_app/helpers/helper_widgets.dart';
+import 'package:flutter_chat_app/services/database_service.dart';
+import 'package:flutter_chat_app/widgets/custom_field_widget.dart';
 
 import '../widgets/custom_appbar_widget.dart';
 import '../widgets/custom_drawer_widget.dart';
@@ -17,6 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String groupName = '';
   String? displayName = '';
   String? uid = '';
+  final _groupController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -24,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+// TODO: put this in database service
   getUserData() async {
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -34,121 +39,67 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   createGroup() async {
-    print('test');
     showDialog(
       context: context,
       builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: const Text(
-                'Create a Group',
-                textAlign: TextAlign.left,
+        return AlertDialog(
+          title: const Text('Create a Group'),
+          content: Form(
+            key: _formKey,
+            child: CustomFieldWidget(
+              labelText: null,
+              controller: _groupController,
+              obscureText: false,
+              horizontalPadding: 0,
+              suffixIcon: Icons.group,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Group Name can\'t be empty';
+                }
+                return null;
+              },
+            ),
+          ),
+          actions: [
+            // cancel btn
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('CANCEL'),
+            ),
+
+            // create btn
+            ElevatedButton(
+              onPressed: () async {
+                final bool isValid = _formKey.currentState!.validate();
+                if (!isValid) return;
+
+                groupName = _groupController.text;
+
+                DatabaseService().addGroupCollection(
+                  groupName: groupName,
+                  uid: uid!,
+                  displayName: displayName!,
+                );
+
+                // pop the alert dialog
+                Navigator.of(context).pop();
+
+                HelperWidget.showSnackBar(
+                  context: context,
+                  message: 'Group created successfully.',
+                  backgroundColor: Colors.green,
+                );
+
+                _groupController.clear();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
               ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    onChanged: (val) {
-                      setState(() {
-                        groupName = val;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.tertiary),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('CANCEL'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    try {
-                      final groupDocRef = await FirebaseFirestore.instance
-                          .collection('groups')
-                          .add({
-                        'groupName': groupName,
-                        'groupIcon': '',
-                        'admin': '${uid}_$displayName',
-                        'members': [],
-                        'groupId': '',
-                        'recentMessage': '',
-                        'recentMessageSender': '',
-                      });
-
-                      await groupDocRef.update({
-                        'member':
-                            FieldValue.arrayUnion(['${uid}_$displayName']),
-                        'groupId': groupDocRef.id,
-                      });
-
-                      final userDocRef = await FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(uid);
-
-                      userDocRef.update({
-                        "groups": FieldValue.arrayUnion(
-                            ["${groupDocRef.id}_$groupName"])
-                      });
-                    } on FirebaseAuthException catch (error) {
-                      // pop the loading circle then show error
-                      Navigator.of(context).pop();
-
-                      // show error
-                      if (error.code.isNotEmpty) {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              // generic message for login
-                              error.message.toString(),
-                              textAlign: TextAlign.center,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            duration: const Duration(seconds: 4),
-                            backgroundColor: Theme.of(context).errorColor,
-                          ),
-                        );
-                      }
-                    } catch (error) {
-                      print(error);
-                    }
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Group created successfully.'),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.tertiary,
-                  ),
-                  child: const Text('CREATE'),
-                )
-              ],
-            );
-          },
+              child: const Text('CREATE'),
+            )
+          ],
         );
       },
     );
@@ -167,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 20),
           const Text('You don\'t have any groups!'),
           const SizedBox(height: 10),
-          const Text('You can add one by searching or adding a group.')
+          const Text('You can add one by searching or creating a group.')
         ],
       ),
     );
@@ -190,8 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
           if (latestSnapshot.data['groups'].length == 0) {
             return noGroupWidget();
           }
-
-          print('=============> ${latestSnapshot.data['groups']}');
           return Text('test');
         },
       ),

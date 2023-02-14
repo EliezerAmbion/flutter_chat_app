@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/helper_widgets.dart';
+
+// TODO: make this file leaner by deleting the unneccessary show modal and popping
 class AuthService {
   Future createUserWithEmailAndPassword({
     required BuildContext context,
@@ -10,16 +13,9 @@ class AuthService {
     required usernameController,
   }) async {
     // this will close the soft keyboard
-    FocusScope.of(context).unfocus();
+    // FocusScope.of(context).unfocus();
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    HelperWidget.showCircularProgressIndicator(context);
 
     try {
       UserCredential authResult;
@@ -64,18 +60,10 @@ class AuthService {
 
       // show error
       if (error.code.isNotEmpty) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              // generic message for login
-              error.message.toString(),
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            duration: const Duration(seconds: 4),
-            backgroundColor: Theme.of(context).errorColor,
-          ),
+        HelperWidget.showSnackBar(
+          context: context,
+          message: error.message.toString(),
+          backgroundColor: Theme.of(context).errorColor,
         );
       }
     } catch (error) {
@@ -88,14 +76,7 @@ class AuthService {
     required emailController,
     required passwordController,
   }) async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    HelperWidget.showCircularProgressIndicator(context);
 
     try {
       UserCredential authResult;
@@ -113,18 +94,10 @@ class AuthService {
 
       // show the error
       if (error.code.isNotEmpty) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text(
-              // generic message for login
-              'email and/or password incorrect!',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            duration: const Duration(seconds: 4),
-            backgroundColor: Theme.of(context).errorColor,
-          ),
+        HelperWidget.showSnackBar(
+          context: context,
+          message: 'email and/or password incorrect!',
+          backgroundColor: Theme.of(context).errorColor,
         );
       }
     } catch (error) {

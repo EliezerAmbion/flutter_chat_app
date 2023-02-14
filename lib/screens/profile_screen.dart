@@ -30,8 +30,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       displayName = user!.displayName;
       email = user.email;
     });
-
-    print('user ======> $user');
   }
 
   @override

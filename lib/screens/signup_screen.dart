@@ -93,6 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   controller: _emailController,
                   obscureText: false,
                   suffixIcon: Icons.email_outlined,
+                  horizontalPadding: 25,
                   validator: (value) {
                     if (value!.isEmpty || !value.contains('@')) {
                       return 'Please enter a valid email address!';
@@ -109,6 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   controller: _usernameController,
                   obscureText: false,
                   suffixIcon: Icons.person_outline,
+                  horizontalPadding: 25,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 4) {
                       return 'Username must be at least 4 characters long.';
@@ -128,6 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   controller: _passwordController,
                   obscureText: true,
                   suffixIcon: Icons.lock_outline,
+                  horizontalPadding: 25,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 7) {
                       return 'Password must be at least 7 characters long';
