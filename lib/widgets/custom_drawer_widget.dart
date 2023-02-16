@@ -1,36 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/profile_screen.dart';
 
-class CustomDrawerWidget extends StatefulWidget {
+class CustomDrawerWidget extends StatelessWidget {
   const CustomDrawerWidget({super.key});
 
   @override
-  State<CustomDrawerWidget> createState() => _CustomDrawerWidgetState();
-}
-
-class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
-  String? displayName = '';
-  String? email = '';
-
-  @override
-  void initState() {
-    getUserData();
-    super.initState();
-  }
-
-  getUserData() {
-    final user = FirebaseAuth.instance.currentUser;
-
-    setState(() {
-      displayName = user!.displayName;
-      email = user.email;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final currentuser = Provider.of<AuthProvider>(context, listen: false)
+        .currentUser!
+        .displayName;
+
     return Drawer(
       child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 50),
@@ -42,7 +25,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
           ),
           const SizedBox(height: 20),
           Text(
-            displayName!,
+            currentuser ?? 'Loading...',
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.black,

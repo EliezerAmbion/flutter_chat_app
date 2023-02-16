@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../services/auth_service.dart';
+import '../providers/auth_provider.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
-    await AuthService().signInWithEmailAndPassword(
+    await Provider.of<AuthProvider>(context, listen: false).signIn(
       context: context,
       emailController: _emailController,
       passwordController: _passwordController,

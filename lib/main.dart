@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/auth_provider.dart';
 import '../screens/chat_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
@@ -24,45 +26,52 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Chat',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromARGB(255, 23, 30, 34),
-        fontFamily: 'MontReg',
-
-        // color scheme
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.blueGrey.shade900,
-          secondary: Colors.blueGrey.shade600,
-          tertiary: Colors.amber,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
         ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Chat',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Color.fromARGB(255, 23, 30, 34),
+          fontFamily: 'MontReg',
 
-        // text theme
-        textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText1: TextStyle(
-                color: Colors.grey.shade50,
-              ),
-              bodyText2: TextStyle(
-                color: Colors.grey.shade500,
-              ),
-            ),
+          // color scheme
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.blueGrey.shade900,
+            secondary: Colors.blueGrey.shade600,
+            tertiary: Colors.amber,
+          ),
 
-        // ElevatedButton Theme
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+          // text theme
+          textTheme: ThemeData.light().textTheme.copyWith(
+                bodyText1: TextStyle(
+                  color: Colors.grey.shade50,
+                ),
+                bodyText2: TextStyle(
+                  color: Colors.grey.shade500,
+                ),
+              ),
+
+          // ElevatedButton Theme
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
           ),
         ),
+        home: const Main(),
+        routes: {
+          SearchScreen.routeName: (context) => SearchScreen(),
+          ProfileScreen.routeName: (context) => ProfileScreen(),
+          ChatScreen.routeName: (context) => ChatScreen(),
+        },
       ),
-      home: const Main(),
-      routes: {
-        SearchScreen.routeName: (context) => SearchScreen(),
-        ProfileScreen.routeName: (context) => ProfileScreen(),
-        ChatScreen.routeName: (context) => ChatScreen(),
-      },
     );
   }
 }

@@ -35,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-// TODO: put this in database service
   getUserData() async {
     User? user = FirebaseAuth.instance.currentUser;
 
