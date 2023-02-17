@@ -67,6 +67,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const Main(),
         routes: {
+          HomeScreen.routeName: (context) => HomeScreen(),
           SearchScreen.routeName: (context) => SearchScreen(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
           ChatScreen.routeName: (context) => ChatScreen(),

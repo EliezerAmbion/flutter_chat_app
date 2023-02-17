@@ -12,7 +12,7 @@ class AuthProvider with ChangeNotifier {
     required TextEditingController usernameController,
   }) async {
     // this will close the soft keyboard
-    // FocusScope.of(context).unfocus();
+    FocusScope.of(context).unfocus();
 
     HelperWidget.showCircularProgressIndicator(context);
 
@@ -58,6 +58,9 @@ class AuthProvider with ChangeNotifier {
     required TextEditingController emailController,
     required TextEditingController passwordController,
   }) async {
+    // this will close the soft keyboard
+    FocusScope.of(context).unfocus();
+
     HelperWidget.showCircularProgressIndicator(context);
 
     try {

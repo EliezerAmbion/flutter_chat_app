@@ -10,6 +10,8 @@ import '../widgets/custom_drawer_widget.dart';
 import '../widgets/custom_field_widget.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/home';
+
   const HomeScreen({super.key});
 
   @override

@@ -1,9 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../custom_field_widget.dart';
 
 class NewMessageWidget extends StatefulWidget {
   const NewMessageWidget({super.key});

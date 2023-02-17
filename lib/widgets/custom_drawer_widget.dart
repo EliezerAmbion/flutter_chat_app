@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/auth_provider.dart';
+import '../screens/home_screen.dart';
 import '../screens/profile_screen.dart';
 
 class CustomDrawerWidget extends StatelessWidget {
@@ -37,9 +38,9 @@ class CustomDrawerWidget extends StatelessWidget {
 
           // Groups
           ListTile(
-            onTap: () {},
-            selectedColor: Theme.of(context).colorScheme.tertiary,
-            selected: true,
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+            },
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 5,
