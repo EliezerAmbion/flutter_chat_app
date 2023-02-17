@@ -33,4 +33,20 @@ class DatabaseService {
       print(error);
     }
   }
+
+  getChats(String groupId) {
+    return FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .collection('messages')
+        .orderBy('time')
+        .snapshots();
+  }
+
+  Future getGroupAdmin(String groupId) async {
+    final groupDocRef = await FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .get();
+  }
 }

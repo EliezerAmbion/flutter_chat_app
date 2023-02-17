@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBarWidget(title: 'Home'),
+      appBar: const CustomAppBarWidget(title: 'Groups'),
       drawer: const CustomDrawerWidget(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -167,6 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
               int reverseIndex = userData['groups'].length - index - 1;
 
               return GroupTileWidget(
+                groupId: getId(userData['groups'][reverseIndex]),
                 groupName: getName(userData['groups'][reverseIndex]),
                 displayName: userData['displayName'],
               );

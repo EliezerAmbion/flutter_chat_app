@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/screens/chat_screen.dart';
+
+import '../screens/chat_screen_v2.dart';
 
 class GroupTileWidget extends StatelessWidget {
   final String groupName;
   final String displayName;
+  final String groupId;
 
   const GroupTileWidget({
     super.key,
     required this.groupName,
     required this.displayName,
+    required this.groupId,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(ChatScreen.routeName);
+        Navigator.of(context).pushNamed(
+          chatScreenV2.routeName,
+          arguments: {
+            'groupName': groupName,
+            'displayName': displayName,
+            'groupId': groupId,
+          },
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
