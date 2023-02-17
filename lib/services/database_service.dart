@@ -49,4 +49,12 @@ class DatabaseService {
         .doc(groupId)
         .get();
   }
+
+  // search
+  searchByName(String groupName) {
+    return FirebaseFirestore.instance
+        .collection('groups')
+        .where("groupName", isEqualTo: groupName)
+        .get();
+  }
 }
