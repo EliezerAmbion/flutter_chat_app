@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../widgets/group_tile_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../helpers/helper_widgets.dart';
+import '../providers/auth_provider.dart';
 import '../services/database_service.dart';
 import '../widgets/custom_appbar_widget.dart';
 import '../widgets/custom_drawer_widget.dart';
 import '../widgets/custom_field_widget.dart';
+import '../widgets/group_tile_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
@@ -19,9 +21,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String groupName = '';
-  String? displayName = '';
-  String? uid = '';
   final _groupController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
@@ -29,21 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _groupController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    getUserData();
-    super.initState();
-  }
-
-  getUserData() async {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    setState(() {
-      displayName = user!.displayName;
-      uid = user.uid;
-    });
   }
 
   String getId(String text) {
@@ -92,12 +76,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 final bool isValid = _formKey.currentState!.validate();
                 if (!isValid) return;
 
-                groupName = _groupController.text;
+                final currentUser =
+                    Provider.of<AuthProvider>(context, listen: false)
+                        .currentUser;
 
+                // TODO: Create a provider for groups
                 DatabaseService().addGroupCollection(
-                  groupName: groupName,
-                  uid: uid!,
-                  displayName: displayName!,
+                  groupName: _groupController.text,
+                  uid: currentUser!.uid,
+                  displayName: currentUser.displayName!,
                 );
 
                 // pop the alert dialog
@@ -147,8 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: const CustomAppBarWidget(title: 'Home'),
       drawer: const CustomDrawerWidget(),
       body: StreamBuilder(
-        stream:
-            FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(Provider.of<AuthProvider>(context, listen: false)
+                .currentUser!
+                .uid)
+            .snapshots(),
         builder: (context, AsyncSnapshot latestSnapshot) {
           if (latestSnapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -161,13 +152,14 @@ class _HomeScreenState extends State<HomeScreen> {
           // if there is no users collection
           if (!latestSnapshot.data.exists &&
               latestSnapshot.data.data() == null) {
-            return Text('No data');
+            return const Center(child: Text('No data'));
           }
 
-          // if ther is a user but no groups yet
+          // if there is a user but no groups yet
           if (latestSnapshot.data['groups'].length == 0) {
             return noGroupWidget();
           }
+
           Map<String, dynamic> userData = latestSnapshot.data.data();
 
           return ListView.builder(
