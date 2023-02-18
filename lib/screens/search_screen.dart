@@ -52,8 +52,6 @@ class _SearchScreenState extends State<SearchScreen> {
         stream:
             FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
         builder: (context, userSnapshot) {
-          Map<String, dynamic>? userDocs = userSnapshot.data?.data();
-
           return StreamBuilder(
             stream:
                 // (searchedQuery.isEmpty) ? FirebaseFirestore.instance.collection('groups').snapshots() :
@@ -74,9 +72,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 itemCount: latestSnapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final unionName = '${groupsDocs[index].id}_$searchedQuery';
-
-                  // print('$searchedQuery =====> ${groupsDocs[index].id}');
-                  // print(userDocs?['groups'].contains(unionName));
+                  Map<String, dynamic>? userDocs = userSnapshot.data?.data();
+                  print(
+                      'userDocs =====> ${FirebaseFirestore.instance.collection('users').doc(uid)}');
 
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(
