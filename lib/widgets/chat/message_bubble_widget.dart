@@ -50,6 +50,7 @@ class MessageBubbleWidget extends StatelessWidget {
                 child: Text(
                   displayName,
                   style: TextStyle(
+                    fontSize: 11,
                     color: isMe
                         ? Theme.of(context).textTheme.bodyText1!.color
                         : Theme.of(context).colorScheme.primary,

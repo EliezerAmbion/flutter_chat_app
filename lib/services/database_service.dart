@@ -12,7 +12,7 @@ class DatabaseService {
         'groupName': groupName,
         'groupIcon': '',
         'admin': '${uid}_$displayName',
-        'members': [],
+        'member': [],
         'groupId': '',
         'recentMessage': '',
         'recentMessageSender': '',

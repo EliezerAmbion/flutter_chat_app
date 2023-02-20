@@ -3,7 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NewMessageWidget extends StatefulWidget {
-  const NewMessageWidget({super.key});
+  final String? groupId;
+  final String? groupName;
+
+  const NewMessageWidget({
+    super.key,
+    required this.groupId,
+    required this.groupName,
+  });
 
   @override
   State<NewMessageWidget> createState() => _NewMessageWidgetState();
@@ -12,27 +19,46 @@ class NewMessageWidget extends StatefulWidget {
 class _NewMessageWidgetState extends State<NewMessageWidget> {
   String _enteredMessage = '';
   final _controller = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
 
   void _sendMessage() async {
-    // FocusScope.of(context).unfocus();
+    // NOTE: save this for reference
+    // final user = FirebaseAuth.instance.currentUser;
+    // FirebaseFirestore.instance.collection('chat').add({
+    //   'text': _enteredMessage,
+    //   'createdAt': Timestamp.now(),
+    //   'userId': user!.uid,
+    //   'displayName': user.displayName,
+    // });
 
-    final user = FirebaseAuth.instance.currentUser;
-    // final userData = await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(user!.uid)
-    //     .get();
-
-    FirebaseFirestore.instance.collection('chat').add({
+    await FirebaseFirestore.instance
+        .collection('groups')
+        .doc(widget.groupId)
+        .collection('messages')
+        .add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
       'userId': user!.uid,
-      'displayName': user.displayName,
+      'displayName': user!.displayName,
     });
+
+    FirebaseFirestore.instance.collection('groups').doc(widget.groupId).update({
+      'recentMessage': _enteredMessage,
+      'recentMessageSender': user!.displayName,
+    });
+
+    print(user!.displayName);
     _controller.clear();
   }
 
   @override
   Widget build(BuildContext context) {
+    // print(
+    //     'id =====> ${FirebaseFirestore.instance.collection('groups').doc().id}');
+    print(user!.displayName);
+    print(widget.groupId);
+    print(widget.groupName);
+
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(8),

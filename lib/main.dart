@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
+import '../screens/chat_screen.dart';
 import '../screens/chat_screen_v2.dart';
 import '../screens/group_info_screen.dart';
 import '../screens/home_screen.dart';
@@ -71,7 +72,8 @@ class MyApp extends StatelessWidget {
           HomeScreen.routeName: (context) => HomeScreen(),
           SearchScreen.routeName: (context) => SearchScreen(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
-          chatScreenV2.routeName: (context) => chatScreenV2(),
+          ChatScreen.routeName: (context) => ChatScreen(),
+          // ChatScreenV2.routeName: (context) => ChatScreenV2(),
           GroupInfoScreen.routeName: (context) => GroupInfoScreen(),
         },
       ),

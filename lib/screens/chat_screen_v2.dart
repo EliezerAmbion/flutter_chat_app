@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../screens/group_info_screen.dart';
 
-class chatScreenV2 extends StatelessWidget {
+class ChatScreenV2 extends StatelessWidget {
   static const routeName = '/chat-screen';
 
-  const chatScreenV2({super.key});
+  const ChatScreenV2({super.key});
 
   @override
   Widget build(BuildContext context) {
