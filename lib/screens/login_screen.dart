@@ -126,22 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 // or Continue with
                 const ContinueWithWidget(),
 
-                const SizedBox(height: 30),
-
-                // google and apple sign in btns
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    // google sign in
-                    SocialMediaButton(imagePath: 'assets/images/google.png'),
-
-                    SizedBox(width: 10),
-
-                    // apple sign in
-                    SocialMediaButton(imagePath: 'assets/images/apple.png'),
-                  ],
-                ),
-
                 const SizedBox(height: 40),
 
                 // not a member?
@@ -155,6 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.togglePages,

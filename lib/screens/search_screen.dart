@@ -59,9 +59,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 // (searchedQuery.isEmpty) ? FirebaseFirestore.instance.collection('groups').snapshots() :
                 FirebaseFirestore.instance
                     .collection('groups')
-                    .orderBy('groupName')
-                    .startAt([searchedQuery]).endAt(
-                        [searchedQuery + '\uf8ff']).snapshots(),
+                    .where('groupName', isEqualTo: searchedQuery)
+                    .snapshots(),
             builder: (context, latestSnapshot) {
               if (latestSnapshot.connectionState == ConnectionState.waiting) {
                 return const Center(

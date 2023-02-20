@@ -155,38 +155,23 @@ class _SignupScreenState extends State<SignupScreen> {
                 // or Continue with
                 const ContinueWithWidget(),
 
-                const SizedBox(height: 30),
-
-                // google and apple sign in btns
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    // google sign in
-                    SocialMediaButton(imagePath: 'assets/images/google.png'),
-
-                    SizedBox(width: 10),
-
-                    // apple sign in
-                    SocialMediaButton(imagePath: 'assets/images/apple.png'),
-                  ],
-                ),
-
                 const SizedBox(height: 40),
 
                 // not a member?
                 RichText(
                   text: TextSpan(
                     text: 'Already a member? ',
-                    style: TextStyle(),
+                    style: Theme.of(context).textTheme.headline6,
                     children: [
                       TextSpan(
                         text: 'Login now!',
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = widget.togglePages,
-                        style: const TextStyle(
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.togglePages,
                       ),
                     ],
                   ),

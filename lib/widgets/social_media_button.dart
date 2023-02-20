@@ -15,6 +15,7 @@ class SocialMediaButton extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           width: 2,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         borderRadius: BorderRadius.circular(16),
       ),
