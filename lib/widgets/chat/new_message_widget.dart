@@ -22,22 +22,13 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
   final user = FirebaseAuth.instance.currentUser;
 
   void _sendMessage() async {
-    // NOTE: save this for reference
-    // final user = FirebaseAuth.instance.currentUser;
-    // FirebaseFirestore.instance.collection('chat').add({
-    //   'text': _enteredMessage,
-    //   'createdAt': Timestamp.now(),
-    //   'userId': user!.uid,
-    //   'displayName': user.displayName,
-    // });
-
     await FirebaseFirestore.instance
         .collection('groups')
         .doc(widget.groupId)
         .collection('messages')
         .add({
       'text': _enteredMessage,
-      'createdAt': Timestamp.now(),
+      'createdAt': FieldValue.serverTimestamp(),
       'userId': user!.uid,
       'displayName': user!.displayName,
     });
@@ -53,12 +44,6 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // print(
-    //     'id =====> ${FirebaseFirestore.instance.collection('groups').doc().id}');
-    print(user!.displayName);
-    print(widget.groupId);
-    print(widget.groupName);
-
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(8),
