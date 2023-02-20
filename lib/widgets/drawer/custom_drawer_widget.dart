@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/widgets/drawer/drawer_list_tile.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/auth_provider.dart';
-import '../screens/home_screen.dart';
-import '../screens/profile_screen.dart';
+import '../../providers/auth_provider.dart';
+import '../../screens/home_screen.dart';
+import '../../screens/profile_screen.dart';
 
 class CustomDrawerWidget extends StatelessWidget {
   const CustomDrawerWidget({super.key});
@@ -36,70 +37,50 @@ class CustomDrawerWidget extends StatelessWidget {
           const Divider(height: 2, thickness: 1),
 
           // Groups
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-            },
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 5,
-            ),
-            leading: const Icon(Icons.group),
-            title: const Text(
-              'Groups',
-              // style: TextStyle(),
-            ),
-          ),
+          const DrawerListTile(route: HomeScreen.routeName, text: 'Groups'),
 
           // Profile
-          ListTile(
-            onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(ProfileScreen.routeName);
-            },
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 5,
-            ),
-            leading: const Icon(Icons.group),
-            title: const Text(
-              'Profile',
-              // style: TextStyle(),
-            ),
-          ),
+          const DrawerListTile(route: ProfileScreen.routeName, text: 'Profile'),
 
           // Logout
           ListTile(
             onTap: () {
               showDialog(
-                  barrierDismissible: false,
+                  // barrierDismissible: false,
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: const Text('Logout'),
-                      content: const Text('Are you sure you want to logout?'),
+                      title: Text(
+                        'Logout',
+                        style: Theme.of(context).textTheme.headline4,
+                        textAlign: TextAlign.center,
+                      ),
+                      content: Text(
+                        'Are you sure you want to logout?',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                       actions: [
                         // cancel logout
-                        IconButton(
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey,
+                          ),
                           onPressed: () async {
                             Navigator.of(context).pop();
                           },
-                          icon: const Icon(
-                            Icons.cancel_outlined,
-                            color: Colors.red,
-                          ),
+                          child: const Text('Cancel'),
                         ),
 
                         // logout
-                        IconButton(
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).errorColor,
+                          ),
                           onPressed: () async {
                             Navigator.of(context).pop();
                             await FirebaseAuth.instance.signOut();
                           },
-                          icon: const Icon(
-                            Icons.done,
-                            color: Colors.green,
-                          ),
+                          child: const Text('Logout'),
                         ),
                       ],
                     );
@@ -110,9 +91,9 @@ class CustomDrawerWidget extends StatelessWidget {
               vertical: 5,
             ),
             leading: const Icon(Icons.exit_to_app),
-            title: const Text(
+            title: Text(
               'Logout',
-              style: TextStyle(),
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
         ],

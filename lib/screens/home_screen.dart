@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/create_group_widget.dart';
 import '../widgets/custom_appbar_widget.dart';
-import '../widgets/custom_drawer_widget.dart';
+import '../widgets/drawer/custom_drawer_widget.dart';
 import '../widgets/group_tile_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const routeName = '/';
+  static const routeName = '/home';
 
   const HomeScreen({super.key});
 
@@ -51,15 +51,21 @@ class _HomeScreenState extends State<HomeScreen> {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Icon(
+        children: [
+          const Icon(
             Icons.add_circle,
             size: 75,
           ),
-          SizedBox(height: 20),
-          Text('You don\'t have any groups!'),
-          SizedBox(height: 10),
-          Text('You can add one by searching or creating a group.')
+          const SizedBox(height: 20),
+          Text(
+            'You don\'t have any groups!',
+            style: Theme.of(context).textTheme.headline3,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'You can add one by searching or creating a group.',
+            style: Theme.of(context).textTheme.headline6,
+          )
         ],
       ),
     );

@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 ThemeData theme() {
   return ThemeData(
     fontFamily: 'MontReg',
+    // scaffoldBackgroundColor: Colors.grey.shade300,
     textTheme: textTheme(),
     colorScheme: colorScheme(),
     elevatedButtonTheme: elevatedButtonTheme(),
   );
 }
 
+ThemeData darkTheme() {
+  return ThemeData();
+}
+
 ColorScheme colorScheme() {
   return ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey).copyWith(
     primary: Colors.blueGrey.shade900,
-    secondary: Colors.blueGrey.shade600,
-    tertiary: Colors.teal,
+    secondary: Colors.teal,
+    tertiary: Colors.tealAccent,
   );
 }
 
@@ -23,7 +28,7 @@ ElevatedButtonThemeData elevatedButtonTheme() {
       elevation: 12,
       backgroundColor: Colors.teal,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
       ),
     ),
   );
@@ -53,9 +58,9 @@ TextTheme textTheme() {
       fontSize: 16,
     ),
     headline5: TextStyle(
-      fontFamily: 'MontBold',
+      fontFamily: 'MontReg',
       color: Colors.black,
-      fontSize: 14,
+      fontSize: 16,
     ),
     headline6: TextStyle(
       fontFamily: 'MontReg',

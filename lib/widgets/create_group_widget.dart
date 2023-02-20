@@ -43,6 +43,7 @@ class CreateGroupWidget extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
           child: const Text('CANCEL'),
         ),
 

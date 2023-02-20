@@ -38,29 +38,34 @@ class CustomFieldWidget extends StatelessWidget {
           labelText: labelText,
           suffixIcon: Icon(
             suffixIcon,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           // hintText: hintText,
 
           // label inside
-          // labelStyle: TextStyle(),
+          labelStyle: Theme.of(context).textTheme.headline6!.copyWith(
+                color: Colors.grey.shade600,
+              ),
 
           // label above
-          // floatingLabelStyle: TextStyle(
-
-          // ),
+          floatingLabelStyle: Theme.of(context).textTheme.headline6,
 
           // border unfocused
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
 
           // border focused
-          // focusedBorder: OutlineInputBorder(
-          //   borderSide: BorderSide(),
-          // ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
 
-          // fillColor: Theme.of(context).colorScheme.secondary,
-          // filled: true,
+          fillColor: Colors.grey.shade100,
+          filled: true,
         ),
       ),
     );

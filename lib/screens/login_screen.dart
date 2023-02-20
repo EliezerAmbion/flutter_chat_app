@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
+import '../widgets/continue_with_widget.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/social_media_button.dart';
@@ -52,14 +53,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 // welcome back message
                 Text(
                   'Welcome back!',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline1,
                 ),
 
                 const SizedBox(height: 10),
 
                 Text(
                   'Login to continue',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
 
                 const SizedBox(height: 60),
@@ -101,13 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 10),
 
                 // forgot password
-                const Padding(
-                  padding: EdgeInsets.only(right: 25),
+                Padding(
+                  padding: const EdgeInsets.only(right: 25),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
                       'Forgot Password?',
-                      style: TextStyle(),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),
@@ -123,32 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 40),
 
                 // or Continue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with:',
-                          style: TextStyle(),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey.shade200,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const ContinueWithWidget(),
 
                 const SizedBox(height: 30),
 
@@ -172,10 +148,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 RichText(
                   text: TextSpan(
                     text: 'Not a member? ',
-                    style: TextStyle(),
+                    style: Theme.of(context).textTheme.headline6,
                     children: [
                       TextSpan(
                         text: 'Register Now!',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.togglePages,
                       ),

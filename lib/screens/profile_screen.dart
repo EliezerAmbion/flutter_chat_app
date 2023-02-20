@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../widgets/custom_appbar_widget.dart';
-import '../widgets/custom_drawer_widget.dart';
+import '../widgets/drawer/custom_drawer_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
@@ -33,11 +33,11 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Text(
                   'Username:',
-                  style: TextStyle(),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
                   currentUser!.displayName!,
-                  style: TextStyle(),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ],
             ),
@@ -47,11 +47,11 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Text(
                   'Email:',
-                  style: TextStyle(),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
                   currentUser.email!,
-                  style: TextStyle(),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ],
             ),
