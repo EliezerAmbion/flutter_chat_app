@@ -50,21 +50,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 100),
 
                 // welcome back message
-                const Text(
+                Text(
                   'Welcome back!',
-                  style: TextStyle(
-                    fontFamily: 'MontBold',
-                    fontSize: 24,
-                  ),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
 
                 const SizedBox(height: 10),
 
-                const Text(
+                Text(
                   'Login to continue',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
 
                 const SizedBox(height: 60),

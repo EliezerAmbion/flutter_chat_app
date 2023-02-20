@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../config/theme.dart';
 import '../providers/auth_provider.dart';
 import '../screens/chat_screen.dart';
 import '../screens/group_info_screen.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Chat',
-        theme: ThemeData(),
+        theme: theme(),
         home: const Main(),
         routes: {
           HomeScreen.routeName: (context) => HomeScreen(),

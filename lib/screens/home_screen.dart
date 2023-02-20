@@ -9,7 +9,7 @@ import '../widgets/custom_drawer_widget.dart';
 import '../widgets/group_tile_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const routeName = '/home';
+  static const routeName = '/';
 
   const HomeScreen({super.key});
 

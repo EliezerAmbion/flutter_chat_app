@@ -18,16 +18,13 @@ class CustomFormButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.all(18),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
         ),
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.w900,
           ),
         ),
       ),
