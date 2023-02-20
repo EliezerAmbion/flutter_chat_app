@@ -23,24 +23,24 @@ class MessageBubbleWidget extends StatelessWidget {
                 ? Theme.of(context).colorScheme.tertiary
                 : Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(12),
-              topRight: const Radius.circular(12),
+              topLeft: const Radius.circular(15),
+              topRight: const Radius.circular(15),
               bottomLeft:
-                  !isMe ? const Radius.circular(0) : const Radius.circular(12),
+                  !isMe ? const Radius.circular(0) : const Radius.circular(15),
               bottomRight:
-                  isMe ? const Radius.circular(0) : const Radius.circular(12),
+                  isMe ? const Radius.circular(0) : const Radius.circular(15),
             ),
           ),
-          width: 190,
+          width: 290,
           padding: const EdgeInsets.only(
-            top: 8,
-            bottom: 15,
-            right: 16,
-            left: 16,
+            top: 15,
+            bottom: 20,
+            right: 10,
+            left: 18,
           ),
           margin: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 10,
+            vertical: 8,
+            horizontal: 15,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 import 'message_bubble_widget.dart';
 
 class MessagesWidget extends StatelessWidget {
-  const MessagesWidget({super.key});
+  final String? groupId;
+
+  const MessagesWidget({
+    super.key,
+    required this.groupId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,9 @@ class MessagesWidget extends StatelessWidget {
         }
         return StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('chat')
+              .collection('groups')
+              .doc(groupId)
+              .collection('messages')
               .orderBy('createdAt', descending: true)
               .snapshots(),
           builder: (context, chatLatestSnapshot) {
