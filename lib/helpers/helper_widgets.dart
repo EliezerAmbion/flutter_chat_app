@@ -26,9 +26,8 @@ class HelperWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(
-            color: Theme.of(context).colorScheme.tertiary,
             backgroundColor: Colors.black,
           ),
         );

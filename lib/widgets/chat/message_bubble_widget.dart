@@ -19,9 +19,9 @@ class MessageBubbleWidget extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: isMe
-                ? Theme.of(context).colorScheme.tertiary
-                : Theme.of(context).colorScheme.secondary,
+            // color: isMe
+            //     ? Theme.of(context).colorScheme.tertiary
+            //     : Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(15),
               topRight: const Radius.circular(15),
@@ -49,21 +49,21 @@ class MessageBubbleWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Text(
                   displayName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 11,
-                    color: isMe
-                        ? Theme.of(context).textTheme.bodyText1!.color
-                        : Theme.of(context).colorScheme.primary,
+                    // color: isMe
+                    //     ? Theme.of(context).textTheme.bodyText1!.color
+                    //     : Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),
               Text(
                 message,
-                style: TextStyle(
-                  color: isMe
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context).textTheme.bodyText1!.color,
-                ),
+                // style: TextStyle(
+                //   color: isMe
+                //       ? Theme.of(context).colorScheme.primary
+                //       : Theme.of(context).textTheme.bodyText1!.color,
+                // ),
               ),
             ],
           ),

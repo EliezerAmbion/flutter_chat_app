@@ -120,21 +120,18 @@ class GroupInfoScreen extends StatelessWidget {
                   horizontal: 20,
                   vertical: 15,
                 ),
-                leading: CircleAvatar(
+                leading: const CircleAvatar(
                   radius: 30,
-                  backgroundColor: Theme.of(context).colorScheme.tertiary,
                   child: Text(
-                    groupName!.substring(0, 1).toUpperCase(),
+                    // groupName!.substring(0, 1).toUpperCase(),
+                    'text',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                    style: TextStyle(),
                   ),
                 ),
                 title: Text(
                   getName(groupData['member'][index]),
                   style: const TextStyle(
-                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -142,7 +139,6 @@ class GroupInfoScreen extends StatelessWidget {
                     ? const Text(
                         'ADMIN',
                         style: TextStyle(
-                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       )
@@ -176,14 +172,14 @@ class GroupInfoScreen extends StatelessWidget {
               //           Text(
               //             groupName!,
               //             style: TextStyle(
-              //               color: Theme.of(context).colorScheme.primary,
+              //               
               //               fontSize: 22,
               //             ),
               //           ),
               //           Text(
               //             'Admin: ${getName(groupData['admin'])}',
               //             style: TextStyle(
-              //               color: Theme.of(context).colorScheme.primary,
+              //               
               //             ),
               //           ),
               //         ],

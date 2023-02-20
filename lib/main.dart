@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../screens/chat_screen.dart';
-import '../screens/chat_screen_v2.dart';
 import '../screens/group_info_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
@@ -37,43 +36,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Chat',
-        theme: ThemeData(
-          scaffoldBackgroundColor: Color.fromARGB(255, 23, 30, 34),
-          fontFamily: 'MontReg',
-
-          // color scheme
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Colors.blueGrey.shade900,
-            secondary: Colors.blueGrey.shade600,
-            tertiary: Colors.amber,
-          ),
-
-          // text theme
-          textTheme: ThemeData.light().textTheme.copyWith(
-                bodyText1: TextStyle(
-                  color: Colors.grey.shade50,
-                ),
-                bodyText2: TextStyle(
-                  color: Colors.grey.shade500,
-                ),
-              ),
-
-          // ElevatedButton Theme
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
-        ),
+        theme: ThemeData(),
         home: const Main(),
         routes: {
           HomeScreen.routeName: (context) => HomeScreen(),
           SearchScreen.routeName: (context) => SearchScreen(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
           ChatScreen.routeName: (context) => ChatScreen(),
-          // ChatScreenV2.routeName: (context) => ChatScreenV2(),
           GroupInfoScreen.routeName: (context) => GroupInfoScreen(),
         },
       ),

@@ -25,7 +25,6 @@ class CustomFieldWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: TextFormField(
-        cursorColor: Theme.of(context).colorScheme.tertiary,
         // autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: controller,
@@ -33,45 +32,35 @@ class CustomFieldWidget extends StatelessWidget {
         autofillHints: [autoFill!],
 
         // text style
-        style: TextStyle(
-          color: Theme.of(context).textTheme.bodyText1!.color,
-        ),
+        style: TextStyle(),
 
         decoration: InputDecoration(
           labelText: labelText,
           suffixIcon: Icon(
             suffixIcon,
-            color: Theme.of(context).colorScheme.tertiary,
           ),
           // hintText: hintText,
 
           // label inside
-          labelStyle: TextStyle(
-            color: Theme.of(context).textTheme.bodyText2!.color,
-          ),
+          // labelStyle: TextStyle(),
 
           // label above
-          floatingLabelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
+          // floatingLabelStyle: TextStyle(
+
+          // ),
 
           // border unfocused
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(),
           ),
 
           // border focused
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
-          ),
+          // focusedBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(),
+          // ),
 
-          fillColor: Theme.of(context).colorScheme.secondary,
-          // fillColor: Colors.white,
-          filled: true,
+          // fillColor: Theme.of(context).colorScheme.secondary,
+          // filled: true,
         ),
       ),
     );

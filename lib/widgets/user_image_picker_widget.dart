@@ -42,9 +42,7 @@ class _UserImagePickerWidgetState extends State<UserImagePickerWidget> {
               _pickedImage != null ? FileImage(_pickedImage!) : null,
         ),
         TextButton.icon(
-          style: TextButton.styleFrom(
-            foregroundColor: Theme.of(context).colorScheme.tertiary,
-          ),
+          // style: TextButton.styleFrom(),
           onPressed: _pickImage,
           icon: const Icon(Icons.image),
           label: const Text('Add Image'),

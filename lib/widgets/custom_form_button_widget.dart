@@ -17,7 +17,6 @@ class CustomFormButtonWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 25),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.tertiary,
           padding: const EdgeInsets.all(18),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -29,7 +28,6 @@ class CustomFormButtonWidget extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
-            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       ),

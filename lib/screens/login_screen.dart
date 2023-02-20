@@ -50,10 +50,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 100),
 
                 // welcome back message
-                Text(
+                const Text(
                   'Welcome back!',
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
                     fontFamily: 'MontBold',
                     fontSize: 24,
                   ),
@@ -61,10 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 10),
 
-                Text(
+                const Text(
                   'Login to continue',
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
                     fontSize: 16,
                   ),
                 ),
@@ -108,15 +106,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 10),
 
                 // forgot password
-                Padding(
-                  padding: const EdgeInsets.only(right: 25),
+                const Padding(
+                  padding: EdgeInsets.only(right: 25),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
                       'Forgot Password?',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyText1!.color,
-                      ),
+                      style: TextStyle(),
                     ),
                   ),
                 ),
@@ -142,13 +138,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.grey.shade400,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
                           'Or continue with:',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                          ),
+                          style: TextStyle(),
                         ),
                       ),
                       Expanded(
@@ -183,19 +177,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 RichText(
                   text: TextSpan(
                     text: 'Not a member? ',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1!.color,
-                    ),
+                    style: TextStyle(),
                     children: [
                       TextSpan(
                         text: 'Register Now!',
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.togglePages,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
                       ),
                     ],
                   ),

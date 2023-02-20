@@ -19,10 +19,9 @@ class CustomDrawerWidget extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 50),
         children: [
-          Icon(
+          const Icon(
             Icons.account_circle,
             size: 100,
-            color: Theme.of(context).colorScheme.secondary,
           ),
           const SizedBox(height: 20),
           Text(
@@ -46,11 +45,9 @@ class CustomDrawerWidget extends StatelessWidget {
               vertical: 5,
             ),
             leading: const Icon(Icons.group),
-            title: Text(
+            title: const Text(
               'Groups',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              // style: TextStyle(),
             ),
           ),
 
@@ -60,17 +57,14 @@ class CustomDrawerWidget extends StatelessWidget {
               Navigator.of(context)
                   .pushReplacementNamed(ProfileScreen.routeName);
             },
-            selectedColor: Theme.of(context).colorScheme.primary,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 5,
             ),
             leading: const Icon(Icons.group),
-            title: Text(
+            title: const Text(
               'Profile',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              // style: TextStyle(),
             ),
           ),
 
@@ -111,17 +105,14 @@ class CustomDrawerWidget extends StatelessWidget {
                     );
                   });
             },
-            selectedColor: Theme.of(context).colorScheme.primary,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 5,
             ),
             leading: const Icon(Icons.exit_to_app),
-            title: Text(
+            title: const Text(
               'Logout',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              style: TextStyle(),
             ),
           ),
         ],

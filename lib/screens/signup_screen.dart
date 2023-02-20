@@ -62,10 +62,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 100),
 
                 // Lets create an account
-                Text(
+                const Text(
                   'Create new Account',
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
                     fontFamily: 'MontBold',
                     fontSize: 24,
                   ),
@@ -73,10 +72,9 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 10),
 
-                Text(
+                const Text(
                   'Let\s create one for you!',
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
                     fontFamily: 'MontReg',
                     fontSize: 16,
                   ),
@@ -164,13 +162,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           color: Colors.grey.shade400,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
                           'Or continue with:',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                          ),
+                          style: TextStyle(),
                         ),
                       ),
                       Expanded(
@@ -205,16 +201,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 RichText(
                   text: TextSpan(
                     text: 'Already a member? ',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1!.color,
-                    ),
+                    style: TextStyle(),
                     children: [
                       TextSpan(
                         text: 'Login now!',
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.togglePages,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),

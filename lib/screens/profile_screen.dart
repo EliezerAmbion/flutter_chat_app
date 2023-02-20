@@ -33,15 +33,11 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Text(
                   'Username:',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
-                  ),
+                  style: TextStyle(),
                 ),
                 Text(
                   currentUser!.displayName!,
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
-                  ),
+                  style: TextStyle(),
                 ),
               ],
             ),
@@ -51,15 +47,11 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Text(
                   'Email:',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
-                  ),
+                  style: TextStyle(),
                 ),
                 Text(
                   currentUser.email!,
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
-                  ),
+                  style: TextStyle(),
                 ),
               ],
             ),

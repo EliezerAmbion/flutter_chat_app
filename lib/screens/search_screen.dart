@@ -59,8 +59,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 // (searchedQuery.isEmpty) ? FirebaseFirestore.instance.collection('groups').snapshots() :
                 FirebaseFirestore.instance
                     .collection('groups')
-                    .where('groupName', isEqualTo: searchedQuery)
-                    .snapshots(),
+                    .orderBy('groupName')
+                    .startAt([searchedQuery]).endAt(
+                        [searchedQuery + '\uf8ff']).snapshots(),
             builder: (context, latestSnapshot) {
               if (latestSnapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -77,7 +78,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   Map<String, dynamic>? userDocs = userSnapshot.data?.data();
 
                   final hasJoined = userDocs?['groups'].contains(unionName);
-                  print('groupsDocs =====> ${groupId}}');
 
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(
@@ -86,28 +86,22 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     leading: CircleAvatar(
                       radius: 30,
-                      backgroundColor: Theme.of(context).colorScheme.tertiary,
                       child: Text(
                         groupsDocs[index]['groupName']
                             .substring(0, 1)
                             .toUpperCase(),
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
                       ),
                     ),
                     title: Text(
                       groupsDocs[index]['groupName'],
                       style: const TextStyle(
-                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Text(
                       'Admin: ${getName(groupsDocs[index]['admin'])}',
                       style: const TextStyle(
-                        color: Colors.white,
                         fontSize: 13,
                       ),
                     ),
@@ -130,10 +124,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             },
                             icon: const Icon(Icons.input_outlined),
                             label: const Text('Joined'),
-                            style: TextButton.styleFrom(
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.secondary,
-                            ),
                           )
                         : TextButton.icon(
                             onPressed: () async {
@@ -153,10 +143,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             },
                             icon: const Icon(Icons.input_outlined),
                             label: const Text('Join'),
-                            style: TextButton.styleFrom(
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.tertiary,
-                            ),
                           ),
                   );
                 },
