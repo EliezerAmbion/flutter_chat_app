@@ -43,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
               },
               decoration: const InputDecoration(
                 suffixIcon: Icon(Icons.search_outlined),
-                hintText: 'Search for groups...',
+                hintText: 'Search groups...',
                 border: InputBorder.none,
               ),
             ),

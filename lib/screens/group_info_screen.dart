@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/widgets/custom_appbar_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth_provider.dart';
+import '../screens/home_screen.dart';
 
 class GroupInfoScreen extends StatelessWidget {
   static const routeName = '/group-info';
@@ -13,7 +16,6 @@ class GroupInfoScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
 
     final groupName = groupArgs['groupName'];
-    final displayName = groupArgs['displayName'];
     final groupId = groupArgs['groupId'];
 
     String getId(String text) {
@@ -25,7 +27,74 @@ class GroupInfoScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: const CustomAppBarWidget(title: 'Group Info'),
+      appBar: AppBar(
+        title: const Text('Group Info'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Exit'),
+                      content: const Text(
+                        'Are you sure you want to leave this group?',
+                      ),
+                      actions: [
+                        // cancel logout
+                        IconButton(
+                          onPressed: () async {
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(
+                            Icons.cancel_outlined,
+                            color: Colors.red,
+                          ),
+                        ),
+
+                        // leave group
+                        IconButton(
+                          onPressed: () async {
+                            final currentUser = Provider.of<AuthProvider>(
+                              context,
+                              listen: false,
+                            ).currentUser;
+
+                            final uid = currentUser!.uid;
+                            final userDisplayName = currentUser.displayName;
+
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(uid)
+                                .update({
+                              'groups': FieldValue.arrayRemove(
+                                  ['${groupId}_$groupName'])
+                            });
+                            await FirebaseFirestore.instance
+                                .collection('groups')
+                                .doc(groupId)
+                                .update({
+                              'member': FieldValue.arrayRemove(
+                                  ['${uid}_$userDisplayName'])
+                            });
+                            Navigator.of(context)
+                                .pushReplacementNamed(HomeScreen.routeName);
+                          },
+                          icon: const Icon(
+                            Icons.done,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            },
+            icon: Icon(Icons.exit_to_app),
+          ),
+        ],
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('groups')
