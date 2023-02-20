@@ -33,8 +33,7 @@ class GroupTileWidget extends StatelessWidget {
           leading: CircleAvatar(
             radius: 30,
             child: Text(
-              // groupName.substring(0, 1).toUpperCase(),
-              'test',
+              groupName.substring(0, 1).toUpperCase(),
               textAlign: TextAlign.center,
             ),
           ),
