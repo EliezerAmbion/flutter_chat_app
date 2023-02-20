@@ -26,6 +26,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final uid = Provider.of<AuthProvider>(context).currentUser!.uid;
+    final userDisplayName =
+        Provider.of<AuthProvider>(context).currentUser!.displayName;
 
     return Scaffold(
       appBar: AppBar(
@@ -66,15 +68,16 @@ class _SearchScreenState extends State<SearchScreen> {
                 );
               }
 
-              final groupsDocs = latestSnapshot.data!.docs;
-
               return ListView.builder(
                 itemCount: latestSnapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  final unionName = '${groupsDocs[index].id}_$searchedQuery';
+                  final groupsDocs = latestSnapshot.data!.docs;
+                  final groupId = groupsDocs[index].id;
+                  final unionName = '${groupId}_$searchedQuery';
                   Map<String, dynamic>? userDocs = userSnapshot.data?.data();
-                  print(
-                      'userDocs =====> ${FirebaseFirestore.instance.collection('users').doc(uid)}');
+
+                  final hasJoined = userDocs?['groups'].contains(unionName);
+                  print('groupsDocs =====> ${groupId}}');
 
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(
@@ -108,9 +111,23 @@ class _SearchScreenState extends State<SearchScreen> {
                         fontSize: 13,
                       ),
                     ),
-                    trailing: userDocs?['groups'].contains(unionName)
+                    trailing: hasJoined
                         ? TextButton.icon(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(uid)
+                                  .update({
+                                'groups': FieldValue.arrayRemove([unionName])
+                              });
+                              await FirebaseFirestore.instance
+                                  .collection('groups')
+                                  .doc(groupId)
+                                  .update({
+                                'member': FieldValue.arrayRemove(
+                                    ['${uid}_$userDisplayName'])
+                              });
+                            },
                             icon: const Icon(Icons.input_outlined),
                             label: const Text('Joined'),
                             style: TextButton.styleFrom(
@@ -119,7 +136,21 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           )
                         : TextButton.icon(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(uid)
+                                  .update({
+                                'groups': FieldValue.arrayUnion([unionName])
+                              });
+                              await FirebaseFirestore.instance
+                                  .collection('groups')
+                                  .doc(groupId)
+                                  .update({
+                                'member': FieldValue.arrayUnion(
+                                    ['${uid}_$userDisplayName'])
+                              });
+                            },
                             icon: const Icon(Icons.input_outlined),
                             label: const Text('Join'),
                             style: TextButton.styleFrom(
