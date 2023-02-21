@@ -31,7 +31,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Card(
           child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 10),
@@ -100,15 +99,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     title: Text(
                       groupsDocs[index]['groupName'],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headline3,
                     ),
                     subtitle: Text(
                       'Admin: ${getName(groupsDocs[index]['admin'])}',
-                      style: const TextStyle(
-                        fontSize: 13,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     trailing: hasJoined
                         ? TextButton.icon(
@@ -127,8 +122,19 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ['${uid}_$userDisplayName'])
                               });
                             },
-                            icon: const Icon(Icons.input_outlined),
-                            label: const Text('Joined'),
+                            icon: Icon(
+                              Icons.input_outlined,
+                              color: Colors.grey.shade700,
+                            ),
+                            label: Text(
+                              'Joined',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .copyWith(
+                                    color: Colors.grey.shade700,
+                                  ),
+                            ),
                           )
                         : TextButton.icon(
                             onPressed: () async {
@@ -146,8 +152,20 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ['${uid}_$userDisplayName'])
                               });
                             },
-                            icon: const Icon(Icons.input_outlined),
-                            label: const Text('Join'),
+                            icon: Icon(
+                              Icons.input,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            label: Text(
+                              'Join',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                            ),
                           ),
                   );
                 },

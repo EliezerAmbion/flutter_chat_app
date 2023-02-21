@@ -61,7 +61,7 @@ class CustomDrawerWidget extends StatelessWidget {
                       return AlertDialog(
                         title: Text(
                           'Logout',
-                          style: Theme.of(context).textTheme.headline4,
+                          style: Theme.of(context).textTheme.headline3,
                           textAlign: TextAlign.center,
                         ),
                         content: Text(
@@ -81,15 +81,18 @@ class CustomDrawerWidget extends StatelessWidget {
                           ),
 
                           // logout
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).errorColor,
+                          Container(
+                            margin: const EdgeInsets.only(right: 20, left: 10),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).errorColor,
+                              ),
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                                await FirebaseAuth.instance.signOut();
+                              },
+                              child: const Text('Logout'),
                             ),
-                            onPressed: () async {
-                              Navigator.of(context).pop();
-                              await FirebaseAuth.instance.signOut();
-                            },
-                            child: const Text('Logout'),
                           ),
                         ],
                       );
@@ -102,7 +105,7 @@ class CustomDrawerWidget extends StatelessWidget {
               leading: const Icon(Icons.exit_to_app),
               title: Text(
                 'Logout',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
           ],

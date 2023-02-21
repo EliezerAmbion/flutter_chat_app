@@ -6,7 +6,6 @@ import '../providers/auth_provider.dart';
 import '../widgets/continue_with_widget.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
-import '../widgets/social_media_button.dart';
 
 // import '../widgets/user_image_picker_widget.dart';
 
@@ -63,22 +62,16 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 100),
 
                 // Lets create an account
-                const Text(
+                Text(
                   'Create new Account',
-                  style: TextStyle(
-                    fontFamily: 'MontBold',
-                    fontSize: 24,
-                  ),
+                  style: Theme.of(context).textTheme.headline1,
                 ),
 
                 const SizedBox(height: 10),
 
-                const Text(
-                  'Let\s create one for you!',
-                  style: TextStyle(
-                    fontFamily: 'MontReg',
-                    fontSize: 16,
-                  ),
+                Text(
+                  'Let\'s create one for you!',
+                  style: Theme.of(context).textTheme.headline4,
                 ),
 
                 const SizedBox(height: 60),
@@ -153,29 +146,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 40),
 
                 // or Continue with
-                const ContinueWithWidget(),
-
-                const SizedBox(height: 40),
-
-                // not a member?
-                RichText(
-                  text: TextSpan(
-                    text: 'Already a member? ',
-                    style: Theme.of(context).textTheme.headline6,
-                    children: [
-                      TextSpan(
-                        text: 'Login now!',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = widget.togglePages,
-                      ),
-                    ],
-                  ),
-                )
+                ContinueWithWidget(
+                  togglePages: widget.togglePages,
+                  text: 'Already a Member ',
+                  toggleText: 'Login now!',
+                ),
               ],
             ),
           ),

@@ -45,9 +45,7 @@ class GroupTileWidget extends StatelessWidget {
             ),
             title: Text(
               groupName,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headline4,
             ),
             subtitle: Text(
               'Join as $displayName',

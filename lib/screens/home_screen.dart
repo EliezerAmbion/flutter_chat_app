@@ -93,10 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
           // fallback:
           // the purpose of this is to omit the error showing in vscode
           // if there is no users collection
-          if (!latestSnapshot.data.exists &&
-              latestSnapshot.data.data() == null) {
-            return const Center(child: Text('No data'));
-          }
+          // if (!latestSnapshot.data.exists &&
+          //     latestSnapshot.data.data() == null) {
+          //   return const Center(child: Text('No data'));
+          // }
 
           // if there is a user but no groups yet
           if (latestSnapshot.data['groups'].length == 0) {
@@ -105,17 +105,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
           Map<String, dynamic> userData = latestSnapshot.data.data();
 
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              int reverseIndex = userData['groups'].length - index - 1;
+          return Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                int reverseIndex = userData['groups'].length - index - 1;
 
-              return GroupTileWidget(
-                groupId: getId(userData['groups'][reverseIndex]),
-                groupName: getName(userData['groups'][reverseIndex]),
-                displayName: userData['displayName'],
-              );
-            },
-            itemCount: userData['groups'].length,
+                return GroupTileWidget(
+                  groupId: getId(userData['groups'][reverseIndex]),
+                  groupName: getName(userData['groups'][reverseIndex]),
+                  displayName: userData['displayName'],
+                );
+              },
+              itemCount: userData['groups'].length,
+            ),
           );
         },
       ),

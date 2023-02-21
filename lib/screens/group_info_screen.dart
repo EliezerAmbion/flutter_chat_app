@@ -28,70 +28,85 @@ class GroupInfoScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Group Info'),
-        centerTitle: true,
+        title: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.black,
+          ),
+          child: const Text('Group Info'),
+        ),
         actions: [
           IconButton(
             onPressed: () {
               showDialog(
-                  barrierDismissible: false,
+                  // barrierDismissible: false,
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: const Text('Exit'),
-                      content: const Text(
+                      elevation: 4,
+                      title: Text(
+                        'Exit',
+                        style: Theme.of(context).textTheme.headline3,
+                        textAlign: TextAlign.center,
+                      ),
+                      content: Text(
                         'Are you sure you want to leave this group?',
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       actions: [
                         // cancel logout
-                        IconButton(
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey,
+                          ),
                           onPressed: () async {
                             Navigator.of(context).pop();
                           },
-                          icon: const Icon(
-                            Icons.cancel_outlined,
-                            color: Colors.red,
-                          ),
+                          child: const Text('Cancel'),
                         ),
 
                         // leave group
-                        IconButton(
-                          onPressed: () async {
-                            final currentUser = Provider.of<AuthProvider>(
-                              context,
-                              listen: false,
-                            ).currentUser;
+                        Container(
+                          margin: const EdgeInsets.only(right: 20, left: 10),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).errorColor,
+                            ),
+                            onPressed: () async {
+                              final currentUser = Provider.of<AuthProvider>(
+                                context,
+                                listen: false,
+                              ).currentUser;
 
-                            final uid = currentUser!.uid;
-                            final userDisplayName = currentUser.displayName;
+                              final uid = currentUser!.uid;
+                              final userDisplayName = currentUser.displayName;
 
-                            await FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(uid)
-                                .update({
-                              'groups': FieldValue.arrayRemove(
-                                  ['${groupId}_$groupName'])
-                            });
-                            await FirebaseFirestore.instance
-                                .collection('groups')
-                                .doc(groupId)
-                                .update({
-                              'member': FieldValue.arrayRemove(
-                                  ['${uid}_$userDisplayName'])
-                            });
-                            Navigator.of(context)
-                                .pushReplacementNamed(HomeScreen.routeName);
-                          },
-                          icon: const Icon(
-                            Icons.done,
-                            color: Colors.green,
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(uid)
+                                  .update({
+                                'groups': FieldValue.arrayRemove(
+                                    ['${groupId}_$groupName'])
+                              });
+                              await FirebaseFirestore.instance
+                                  .collection('groups')
+                                  .doc(groupId)
+                                  .update({
+                                'member': FieldValue.arrayRemove(
+                                    ['${uid}_$userDisplayName'])
+                              });
+                              Navigator.of(context)
+                                  .pushReplacementNamed(HomeScreen.routeName);
+                            },
+                            child: const Text('Leave'),
                           ),
                         ),
                       ],
                     );
                   });
             },
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
           ),
         ],
       ),
@@ -120,29 +135,27 @@ class GroupInfoScreen extends StatelessWidget {
                   horizontal: 20,
                   vertical: 15,
                 ),
-                leading: const CircleAvatar(
+                leading: CircleAvatar(
                   radius: 30,
                   child: Text(
-                    // groupName!.substring(0, 1).toUpperCase(),
-                    'text',
+                    groupName!.substring(0, 1).toUpperCase(),
                     textAlign: TextAlign.center,
                     style: TextStyle(),
                   ),
                 ),
                 title: Text(
                   getName(groupData['member'][index]),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.headline3,
                 ),
                 subtitle: isAdmin
-                    ? const Text(
+                    ? Text(
                         'ADMIN',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                       )
-                    : const Text(''),
+                    : Text(
+                        'Member',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
               );
             },
           );

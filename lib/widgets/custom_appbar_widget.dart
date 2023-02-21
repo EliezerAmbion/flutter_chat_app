@@ -17,14 +17,13 @@ class CustomAppBarWidget extends StatelessWidget with PreferredSizeWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.primary,
         ),
         child: Text(
           title,
-          style: Theme.of(context)
-              .textTheme
-              .headline5!
-              .copyWith(color: Colors.white),
+          style: Theme.of(context).textTheme.headline2!.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
         ),
       ),
       actions: [

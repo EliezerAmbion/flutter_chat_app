@@ -38,7 +38,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Chat',
         theme: theme(),
-        darkTheme: darkTheme(),
+        // darkTheme: darkTheme(),
+        // themeMode: ThemeMode.system,
         home: const Main(),
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),

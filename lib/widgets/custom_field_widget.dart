@@ -24,48 +24,49 @@ class CustomFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-      child: TextFormField(
-        // autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: validator,
-        controller: controller,
-        obscureText: obscureText,
-        autofillHints: [autoFill!],
+      child: Material(
+        elevation: 2,
+        child: TextFormField(
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: validator,
+          controller: controller,
+          obscureText: obscureText,
+          autofillHints: [autoFill!],
 
-        // text style
-        style: TextStyle(),
+          // text style
+          style: Theme.of(context).textTheme.headline5,
 
-        decoration: InputDecoration(
-          labelText: labelText,
-          suffixIcon: Icon(
-            suffixIcon,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          // hintText: hintText,
-
-          // label inside
-          labelStyle: Theme.of(context).textTheme.headline6!.copyWith(
-                color: Colors.grey.shade600,
-              ),
-
-          // label above
-          floatingLabelStyle: Theme.of(context).textTheme.headline6,
-
-          // border unfocused
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-
-          // border focused
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+          decoration: InputDecoration(
+            labelText: labelText,
+            suffixIcon: Icon(
+              suffixIcon,
               color: Theme.of(context).colorScheme.secondary,
             ),
-          ),
+            // hintText: hintText,
 
-          fillColor: Colors.grey.shade100,
-          filled: true,
+            // label inside
+            labelStyle: Theme.of(context).textTheme.headline6,
+
+            // label above
+            floatingLabelStyle: Theme.of(context).textTheme.headline6,
+
+            // border unfocused
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+
+            // border focused
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+
+            // fillColor: Colors.grey.shade100,
+            // filled: true,
+          ),
         ),
       ),
     );

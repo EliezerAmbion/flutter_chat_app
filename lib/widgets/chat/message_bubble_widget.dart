@@ -20,7 +20,7 @@ class MessageBubbleWidget extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: isMe
-                ? Theme.of(context).colorScheme.tertiary
+                ? Theme.of(context).colorScheme.secondary
                 : Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(15),
@@ -59,8 +59,8 @@ class MessageBubbleWidget extends StatelessWidget {
               Text(
                 message,
                 style: isMe
-                    ? Theme.of(context).textTheme.headline6
-                    : Theme.of(context).textTheme.headline6?.copyWith(
+                    ? Theme.of(context).textTheme.headline4
+                    : Theme.of(context).textTheme.headline4?.copyWith(
                           color: Colors.white,
                         ),
               ),

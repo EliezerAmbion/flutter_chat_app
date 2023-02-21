@@ -17,15 +17,15 @@ class CustomFormButtonWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 25),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(18),
+          padding: const EdgeInsets.all(16),
         ),
         onPressed: onPressed,
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontWeight: FontWeight.w900,
-          ),
+          style: Theme.of(context).textTheme.headline3!.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
         ),
       ),
     );

@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,7 +5,6 @@ import '../providers/auth_provider.dart';
 import '../widgets/continue_with_widget.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
-import '../widgets/social_media_button.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback togglePages;
@@ -60,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 Text(
                   'Login to continue',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
 
                 const SizedBox(height: 60),
@@ -124,28 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 40),
 
                 // or Continue with
-                const ContinueWithWidget(),
-
-                const SizedBox(height: 40),
-
-                // not a member?
-                RichText(
-                  text: TextSpan(
-                    text: 'Not a member? ',
-                    style: Theme.of(context).textTheme.headline6,
-                    children: [
-                      TextSpan(
-                        text: 'Register Now!',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = widget.togglePages,
-                      ),
-                    ],
-                  ),
+                ContinueWithWidget(
+                  togglePages: widget.togglePages,
+                  text: 'Not a member? ',
+                  toggleText: 'Register now!',
                 ),
               ],
             ),

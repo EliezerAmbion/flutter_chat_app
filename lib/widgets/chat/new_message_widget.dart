@@ -56,12 +56,10 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                 labelText: 'Send a message...',
 
                 // label inside
-                labelStyle: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: Colors.grey.shade600,
-                    ),
+                labelStyle: Theme.of(context).textTheme.bodyText1,
 
                 // label above
-                floatingLabelStyle: Theme.of(context).textTheme.headline5,
+                floatingLabelStyle: Theme.of(context).textTheme.headline6,
 
                 // border unfocused
                 enabledBorder: OutlineInputBorder(
