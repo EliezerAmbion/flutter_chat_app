@@ -77,7 +77,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 itemBuilder: (context, index) {
                   final groupsDocs = latestSnapshot.data!.docs;
                   final groupId = groupsDocs[index].id;
-                  final unionName = '${groupId}_$searchedQuery';
+                  final groupName = groupsDocs[index]['groupName'];
+                  final unionName = '${groupId}_$groupName';
+
                   Map<String, dynamic>? userDocs = userSnapshot.data?.data();
 
                   final hasJoined = userDocs?['groups'].contains(unionName);
