@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class DrawerListTile extends StatelessWidget {
   final String route;
   final String text;
+  final IconData icon;
 
   const DrawerListTile({
     super.key,
     required this.route,
     required this.text,
+    required this.icon,
   });
 
   @override
@@ -20,7 +22,7 @@ class DrawerListTile extends StatelessWidget {
         horizontal: 20,
         vertical: 5,
       ),
-      leading: const Icon(Icons.group_outlined),
+      leading: Icon(icon),
       title: Text(
         text,
         style: Theme.of(context).textTheme.headline6,

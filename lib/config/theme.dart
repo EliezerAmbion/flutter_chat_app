@@ -2,11 +2,21 @@ import 'package:flutter/material.dart';
 
 ThemeData theme() {
   return ThemeData(
-    fontFamily: 'MontReg',
     // scaffoldBackgroundColor: Colors.grey.shade300,
+    fontFamily: 'MontReg',
+    appBarTheme: appBarTheme(),
     textTheme: textTheme(),
     colorScheme: colorScheme(),
     elevatedButtonTheme: elevatedButtonTheme(),
+  );
+}
+
+AppBarTheme appBarTheme() {
+  return const AppBarTheme(
+    iconTheme: IconThemeData(color: Colors.black),
+    centerTitle: true,
+    backgroundColor: Colors.transparent,
+    elevation: 0,
   );
 }
 
@@ -53,9 +63,9 @@ TextTheme textTheme() {
       fontSize: 18,
     ),
     headline4: TextStyle(
-      fontFamily: 'MontBold',
+      fontFamily: 'MontReg',
       color: Colors.black,
-      fontSize: 16,
+      fontSize: 18,
     ),
     headline5: TextStyle(
       fontFamily: 'MontReg',

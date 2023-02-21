@@ -13,10 +13,6 @@ class CustomAppBarWidget extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      iconTheme: const IconThemeData(color: Colors.black),
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
       title: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         decoration: BoxDecoration(
@@ -27,7 +23,7 @@ class CustomAppBarWidget extends StatelessWidget with PreferredSizeWidget {
           title,
           style: Theme.of(context)
               .textTheme
-              .headline4!
+              .headline5!
               .copyWith(color: Colors.white),
         ),
       ),

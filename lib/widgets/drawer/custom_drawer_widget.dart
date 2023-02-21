@@ -16,87 +16,97 @@ class CustomDrawerWidget extends StatelessWidget {
         .currentUser!
         .displayName;
 
-    return Drawer(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 50),
-        children: [
-          const Icon(
-            Icons.account_circle,
-            size: 100,
-          ),
-          const SizedBox(height: 20),
-          Text(
-            currentuser ?? 'Loading...',
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20,
+    return SafeArea(
+      child: Drawer(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 50),
+          children: [
+            const Icon(
+              Icons.account_circle,
+              size: 100,
             ),
-          ),
-          const SizedBox(height: 10),
-          const Divider(height: 2, thickness: 1),
+            const SizedBox(height: 20),
+            Text(
+              currentuser ?? 'Loading...',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Divider(height: 2, thickness: 1),
 
-          // Groups
-          const DrawerListTile(route: HomeScreen.routeName, text: 'Groups'),
+            // Groups
+            const DrawerListTile(
+              route: HomeScreen.routeName,
+              text: 'Groups',
+              icon: Icons.groups_outlined,
+            ),
 
-          // Profile
-          const DrawerListTile(route: ProfileScreen.routeName, text: 'Profile'),
+            // Profile
+            const DrawerListTile(
+              route: ProfileScreen.routeName,
+              text: 'Profile',
+              icon: Icons.person_outline,
+            ),
 
-          // Logout
-          ListTile(
-            onTap: () {
-              showDialog(
-                  // barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(
-                        'Logout',
-                        style: Theme.of(context).textTheme.headline4,
-                        textAlign: TextAlign.center,
-                      ),
-                      content: Text(
-                        'Are you sure you want to logout?',
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      actions: [
-                        // cancel logout
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey,
-                          ),
-                          onPressed: () async {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Cancel'),
+            // Logout
+            ListTile(
+              onTap: () {
+                showDialog(
+                    // barrierDismissible: false,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Logout',
+                          style: Theme.of(context).textTheme.headline4,
+                          textAlign: TextAlign.center,
                         ),
-
-                        // logout
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).errorColor,
-                          ),
-                          onPressed: () async {
-                            Navigator.of(context).pop();
-                            await FirebaseAuth.instance.signOut();
-                          },
-                          child: const Text('Logout'),
+                        content: Text(
+                          'Are you sure you want to logout?',
+                          style: Theme.of(context).textTheme.headline5,
                         ),
-                      ],
-                    );
-                  });
-            },
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 5,
+                        actions: [
+                          // cancel logout
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey,
+                            ),
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Cancel'),
+                          ),
+
+                          // logout
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).errorColor,
+                            ),
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+                              await FirebaseAuth.instance.signOut();
+                            },
+                            child: const Text('Logout'),
+                          ),
+                        ],
+                      );
+                    });
+              },
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 5,
+              ),
+              leading: const Icon(Icons.exit_to_app),
+              title: Text(
+                'Logout',
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
-            leading: const Icon(Icons.exit_to_app),
-            title: Text(
-              'Logout',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

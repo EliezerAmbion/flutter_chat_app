@@ -38,7 +38,6 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
       'recentMessageSender': user!.displayName,
     });
 
-    print(user!.displayName);
     _controller.clear();
   }
 
@@ -53,25 +52,29 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
             child: TextField(
               // style: TextStyle(),
               controller: _controller,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Send a message...',
 
                 // label inside
-                labelStyle: TextStyle(),
+                labelStyle: Theme.of(context).textTheme.headline6!.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
 
                 // label above
-                // floatingLabelStyle: TextStyle(
+                floatingLabelStyle: Theme.of(context).textTheme.headline5,
 
-                // ),
+                // border unfocused
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
 
-                // focusedBorder: OutlineInputBorder(
-                //   borderSide: BorderSide(
-
-                //   ),
-                // ),
-                // fillColor: Theme.of(context).colorScheme.secondary,
-                // fillColor: Colors.white,
-                // filled: true,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
               ),
               onChanged: (value) {
                 setState(() {
@@ -83,6 +86,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
           IconButton(
             onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
             icon: const Icon(Icons.send),
+            color: Theme.of(context).colorScheme.secondary,
           )
         ],
       ),

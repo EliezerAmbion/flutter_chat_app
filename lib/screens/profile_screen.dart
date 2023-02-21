@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Text(
                   currentUser!.displayName!,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               ],
             ),
@@ -51,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Text(
                   currentUser.email!,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               ],
             ),

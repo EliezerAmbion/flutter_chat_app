@@ -27,26 +27,33 @@ class GroupTileWidget extends StatelessWidget {
           },
         );
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        child: ListTile(
-          leading: CircleAvatar(
-            radius: 30,
-            child: Text(
-              groupName.substring(0, 1).toUpperCase(),
-              textAlign: TextAlign.center,
+      child: Card(
+        elevation: 4,
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 30,
+              child: Text(
+                groupName.substring(0, 1).toUpperCase(),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          title: Text(
-            groupName,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+            title: Text(
+              groupName,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          subtitle: Text(
-            'Join as $displayName',
-            style: const TextStyle(
-              fontSize: 13,
+            subtitle: Text(
+              'Join as $displayName',
+              style: const TextStyle(
+                fontSize: 13,
+              ),
             ),
           ),
         ),

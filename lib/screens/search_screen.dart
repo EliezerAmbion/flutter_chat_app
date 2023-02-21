@@ -64,8 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
                     .orderBy('groupName')
                     .startAt([searchedQuery]).endAt(
-              [searchedQuery + '\uf8ff'],
-            ).snapshots(),
+                        ['$searchedQuery\uf8ff']).snapshots(),
             builder: (context, latestSnapshot) {
               if (latestSnapshot.connectionState == ConnectionState.waiting) {
                 return const Center(

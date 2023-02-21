@@ -20,16 +20,14 @@ class ChatScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: [
-            const Text(
-              'Group:',
-              style: TextStyle(fontSize: 12),
-            ),
-            Text(groupName!),
-          ],
+        title: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.black,
+          ),
+          child: Text(groupName!),
         ),
-        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
@@ -40,13 +38,16 @@ class ChatScreen extends StatelessWidget {
                 'groupId': groupId,
               });
             },
-            icon: const Icon(
-              Icons.info,
-            ),
+            icon: const Icon(Icons.info_outline),
           ),
         ],
       ),
-      body: Container(
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          // FocusScope.of(context).requestFocus(new FocusNode());
+          FocusScope.of(context).unfocus();
+        },
         child: Column(
           children: [
             Expanded(child: MessagesWidget(groupId: groupId)),
