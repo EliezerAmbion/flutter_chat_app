@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -77,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 60),
 
                 // NOTE: use this if you want to continue to upload an image
-                // UserImagePickerWidget(),
+                // const UserImagePickerWidget(),
                 // const SizedBox(height: 20),
 
                 // email field

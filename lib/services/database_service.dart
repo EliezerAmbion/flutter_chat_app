@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseService {
   Future addGroupCollection({
@@ -34,27 +37,18 @@ class DatabaseService {
     }
   }
 
-  getChats(String groupId) {
-    return FirebaseFirestore.instance
-        .collection('groups')
-        .doc(groupId)
-        .collection('messages')
-        .orderBy('time')
-        .snapshots();
+  static UploadTask? uploadFile(String destination, File file) {
+    try {
+      final ref = FirebaseStorage.instance.ref(destination);
+
+      return ref.putFile(file);
+    } on FirebaseException catch (error) {
+      return null;
+    }
   }
 
-  Future getGroupAdmin(String groupId) async {
-    final groupDocRef = await FirebaseFirestore.instance
-        .collection('groups')
-        .doc(groupId)
-        .get();
-  }
-
-  // search
-  searchByName(String groupName) {
-    return FirebaseFirestore.instance
-        .collection('groups')
-        .where("groupName", isEqualTo: groupName)
-        .get();
+  static Future getFileImage(image) async {
+    final ref = FirebaseStorage.instance.ref().child(image);
+    return ref;
   }
 }

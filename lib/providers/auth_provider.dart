@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../helpers/helper_widgets.dart';
 
 class AuthProvider with ChangeNotifier {
+  // TODO: gayahin mo yung uploadFile method sa database service
   Future _createUserWithEmailAndPassword({
     required BuildContext context,
     required TextEditingController emailController,
