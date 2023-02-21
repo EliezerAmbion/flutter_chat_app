@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../helpers/helper_widgets.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/continue_with_widget.dart';
 import '../widgets/custom_field_widget.dart';
@@ -32,12 +33,31 @@ class _SignupScreenState extends State<SignupScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
-    await Provider.of<AuthProvider>(context, listen: false).signUp(
+    // this will close the soft keyboard
+    FocusScope.of(context).unfocus();
+
+    // HelperWidget.showCircularProgressIndicator(context);
+
+    final result =
+        await Provider.of<AuthProvider>(context, listen: false).signUp(
       context: context,
       emailController: _emailController,
       passwordController: _passwordController,
       usernameController: _usernameController,
     );
+
+    // if the result returns an error.message
+    if (result != null) {
+      HelperWidget.showSnackBar(
+        context: context,
+        message: result.toString(),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      );
+      // pop loading circle
+      // return Navigator.of(context).pop();
+    }
+
+    // return Navigator.of(context).pop();
   }
 
   @override

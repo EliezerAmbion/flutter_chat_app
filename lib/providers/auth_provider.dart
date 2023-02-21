@@ -12,20 +12,12 @@ class AuthProvider with ChangeNotifier {
     required TextEditingController passwordController,
     required TextEditingController usernameController,
   }) async {
-    // this will close the soft keyboard
-    FocusScope.of(context).unfocus();
-
-    HelperWidget.showCircularProgressIndicator(context);
-
     try {
       UserCredential authResult =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-
-      // pop the loading circle
-      Navigator.of(context).pop();
 
       await FirebaseFirestore.instance
           .collection('users')
@@ -39,18 +31,11 @@ class AuthProvider with ChangeNotifier {
 
       // set the displayName upon signup in the auth
       await authResult.user?.updateDisplayName(usernameController.text);
+      return null;
     } on FirebaseAuthException catch (error) {
-      // pop the loading circle then show error
-      Navigator.of(context).pop();
-
-      // show error
-      HelperWidget.showSnackBar(
-        context: context,
-        message: error.message.toString(),
-        backgroundColor: Theme.of(context).errorColor,
-      );
+      return error.message;
     } catch (error) {
-      print(error);
+      return 'An unknown error occured';
     }
   }
 
@@ -59,11 +44,6 @@ class AuthProvider with ChangeNotifier {
     required TextEditingController emailController,
     required TextEditingController passwordController,
   }) async {
-    // this will close the soft keyboard
-    FocusScope.of(context).unfocus();
-
-    HelperWidget.showCircularProgressIndicator(context);
-
     try {
       UserCredential authResult =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -71,20 +51,11 @@ class AuthProvider with ChangeNotifier {
         password: passwordController.text,
       );
 
-      // pop loading circle
-      Navigator.of(context).pop();
+      return null;
     } on FirebaseAuthException catch (error) {
-      // pop the loading circle then show the error
-      Navigator.of(context).pop();
-
-      // show the error
-      HelperWidget.showSnackBar(
-        context: context,
-        message: error.message.toString(),
-        backgroundColor: Theme.of(context).errorColor,
-      );
+      return error.message;
     } catch (error) {
-      print(error);
+      return 'An unknown error occured';
     }
   }
 
@@ -92,7 +63,7 @@ class AuthProvider with ChangeNotifier {
     return FirebaseAuth.instance.currentUser;
   }
 
-  Future signIn({
+  Future login({
     required BuildContext context,
     required TextEditingController emailController,
     required TextEditingController passwordController,

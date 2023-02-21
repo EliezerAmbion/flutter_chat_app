@@ -93,10 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
           // fallback:
           // the purpose of this is to omit the error showing in vscode
           // if there is no users collection
-          // if (!latestSnapshot.data.exists &&
-          //     latestSnapshot.data.data() == null) {
-          //   return const Center(child: Text('No data'));
-          // }
+          if (!latestSnapshot.data.exists &&
+              latestSnapshot.data.data() == null) {
+            return const Center(child: Text('No data'));
+          }
 
           // if there is a user but no groups yet
           if (latestSnapshot.data['groups'].length == 0) {
