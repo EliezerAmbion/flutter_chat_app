@@ -40,8 +40,8 @@ dependencies:
   firebase_auth: ^4.2.5
   image_picker: ^0.8.6+1
   provider: ^6.0.5
-  file_picker: ^5.2.5
   firebase_storage: ^11.0.13
+  path_provider: ^2.0.12
 
 dev_dependencies:
   flutter_test:

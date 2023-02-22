@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,6 +8,7 @@ import '../providers/auth_provider.dart';
 import '../widgets/continue_with_widget.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
+import '../widgets/user_image_picker_widget.dart';
 
 // import '../widgets/user_image_picker_widget.dart';
 
@@ -27,6 +30,11 @@ class _SignupScreenState extends State<SignupScreen> {
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool isLoading = true;
+
+  void imagePickFn(File pickedImage) {
+    print('pickedImage ========> $pickedImage');
+  }
 
   // sign in user
   void _signup() async {
@@ -78,7 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 100),
+                const SizedBox(height: 50),
 
                 // Lets create an account
                 Text(
@@ -93,11 +101,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   style: Theme.of(context).textTheme.headline4,
                 ),
 
-                const SizedBox(height: 60),
+                const SizedBox(height: 10),
 
                 // NOTE: use this if you want to continue to upload an image
-                // const UserImagePickerWidget(),
-                // const SizedBox(height: 20),
+                UserImagePickerWidget(imagePickFn: imagePickFn),
+
+                const SizedBox(height: 20),
 
                 // email field
                 CustomFieldWidget(
@@ -114,8 +123,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     return null;
                   },
                 ),
-
-                const SizedBox(height: 20),
 
                 // email field
                 CustomFieldWidget(
@@ -136,8 +143,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
 
-                const SizedBox(height: 20),
-
                 // password field
                 CustomFieldWidget(
                   labelText: 'Password',
@@ -154,15 +159,13 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
 
-                const SizedBox(height: 30),
-
                 // button
                 CustomFormButtonWidget(
                   onPressed: _signup,
                   text: 'SIGNUP',
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
 
                 // or Continue with
                 ContinueWithWidget(

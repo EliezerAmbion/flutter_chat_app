@@ -44,7 +44,7 @@ class ContinueWithWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
 
           // google and apple sign in btns
           Row(
@@ -60,7 +60,7 @@ class ContinueWithWidget extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
 
           // not a member?
           RichText(

@@ -31,7 +31,7 @@ ColorScheme colorScheme() {
 ElevatedButtonThemeData elevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      elevation: 12,
+      elevation: 4,
       backgroundColor: Colors.teal,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),

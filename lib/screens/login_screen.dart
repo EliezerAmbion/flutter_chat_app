@@ -100,8 +100,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
 
-                const SizedBox(height: 20),
-
                 // password field
                 CustomFieldWidget(
                   labelText: 'Password',
@@ -118,8 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
 
-                const SizedBox(height: 10),
-
                 // forgot password
                 Padding(
                   padding: const EdgeInsets.only(right: 25),
@@ -132,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
 
                 // button
                 CustomFormButtonWidget(
@@ -140,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: 'LOGIN',
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
 
                 // or Continue with
                 ContinueWithWidget(
