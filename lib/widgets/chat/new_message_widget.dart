@@ -35,7 +35,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
     FirebaseFirestore.instance.collection('groups').doc(widget.groupId).update({
       'recentMessage': _enteredMessage,
-      'recentMessageSender': user!.displayName,
+      'recentMessageSender': '${user!.uid}_${user!.displayName}',
     });
 
     _controller.clear();

@@ -51,14 +51,14 @@ class _SignupScreenState extends State<SignupScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
-    if (_pickedImage == null) {
-      HelperWidget.showSnackBar(
-        context: context,
-        message: 'Image can not be empty!',
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
-      return;
-    }
+    // if (_pickedImage == null) {
+    //   HelperWidget.showSnackBar(
+    //     context: context,
+    //     message: 'Image can not be empty!',
+    //     backgroundColor: Theme.of(context).colorScheme.error,
+    //   );
+    //   return;
+    // }
 
     // this will close the soft keyboard
     FocusScope.of(context).unfocus();

@@ -27,8 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  String getId(String text) {
-    return text.substring(0, text.indexOf('_'));
+  String getId(String? text) {
+    int underscoreIndex = text?.indexOf('_') ?? -1;
+    if (underscoreIndex == -1) {
+      return ''; // or some other fallback value
+    }
+    return text!.substring(0, underscoreIndex);
   }
 
   String getName(String text) {
@@ -79,46 +83,61 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: const CustomAppBarWidget(title: 'Groups'),
       drawer: const CustomDrawerWidget(),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .snapshots(),
-        builder: (context, AsyncSnapshot latestSnapshot) {
-          if (latestSnapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          // fallback:
-          // the purpose of this is to omit the error showing in vscode
-          // if there is no users collection
-          if (!latestSnapshot.data.exists &&
-              latestSnapshot.data.data() == null) {
-            return const Center(child: Text('No data'));
-          }
-
-          // if there is a user but no groups yet
-          if (latestSnapshot.data['groups'].length == 0) {
-            return noGroupWidget();
-          }
-
-          Map<String, dynamic> userData = latestSnapshot.data.data();
-
-          return Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                int reverseIndex = userData['groups'].length - index - 1;
-
-                return GroupTileWidget(
-                  groupId: getId(userData['groups'][reverseIndex]),
-                  groupName: getName(userData['groups'][reverseIndex]),
-                  displayName: userData['displayName'],
+        stream: FirebaseFirestore.instance.collection('groups').snapshots(),
+        builder: (context, groupsSnapshot) {
+          return StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .snapshots(),
+            builder: (context, AsyncSnapshot latestSnapshot) {
+              if (latestSnapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              },
-              itemCount: userData['groups'].length,
-            ),
+              }
+
+              // fallback:
+              // the purpose of this is to omit the error showing in vscode
+              // if there is no users collection
+              if (!latestSnapshot.data.exists &&
+                  latestSnapshot.data.data() == null) {
+                return const Center(child: Text('No data'));
+              }
+
+              // if there is a user but no groups yet
+              if (latestSnapshot.data['groups'].length == 0) {
+                return noGroupWidget();
+              }
+
+              Map<String, dynamic> userData = latestSnapshot.data.data();
+              final groupDocs = groupsSnapshot.data!.docs;
+
+              return Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    int reverseIndex = userData['groups'].length - index - 1;
+                    String recentMessage = groupDocs[index]['recentMessage'];
+                    String recentMessageSender =
+                        getId(groupDocs[index]['recentMessageSender']);
+                    // String recentMessage = 'test';
+                    // String? recentMessageSender = 'ako';
+
+                    bool isCurrentUser = userData['uid'] == recentMessageSender;
+
+                    return GroupTileWidget(
+                      groupId: getId(userData['groups'][reverseIndex]),
+                      groupName: getName(userData['groups'][reverseIndex]),
+                      displayName: userData['displayName'],
+                      recentMessage:
+                          '${isCurrentUser ? 'You:' : ''} $recentMessage',
+                    );
+                  },
+                  itemCount: userData['groups'].length,
+                ),
+              );
+            },
           );
         },
       ),
