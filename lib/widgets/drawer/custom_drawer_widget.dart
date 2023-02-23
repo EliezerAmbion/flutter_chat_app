@@ -12,22 +12,34 @@ class CustomDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentuser = Provider.of<AuthProvider>(context, listen: false)
-        .currentUser!
-        .displayName;
+    final user = Provider.of<AuthProvider>(context, listen: false).currentUser!;
+    final currentUserDisplayName = user.displayName;
+    final currentUserPhotoUrl = user.photoURL;
+    const placeHolderImage = AssetImage('assets/images/no-image.jpg');
 
     return SafeArea(
       child: Drawer(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 50),
           children: [
-            const Icon(
-              Icons.account_circle,
-              size: 100,
+            CircleAvatar(
+              radius: 50,
+              child: ClipOval(
+                child: FadeInImage(
+                  placeholder: placeHolderImage,
+                  image: currentUserPhotoUrl != null
+                      ? NetworkImage(currentUserPhotoUrl)
+                      : placeHolderImage as ImageProvider,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                ),
+              ),
             ),
+
             const SizedBox(height: 20),
             Text(
-              currentuser ?? 'Loading...',
+              currentUserDisplayName ?? 'Loading...',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.black,

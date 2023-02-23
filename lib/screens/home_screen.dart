@@ -73,15 +73,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AuthProvider>(context, listen: false).currentUser!;
+
+    print('photoUrl ==========> ${user.photoURL}');
+
     return Scaffold(
       appBar: const CustomAppBarWidget(title: 'Groups'),
       drawer: const CustomDrawerWidget(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('users')
-            .doc(Provider.of<AuthProvider>(context, listen: false)
-                .currentUser!
-                .uid)
+            .doc(user.uid)
             .snapshots(),
         builder: (context, AsyncSnapshot latestSnapshot) {
           if (latestSnapshot.connectionState == ConnectionState.waiting) {

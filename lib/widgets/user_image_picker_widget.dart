@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as Path;
-import 'package:path_provider/path_provider.dart';
+
+// if you want to use the saveImagePermanently method, uncomment this
+// import 'package:path/path.dart' as Path;
+// import 'package:path_provider/path_provider.dart';
 
 class UserImagePickerWidget extends StatefulWidget {
   final void Function(File pickedImage) imagePickFn;

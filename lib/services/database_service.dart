@@ -36,19 +36,4 @@ class DatabaseService {
       print(error);
     }
   }
-
-  static UploadTask? uploadFile(String destination, File file) {
-    try {
-      final ref = FirebaseStorage.instance.ref(destination);
-
-      return ref.putFile(file);
-    } on FirebaseException catch (error) {
-      return null;
-    }
-  }
-
-  static Future getFileImage(image) async {
-    final ref = FirebaseStorage.instance.ref().child(image);
-    return ref;
-  }
 }

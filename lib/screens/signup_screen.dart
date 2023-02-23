@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +10,8 @@ import '../widgets/continue_with_widget.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/user_image_picker_widget.dart';
+
+import 'package:path/path.dart' as path;
 
 // import '../widgets/user_image_picker_widget.dart';
 
@@ -30,10 +33,21 @@ class _SignupScreenState extends State<SignupScreen> {
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  String? _destination;
+  File? _pickedImage;
+
   bool isLoading = true;
 
-  void imagePickFn(File pickedImage) {
-    print('pickedImage ========> $pickedImage');
+  void imagePickFn(File? pickedImage) {
+    if (pickedImage == null) return;
+
+    final name = path.basename(pickedImage.path);
+    final destination = 'files/$name';
+
+    setState(() {
+      _pickedImage = pickedImage;
+      _destination = destination;
+    });
   }
 
   // sign in user
@@ -41,31 +55,37 @@ class _SignupScreenState extends State<SignupScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
+    if (_pickedImage == null) {
+      HelperWidget.showSnackBar(
+        context: context,
+        message: 'Image can not be empty!',
+        backgroundColor: Theme.of(context).colorScheme.error,
+      );
+      return;
+    }
+
     // this will close the soft keyboard
     FocusScope.of(context).unfocus();
 
-    // HelperWidget.showCircularProgressIndicator(context);
-
-    final result =
+    final authResult =
         await Provider.of<AuthProvider>(context, listen: false).signUp(
       context: context,
       emailController: _emailController,
       passwordController: _passwordController,
       usernameController: _usernameController,
+      pickedImage: _pickedImage,
+      destination: _destination,
     );
 
-    // if the result returns an error.message
-    if (result != null) {
+    // if the result returns a != null, show error.message
+    if (authResult != null) {
       HelperWidget.showSnackBar(
         context: context,
-        message: result.toString(),
+        message: authResult.toString(),
         backgroundColor: Theme.of(context).colorScheme.error,
       );
-      // pop loading circle
-      // return Navigator.of(context).pop();
+      return;
     }
-
-    // return Navigator.of(context).pop();
   }
 
   @override

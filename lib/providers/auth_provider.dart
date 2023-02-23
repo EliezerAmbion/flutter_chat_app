@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-import '../helpers/helper_widgets.dart';
-
 class AuthProvider with ChangeNotifier {
-  // TODO: gayahin mo yung uploadFile method sa database service
-  Future _createUserWithEmailAndPassword({
+  Future signUp({
     required BuildContext context,
     required TextEditingController emailController,
     required TextEditingController passwordController,
     required TextEditingController usernameController,
+    required File? pickedImage,
+    required String? destination,
   }) async {
     try {
       UserCredential authResult =
@@ -29,14 +31,45 @@ class AuthProvider with ChangeNotifier {
         'displayName': usernameController.text,
       });
 
-      // set the displayName upon signup in the auth
+      // set the displayName of user in auth upon signup
       await authResult.user?.updateDisplayName(usernameController.text);
+
+      if (pickedImage != null && destination != null) {
+        UploadTask? task = uploadFile(
+          destination: destination,
+          pickedImage: pickedImage,
+        );
+
+        // set the photoUrl of user in auth upon signup
+        await task!.whenComplete(() async {
+          String photoURL =
+              await FirebaseStorage.instance.ref(destination).getDownloadURL();
+
+          await authResult.user?.updatePhotoURL(photoURL);
+        });
+      }
+
       return null;
     } on FirebaseAuthException catch (error) {
       return error.message;
     } catch (error) {
       return 'An unknown error occured';
     }
+  }
+
+  UploadTask? uploadFile({File? pickedImage, String? destination}) {
+    try {
+      final ref = FirebaseStorage.instance.ref(destination);
+
+      return ref.putFile(pickedImage!);
+    } on FirebaseException catch (error) {
+      return null;
+    }
+  }
+
+  Future getFileImage(image) async {
+    final ref = FirebaseStorage.instance.ref().child(image);
+    return ref;
   }
 
   Future _signInWithEmailAndPassword({
@@ -72,20 +105,6 @@ class AuthProvider with ChangeNotifier {
       context: context,
       emailController: emailController,
       passwordController: passwordController,
-    );
-  }
-
-  Future signUp({
-    required BuildContext context,
-    required TextEditingController emailController,
-    required TextEditingController passwordController,
-    required TextEditingController usernameController,
-  }) {
-    return _createUserWithEmailAndPassword(
-      context: context,
-      emailController: emailController,
-      passwordController: passwordController,
-      usernameController: usernameController,
     );
   }
 }
