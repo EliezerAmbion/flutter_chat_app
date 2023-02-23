@@ -48,11 +48,11 @@ class _UserImagePickerWidgetState extends State<UserImagePickerWidget> {
     }
   }
 
+  // NOTE: don't delete, this is for reference!
   // Future<File> saveImagePermanently(String imagePath) async {
   //   final directory = await getApplicationDocumentsDirectory();
   //   final name = Path.basename(imagePath);
   //   final image = File('${directory.path}/$name');
-
   //   return File(imagePath).copy(image.path);
   // }
 

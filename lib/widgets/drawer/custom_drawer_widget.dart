@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/widgets/drawer/drawer_list_tile.dart';
 import 'package:provider/provider.dart';
 
+import '/widgets/drawer/drawer_list_tile.dart';
 import '../../providers/auth_provider.dart';
 import '../../screens/home_screen.dart';
 import '../../screens/profile_screen.dart';
@@ -12,9 +12,10 @@ class CustomDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthProvider>(context, listen: false).currentUser!;
-    final currentUserDisplayName = user.displayName;
-    final currentUserPhotoUrl = user.photoURL;
+    final User? user =
+        Provider.of<AuthProvider>(context, listen: false).currentUser;
+    final currentUserDisplayName = user?.displayName;
+    final currentUserPhotoUrl = user?.photoURL;
     const placeHolderImage = AssetImage('assets/images/no-image.jpg');
 
     return SafeArea(

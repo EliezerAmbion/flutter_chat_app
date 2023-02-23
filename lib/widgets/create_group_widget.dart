@@ -22,19 +22,29 @@ class CreateGroupWidget extends StatelessWidget {
       title: const Text('Create a Group'),
       content: Form(
         key: formKey,
-        child: CustomFieldWidget(
-          labelText: null,
-          controller: groupController,
-          obscureText: false,
-          horizontalPadding: 0,
-          suffixIcon: Icons.group,
-          autoFill: AutofillHints.name,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'Group Name can\'t be empty';
-            }
-            return null;
-          },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomFieldWidget(
+              labelText: null,
+              controller: groupController,
+              obscureText: false,
+              horizontalPadding: 0,
+              suffixIcon: Icons.group,
+              autoFill: AutofillHints.name,
+              validator: (value) {
+                const max = 15;
+
+                if (value!.isEmpty) {
+                  return 'Group Name can\'t be empty';
+                }
+                if (value.length > max) {
+                  return 'Must not exceed $max characters.';
+                }
+                return null;
+              },
+            ),
+          ],
         ),
       ),
       actions: [
@@ -42,6 +52,7 @@ class CreateGroupWidget extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop();
+            groupController.clear();
           },
           style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
           child: const Text('CANCEL'),

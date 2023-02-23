@@ -40,11 +40,11 @@ class AuthProvider with ChangeNotifier {
           pickedImage: pickedImage,
         );
 
-        // set the photoUrl of user in auth upon signup
         await task!.whenComplete(() async {
           String photoURL =
               await FirebaseStorage.instance.ref(destination).getDownloadURL();
 
+          // set the photoUrl of user in auth upon signup
           await authResult.user?.updatePhotoURL(photoURL);
         });
       }

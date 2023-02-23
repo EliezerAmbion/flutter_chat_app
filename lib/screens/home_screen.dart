@@ -75,8 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<AuthProvider>(context, listen: false).currentUser!;
 
-    print('photoUrl ==========> ${user.photoURL}');
-
     return Scaffold(
       appBar: const CustomAppBarWidget(title: 'Groups'),
       drawer: const CustomDrawerWidget(),

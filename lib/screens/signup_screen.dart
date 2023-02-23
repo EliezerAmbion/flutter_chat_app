@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
 import '../helpers/helper_widgets.dart';
@@ -10,8 +10,6 @@ import '../widgets/continue_with_widget.dart';
 import '../widgets/custom_field_widget.dart';
 import '../widgets/custom_form_button_widget.dart';
 import '../widgets/user_image_picker_widget.dart';
-
-import 'package:path/path.dart' as path;
 
 // import '../widgets/user_image_picker_widget.dart';
 
@@ -35,8 +33,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _destination;
   File? _pickedImage;
-
-  bool isLoading = true;
 
   void imagePickFn(File? pickedImage) {
     if (pickedImage == null) return;
@@ -153,11 +149,14 @@ class _SignupScreenState extends State<SignupScreen> {
                   horizontalPadding: 25,
                   autoFill: AutofillHints.username,
                   validator: (value) {
-                    if (value!.isEmpty || value.length < 4) {
-                      return 'Username must be at least 4 characters long.';
+                    const min = 4;
+                    const max = 12;
+
+                    if (value!.isEmpty || value.length < min) {
+                      return 'Username must be at least $min characters.';
                     }
-                    if (value.length > 10) {
-                      return 'Username must not exceed 10 characters';
+                    if (value.length > max) {
+                      return 'Username must not exceed $max characters.';
                     }
                     return null;
                   },
@@ -172,8 +171,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   horizontalPadding: 25,
                   autoFill: AutofillHints.password,
                   validator: (value) {
-                    if (value!.isEmpty || value.length < 7) {
-                      return 'Password must be at least 7 characters long';
+                    const min = 7;
+
+                    if (value!.isEmpty || value.length < min) {
+                      return 'Password must be at least $min characters long';
                     }
                     return null;
                   },
