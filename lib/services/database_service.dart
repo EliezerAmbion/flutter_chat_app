@@ -16,7 +16,8 @@ class DatabaseService {
         'member': [],
         'groupId': '',
         'recentMessage': '',
-        'recentMessageSender': '',
+        'recentMessageSenderId': '',
+        'recentMessageSenderName': '',
       });
 
       await groupDocRef.update({

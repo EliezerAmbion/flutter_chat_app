@@ -16,8 +16,8 @@ class MessagesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Future.value(FirebaseAuth.instance.currentUser),
-      builder: (context, futureSnapshot) {
-        if (futureSnapshot.connectionState == ConnectionState.waiting) {
+      builder: (context, userSnapshot) {
+        if (userSnapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -29,22 +29,22 @@ class MessagesWidget extends StatelessWidget {
               .collection('messages')
               .orderBy('createdAt', descending: true)
               .snapshots(),
-          builder: (context, chatLatestSnapshot) {
-            if (chatLatestSnapshot.connectionState == ConnectionState.waiting) {
+          builder: (context, groupSnapshot) {
+            if (groupSnapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
-            final chatDocs = chatLatestSnapshot.data!.docs;
+            final groupDocs = groupSnapshot.data!.docs;
             return ListView.builder(
               reverse: true,
-              itemCount: chatDocs.length,
+              itemCount: groupDocs.length,
               itemBuilder: (context, index) => MessageBubbleWidget(
-                message: chatDocs[index]['text'],
-                isMe: chatDocs[index]['userId'] == futureSnapshot.data!.uid,
-                displayName: chatDocs[index]['displayName'],
+                message: groupDocs[index]['text'],
+                isMe: groupDocs[index]['userId'] == userSnapshot.data!.uid,
+                displayName: groupDocs[index]['displayName'],
                 // optional: this is to ensure that flutter is always able to efficiently update data in lists
-                key: ValueKey(chatDocs[index].id),
+                key: ValueKey(groupDocs[index].id),
               ),
             );
           },

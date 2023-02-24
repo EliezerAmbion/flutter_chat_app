@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MessageBubbleWidget extends StatelessWidget {
+class MessageBubbleWidget extends StatefulWidget {
   final String message;
   final String displayName;
   final bool isMe;
@@ -13,56 +13,67 @@ class MessageBubbleWidget extends StatelessWidget {
   });
 
   @override
+  State<MessageBubbleWidget> createState() => _MessageBubbleWidgetState();
+}
+
+class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
+  bool _isTextVisible = false;
+
+  @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment:
+          widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: isMe
-                ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(15),
-              topRight: const Radius.circular(15),
-              bottomLeft:
-                  !isMe ? const Radius.circular(0) : const Radius.circular(15),
-              bottomRight:
-                  isMe ? const Radius.circular(0) : const Radius.circular(15),
-            ),
-          ),
-          width: 290,
-          padding: const EdgeInsets.only(
-            top: 15,
-            bottom: 20,
-            right: 10,
-            left: 18,
-          ),
-          margin: const EdgeInsets.symmetric(
-            vertical: 8,
-            horizontal: 15,
-          ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _isTextVisible = !_isTextVisible;
+            });
+          },
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 6),
+              _isTextVisible
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 20.0, left: 20),
+                      child: Text(
+                        widget.displayName,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    )
+                  : Container(),
+              Container(
+                decoration: BoxDecoration(
+                  color: widget.isMe
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(15),
+                    topRight: const Radius.circular(15),
+                    bottomLeft: !widget.isMe
+                        ? const Radius.circular(0)
+                        : const Radius.circular(15),
+                    bottomRight: widget.isMe
+                        ? const Radius.circular(0)
+                        : const Radius.circular(15),
+                  ),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                margin: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 15,
+                ),
                 child: Text(
-                  displayName,
-                  style: isMe
-                      ? Theme.of(context).textTheme.bodyText1
-                      : Theme.of(context).textTheme.bodyText1?.copyWith(
+                  widget.message,
+                  style: widget.isMe
+                      ? Theme.of(context).textTheme.headline4
+                      : Theme.of(context).textTheme.headline4?.copyWith(
                             color: Colors.white,
                           ),
                 ),
-              ),
-              Text(
-                message,
-                style: isMe
-                    ? Theme.of(context).textTheme.headline4
-                    : Theme.of(context).textTheme.headline4?.copyWith(
-                          color: Colors.white,
-                        ),
               ),
             ],
           ),
