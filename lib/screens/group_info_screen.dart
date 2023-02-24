@@ -67,28 +67,37 @@ class GroupInfoScreen extends StatelessWidget {
                               backgroundColor: Theme.of(context).errorColor,
                             ),
                             onPressed: () async {
-                              final currentUser = Provider.of<AuthProvider>(
+                              final authProvider = Provider.of<AuthProvider>(
                                 context,
                                 listen: false,
-                              ).currentUser;
+                              );
 
+                              final currentUser = authProvider.currentUser;
                               final uid = currentUser!.uid;
                               final userDisplayName = currentUser.displayName;
 
-                              await FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(uid)
-                                  .update({
-                                'groups': FieldValue.arrayRemove(
-                                    ['${groupId}_$groupName'])
-                              });
-                              await FirebaseFirestore.instance
-                                  .collection('groups')
-                                  .doc(groupId)
-                                  .update({
-                                'member': FieldValue.arrayRemove(
-                                    ['${uid}_$userDisplayName'])
-                              });
+                              // get the groups of specific user
+                              List<dynamic> userGroups =
+                                  await authProvider.getUserGroups(uid);
+
+                              if (userGroups
+                                  .contains('${groupId}_$groupName')) {
+                                await FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(uid)
+                                    .update({
+                                  'groups': FieldValue.arrayRemove(
+                                      ['${groupId}_$groupName'])
+                                });
+                                await FirebaseFirestore.instance
+                                    .collection('groups')
+                                    .doc(groupId)
+                                    .update({
+                                  'member': FieldValue.arrayRemove(
+                                      ['${uid}_$userDisplayName'])
+                                });
+                              }
+
                               Navigator.of(context)
                                   .pushReplacementNamed(HomeScreen.routeName);
                             },

@@ -6,6 +6,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider with ChangeNotifier {
+  final CollectionReference _usersCollection =
+      FirebaseFirestore.instance.collection('users');
+
   Future signUp({
     required BuildContext context,
     required TextEditingController emailController,
@@ -21,10 +24,7 @@ class AuthProvider with ChangeNotifier {
         password: passwordController.text,
       );
 
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(authResult.user!.uid)
-          .set({
+      await _usersCollection.doc(authResult.user!.uid).set({
         'email': emailController.text,
         'groups': [],
         'uid': authResult.user!.uid,
@@ -92,39 +92,26 @@ class AuthProvider with ChangeNotifier {
     return FirebaseAuth.instance.currentUser;
   }
 
-  String? get currentUserPhotoUrl {
-    return FirebaseAuth.instance.currentUser?.photoURL;
-  }
-
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
+
+  // get the groups of specific user
+  Future<List<dynamic>> getUserGroups(String userId) async {
+    try {
+      DocumentSnapshot userDoc = await _usersCollection.doc(userId).get();
+
+      // check first if there is a document under a specific user collection
+      if (!userDoc.exists) {
+        throw Exception('User not found');
+      }
+
+      //if the document exists, do this
+      Map<String, dynamic>? userData = userDoc.data()! as Map<String, dynamic>?;
+      return userData?['groups'] ?? [];
+    } catch (error) {
+      print('error in auth_provider getUserGroups ==========> $error');
+      rethrow;
+    }
+  }
 }
-
-
-// class UsersProvider with ChangeNotifier {
-//   List<User> _users = [];
-
-//   List<User> get users {
-//     return [..._users];
-//   }
-
-//   Future<void> fetchUsers() async {
-//     try {
-//       final QuerySnapshot<Map<String, dynamic>> userDocs =
-//           await FirebaseFirestore.instance.collection('users').get();
-//       final List<User> loadedUsers = userDocs.docs
-//           .map((userDoc) => User(
-//                 id: userDoc.id,
-//                 name: userDoc.get('name'),
-//                 email: userDoc.get('email'),
-//                 // add other fields here
-//               ))
-//           .toList();
-//       _users = loadedUsers;
-//       notifyListeners();
-//     } catch (error) {
-//       // handle error
-//     }
-//   }
-// }
