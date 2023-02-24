@@ -11,7 +11,8 @@ class DatabaseService {
           await FirebaseFirestore.instance.collection('groups').add({
         'groupName': groupName,
         'groupIcon': '',
-        'admin': '${uid}_$displayName',
+        'adminId': uid,
+        'adminName': displayName,
         'member': [],
         'groupId': '',
         'recentMessage': '',

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../widgets/custom_appbar_widget.dart';
-import '../widgets/drawer/custom_drawer_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
@@ -27,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: const CustomAppBarWidget(title: 'Profile'),
-      drawer: const CustomDrawerWidget(),
+      // drawer: const CustomDrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: Column(

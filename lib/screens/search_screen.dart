@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../helpers/helper_functions.dart';
+
 class SearchScreen extends StatefulWidget {
   static const routeName = '/search';
 
@@ -14,14 +16,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String searchedQuery = '';
-
-  String getName(String text) {
-    return text.substring(text.indexOf('_') + 1);
-  }
-
-  String getId(String text) {
-    return text.substring(0, text.indexOf('_'));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +97,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       style: Theme.of(context).textTheme.headline3,
                     ),
                     subtitle: Text(
-                      'Admin: ${getName(groupsDocs[index]['admin'])}',
+                      'Admin: ${groupsDocs[index]['adminName']}',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     trailing: hasJoined

@@ -107,4 +107,8 @@ class AuthProvider with ChangeNotifier {
       passwordController: passwordController,
     );
   }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }

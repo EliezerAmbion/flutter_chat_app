@@ -6,14 +6,14 @@ class GroupTileWidget extends StatelessWidget {
   final String groupName;
   final String displayName;
   final String groupId;
-  final String? recentMessage;
+  // final String? recentMessage;
 
   const GroupTileWidget({
     super.key,
     required this.groupName,
     required this.displayName,
     required this.groupId,
-    required this.recentMessage,
+    // required this.recentMessage,
   });
 
   @override
@@ -47,15 +47,12 @@ class GroupTileWidget extends StatelessWidget {
             ),
             title: Text(
               groupName,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headline4,
             ),
-            subtitle: Text(
-              recentMessage ?? 'No message yet',
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
+            // subtitle: Text(
+            //   recentMessage ?? 'No message yet',
+            //   style: Theme.of(context).textTheme.bodyText2,
+            // ),
           ),
         ),
       ),

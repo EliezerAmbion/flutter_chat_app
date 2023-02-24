@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../helpers/helper_functions.dart';
 import '../providers/auth_provider.dart';
 import '../screens/home_screen.dart';
 
@@ -17,14 +18,6 @@ class GroupInfoScreen extends StatelessWidget {
 
     final groupName = groupArgs['groupName'];
     final groupId = groupArgs['groupId'];
-
-    String getId(String text) {
-      return text.substring(0, text.indexOf('_'));
-    }
-
-    String getName(String text) {
-      return text.substring(text.indexOf('_') + 1);
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -127,8 +120,9 @@ class GroupInfoScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: groupData['member'].length,
             itemBuilder: (context, index) {
-              final isAdmin = getId(groupData['member'][index]) ==
-                  getId(groupData['admin']);
+              final isAdmin =
+                  HelperFunction.getId(groupData['member'][index]) ==
+                      groupData['adminId'];
 
               return ListTile(
                 contentPadding: const EdgeInsets.symmetric(
@@ -140,16 +134,15 @@ class GroupInfoScreen extends StatelessWidget {
                   child: Text(
                     groupName!.substring(0, 1).toUpperCase(),
                     textAlign: TextAlign.center,
-                    style: TextStyle(),
                   ),
                 ),
                 title: Text(
-                  getName(groupData['member'][index]),
+                  HelperFunction.getName(groupData['member'][index]),
                   style: Theme.of(context).textTheme.headline3,
                 ),
                 subtitle: isAdmin
                     ? Text(
-                        'ADMIN',
+                        'Admin',
                         style: Theme.of(context).textTheme.bodyText1,
                       )
                     : Text(
@@ -164,39 +157,3 @@ class GroupInfoScreen extends StatelessWidget {
     );
   }
 }
-
-//groupId
-// gourpName
-// adminName
-
-              // ADMIN
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-              //   child: Card(
-              //     color: Colors.amber,
-              //     child: SizedBox(
-              //       width: double.infinity,
-              //       height: 150,
-              //       child: Column(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         crossAxisAlignment: CrossAxisAlignment.center,
-              //         children: [
-              //           Text(
-              //             groupName!,
-              //             style: TextStyle(
-              //               
-              //               fontSize: 22,
-              //             ),
-              //           ),
-              //           Text(
-              //             'Admin: ${getName(groupData['admin'])}',
-              //             style: TextStyle(
-              //               
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
