@@ -103,14 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
             return noGroupWidget();
           }
 
-          Map<String, dynamic> userData = latestSnapshot.data.data();
+          Map<String, dynamic>? userData = latestSnapshot.data.data();
           // final groupDocs = groupsSnapshot.data!.docs;
 
           return Container(
             margin: const EdgeInsets.only(top: 20),
             child: ListView.builder(
               itemBuilder: (context, index) {
-                int reverseIndex = userData['groups'].length - index - 1;
+                int reverseIndex = userData?['groups'].length - index - 1;
                 // String recentMessage = groupDocs[index]['recentMessage'];
                 // String recentMessageSender =
                 //     HelperFunction.getId(groupDocs[index]['recentMessageSender']);
@@ -121,15 +121,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 return GroupTileWidget(
                   groupId:
-                      HelperFunction.getId(userData['groups'][reverseIndex]),
+                      HelperFunction.getId(userData?['groups'][reverseIndex]),
                   groupName:
-                      HelperFunction.getName(userData['groups'][reverseIndex]),
-                  displayName: userData['displayName'],
+                      HelperFunction.getName(userData?['groups'][reverseIndex]),
+                  displayName: userData?['displayName'],
                   // recentMessage:
                   //     '${isCurrentUser ? 'You:' : ''} $recentMessage',
                 );
               },
-              itemCount: userData['groups'].length,
+              itemCount: userData?['groups'].length,
             ),
           );
         },

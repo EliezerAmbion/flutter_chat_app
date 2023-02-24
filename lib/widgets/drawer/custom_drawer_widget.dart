@@ -104,7 +104,7 @@ class CustomDrawerWidget extends StatelessWidget {
                               backgroundColor: Colors.grey,
                             ),
                             onPressed: () async {
-                              Navigator.of(context).pop();
+                              Navigator.pop(context);
                             },
                             child: const Text('Cancel'),
                           ),
@@ -117,7 +117,7 @@ class CustomDrawerWidget extends StatelessWidget {
                                 backgroundColor: Theme.of(context).errorColor,
                               ),
                               onPressed: () async {
-                                Navigator.of(context).pop();
+                                Navigator.pop(context);
                                 await FirebaseAuth.instance.signOut();
                               },
                               child: const Text('Logout'),

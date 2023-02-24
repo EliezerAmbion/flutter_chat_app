@@ -51,7 +51,7 @@ class CreateGroupWidget extends StatelessWidget {
         // cancel btn
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
             groupController.clear();
           },
           style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
@@ -75,7 +75,7 @@ class CreateGroupWidget extends StatelessWidget {
             );
 
             // pop the alert dialog
-            Navigator.of(context).pop();
+            Navigator.pop(context);
 
             HelperWidget.showSnackBar(
               context: context,

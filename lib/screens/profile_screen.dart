@@ -4,17 +4,13 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../widgets/custom_appbar_widget.dart';
+import '../widgets/drawer/custom_drawer_widget.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
 
   const ProfileScreen({super.key});
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final User? user =
@@ -26,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: const CustomAppBarWidget(title: 'Profile'),
-      // drawer: const CustomDrawerWidget(),
+      drawer: const CustomDrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: Column(
@@ -55,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  currentUserDisplayName!,
+                  currentUserDisplayName ?? 'Loading...',
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
@@ -69,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  currentUserEmail!,
+                  currentUserEmail ?? 'Loading...',
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],

@@ -54,7 +54,7 @@ class GroupInfoScreen extends StatelessWidget {
                             backgroundColor: Colors.grey,
                           ),
                           onPressed: () async {
-                            Navigator.of(context).pop();
+                            Navigator.pop(context);
                           },
                           child: const Text('Cancel'),
                         ),

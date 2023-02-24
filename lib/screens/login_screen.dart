@@ -51,10 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Theme.of(context).colorScheme.error,
       );
       // pop loading circle
-      return Navigator.of(context).pop();
+      return Navigator.pop(context);
     }
 
-    return Navigator.of(context).pop();
+    return Navigator.pop(context);
   }
 
   @override
