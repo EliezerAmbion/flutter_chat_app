@@ -63,16 +63,12 @@ class AuthProvider with ChangeNotifier {
 
       return ref.putFile(pickedImage!);
     } on FirebaseException catch (error) {
+      print('error in auth_provider uploadFile ==========> $error');
       return null;
     }
   }
 
-  Future getFileImage(image) async {
-    final ref = FirebaseStorage.instance.ref().child(image);
-    return ref;
-  }
-
-  Future _signInWithEmailAndPassword({
+  Future login({
     required BuildContext context,
     required TextEditingController emailController,
     required TextEditingController passwordController,
@@ -96,19 +92,39 @@ class AuthProvider with ChangeNotifier {
     return FirebaseAuth.instance.currentUser;
   }
 
-  Future login({
-    required BuildContext context,
-    required TextEditingController emailController,
-    required TextEditingController passwordController,
-  }) {
-    return _signInWithEmailAndPassword(
-      context: context,
-      emailController: emailController,
-      passwordController: passwordController,
-    );
+  String? get currentUserPhotoUrl {
+    return FirebaseAuth.instance.currentUser?.photoURL;
   }
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 }
+
+
+// class UsersProvider with ChangeNotifier {
+//   List<User> _users = [];
+
+//   List<User> get users {
+//     return [..._users];
+//   }
+
+//   Future<void> fetchUsers() async {
+//     try {
+//       final QuerySnapshot<Map<String, dynamic>> userDocs =
+//           await FirebaseFirestore.instance.collection('users').get();
+//       final List<User> loadedUsers = userDocs.docs
+//           .map((userDoc) => User(
+//                 id: userDoc.id,
+//                 name: userDoc.get('name'),
+//                 email: userDoc.get('email'),
+//                 // add other fields here
+//               ))
+//           .toList();
+//       _users = loadedUsers;
+//       notifyListeners();
+//     } catch (error) {
+//       // handle error
+//     }
+//   }
+// }
