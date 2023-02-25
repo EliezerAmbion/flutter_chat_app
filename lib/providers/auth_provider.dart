@@ -93,7 +93,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
+    return await FirebaseAuth.instance.signOut();
   }
 
   // get the groups of specific user
@@ -106,7 +106,7 @@ class AuthProvider with ChangeNotifier {
         throw Exception('User not found');
       }
 
-      //if the document exists, do this
+      // if the document exists, do this
       Map<String, dynamic>? userData = userDoc.data()! as Map<String, dynamic>?;
       return userData?['groups'] ?? [];
     } catch (error) {

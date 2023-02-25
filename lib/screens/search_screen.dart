@@ -19,9 +19,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final uid = Provider.of<AuthProvider>(context).currentUser!.uid;
-    final userDisplayName =
-        Provider.of<AuthProvider>(context).currentUser!.displayName;
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    final uid = authProvider.currentUser?.uid;
+    final userDisplayName = authProvider.currentUser!.displayName;
 
     return Scaffold(
       appBar: AppBar(
