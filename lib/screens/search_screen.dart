@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../helpers/helper_functions.dart';
-
 class SearchScreen extends StatefulWidget {
   static const routeName = '/search';
 
@@ -16,6 +14,13 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String searchedQuery = '';
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    _focusNode.requestFocus();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 10),
             child: TextField(
+              focusNode: _focusNode,
               onChanged: (value) {
                 setState(() {
                   searchedQuery = value;

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,15 +44,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // if the result returns an error.message
     if (result != null) {
+      if (!mounted) return;
       HelperWidget.showSnackBar(
         context: context,
         message: result.toString(),
         backgroundColor: Theme.of(context).colorScheme.error,
       );
+
       // pop loading circle
+      if (!mounted) return;
       return Navigator.pop(context);
     }
 
+    if (!mounted) return;
     return Navigator.pop(context);
   }
 

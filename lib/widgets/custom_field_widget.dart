@@ -62,6 +62,15 @@ class CustomFieldWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
+
+              // error border color
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+
+              errorStyle: const TextStyle(fontSize: 10),
             ),
           ),
           const SizedBox(height: 15),
