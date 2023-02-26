@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
     // this will close the soft keyboard
     FocusScope.of(context).unfocus();
 
-    HelperWidget.showCircularProgressIndicator(context);
+    // HelperWidget.showCircularProgressIndicator(context);
 
     if (_pickedImage == null) {
       HelperWidget.showSnackBar(
@@ -62,7 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
         message: 'Image can not be empty!',
         backgroundColor: Theme.of(context).colorScheme.error,
       );
-      return Navigator.pop(context);
+      return;
     }
 
     final authResult =
@@ -85,11 +85,8 @@ class _SignupScreenState extends State<SignupScreen> {
         backgroundColor: Theme.of(context).colorScheme.error,
       );
 
-      return Navigator.pop(context);
+      return;
     }
-
-    if (!mounted) return;
-    return Navigator.pop(context);
   }
 
   @override

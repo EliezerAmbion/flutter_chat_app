@@ -55,29 +55,15 @@ class CustomDrawerWidget extends StatelessWidget {
               route: HomeScreen.routeName,
               text: 'Groups',
               icon: Icons.groups_outlined,
+              navType: 'pushReplacementNamed',
             ),
 
             // Profile
-            // const DrawerListTile(
-            //   route: ProfileScreen.routeName,
-            //   text: 'Profile',
-            //   icon: Icons.person_outline,
-            // ),
-
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed(ProfileScreen.routeName);
-              },
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 5,
-              ),
-              leading: const Icon(Icons.person_outline),
-              title: Text(
-                'Profile',
-                style: Theme.of(context).textTheme.headline4,
-              ),
+            const DrawerListTile(
+              route: ProfileScreen.routeName,
+              text: 'Profile',
+              icon: Icons.person_outline,
+              navType: 'pushNamed',
             ),
 
             // Logout

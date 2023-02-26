@@ -104,6 +104,7 @@ class AuthProvider with ChangeNotifier {
       // check first if there is a document under a specific user collection
       if (!userDoc.exists) {
         throw Exception('User not found');
+        // return;
       }
 
       // if the document exists, do this
