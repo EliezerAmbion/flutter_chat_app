@@ -69,7 +69,9 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                 child: Text(
                   widget.message,
                   style: widget.isMe
-                      ? Theme.of(context).textTheme.headline4
+                      ? Theme.of(context).textTheme.headline4?.copyWith(
+                            color: Colors.white,
+                          )
                       : Theme.of(context).textTheme.headline4?.copyWith(
                             color: Colors.white,
                           ),

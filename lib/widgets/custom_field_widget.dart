@@ -60,6 +60,7 @@ class CustomFieldWidget extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.secondary,
+                  width: 2,
                 ),
               ),
 
@@ -67,6 +68,14 @@ class CustomFieldWidget extends StatelessWidget {
               errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+
+              // focused error border color
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.error,
+                  width: 2,
                 ),
               ),
 

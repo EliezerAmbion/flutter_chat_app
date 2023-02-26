@@ -34,7 +34,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String? _destination;
   File? _pickedImage;
 
-  void imagePickFn(File? pickedImage) {
+  void _imagePickFn(File? pickedImage) {
     if (pickedImage == null) return;
 
     final name = path.basename(pickedImage.path);
@@ -51,17 +51,19 @@ class _SignupScreenState extends State<SignupScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
-    // if (_pickedImage == null) {
-    //   HelperWidget.showSnackBar(
-    //     context: context,
-    //     message: 'Image can not be empty!',
-    //     backgroundColor: Theme.of(context).colorScheme.error,
-    //   );
-    //   return;
-    // }
-
     // this will close the soft keyboard
     FocusScope.of(context).unfocus();
+
+    HelperWidget.showCircularProgressIndicator(context);
+
+    if (_pickedImage == null) {
+      HelperWidget.showSnackBar(
+        context: context,
+        message: 'Image can not be empty!',
+        backgroundColor: Theme.of(context).colorScheme.error,
+      );
+      return Navigator.pop(context);
+    }
 
     final authResult =
         await Provider.of<AuthProvider>(context, listen: false).signUp(
@@ -73,15 +75,21 @@ class _SignupScreenState extends State<SignupScreen> {
       destination: _destination,
     );
 
-    // if the result returns a != null, show error.message
+    // != null means there is an error
     if (authResult != null) {
+      if (!mounted) return;
+
       HelperWidget.showSnackBar(
         context: context,
         message: authResult.toString(),
         backgroundColor: Theme.of(context).colorScheme.error,
       );
-      return;
+
+      return Navigator.pop(context);
     }
+
+    if (!mounted) return;
+    return Navigator.pop(context);
   }
 
   @override
@@ -120,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 10),
 
                 // NOTE: use this if you want to continue to upload an image
-                UserImagePickerWidget(imagePickFn: imagePickFn),
+                UserImagePickerWidget(imagePickFn: _imagePickFn),
 
                 const SizedBox(height: 20),
 
