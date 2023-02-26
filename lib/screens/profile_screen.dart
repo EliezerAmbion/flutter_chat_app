@@ -68,6 +68,13 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+              },
+              child: const Text('Logout'),
+            ),
           ],
         ),
       ),

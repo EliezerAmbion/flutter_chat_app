@@ -7,7 +7,6 @@ import '../helpers/helper_functions.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/create_group_widget.dart';
 import '../widgets/custom_appbar_widget.dart';
-import '../widgets/drawer/custom_drawer_widget.dart';
 import '../widgets/group_tile_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -71,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<AuthProvider>(context, listen: false).currentUser;
 
     return Scaffold(
-      appBar: const CustomAppBarWidget(title: 'Groups'),
-      drawer: const CustomDrawerWidget(),
+      appBar: const CustomAppBarWidget(title: 'Your Groups'),
+      // drawer: const CustomDrawerWidget(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('groups').snapshots(),
         builder: (context, groupsSnapshot) {
