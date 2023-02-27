@@ -29,6 +29,7 @@ class AuthProvider with ChangeNotifier {
         'groups': [],
         'uid': authResult.user!.uid,
         'displayName': usernameController.text,
+        'emailVerified': false,
       });
 
       // set the displayName of user in auth upon signup
@@ -79,6 +80,7 @@ class AuthProvider with ChangeNotifier {
         email: emailController.text,
         password: passwordController.text,
       );
+      print('authResult ==========> ${authResult}');
 
       return null;
     } on FirebaseAuthException catch (error) {

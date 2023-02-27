@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/helpers/helper_widgets.dart';
-import 'package:flutter_chat_app/main.dart';
+
 import '../home_screen.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   bool canResendEmail = false;
   Timer? checkEmailtimer;
   int resendEmailTimer = 30;
+  User? user;
 
   @override
   void initState() {
@@ -40,11 +42,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   Future sendVerificationEmail() async {
     try {
-      final user = FirebaseAuth.instance.currentUser!;
+      user = FirebaseAuth.instance.currentUser!;
       // sendEmailVerification is a Firebase method.
       // you can only use this if the user is created first.
       // same with .emailVerified.
-      await user.sendEmailVerification();
+      await user!.sendEmailVerification();
 
       setState(() => canResendEmail = false);
       await Future.delayed(Duration(seconds: resendEmailTimer));
@@ -71,6 +73,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     // if the user is verified, cancel the timer so that
     // this method (checkEmailVerified) will not run anymore.
     if (isEmailVerified) {
+      FirebaseFirestore.instance.collection('users').doc(user?.uid).update({
+        'emailVerified': isEmailVerified,
+      });
       checkEmailtimer?.cancel();
     }
   }
