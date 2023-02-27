@@ -92,10 +92,6 @@ class AuthProvider with ChangeNotifier {
     return FirebaseAuth.instance.currentUser;
   }
 
-  Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
   // get the groups of specific user
   Future<List<dynamic>> getUserGroups(String userId) async {
     try {

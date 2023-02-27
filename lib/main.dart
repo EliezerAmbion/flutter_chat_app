@@ -3,16 +3,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../config/theme.dart';
-import '../providers/auth_provider.dart';
-import '../screens/chat_screen.dart';
-import '../screens/group_info_screen.dart';
-import '../screens/home_screen.dart';
-import '../screens/login_screen.dart';
-import '../screens/profile_screen.dart';
-import '../screens/search_screen.dart';
-import '../screens/signup_screen.dart';
+import 'config/theme.dart';
 import 'firebase_options.dart';
+import 'providers/auth_provider.dart';
+import 'screens/auth_screens.dart/login_screen.dart';
+import 'screens/auth_screens.dart/signup_screen.dart';
+import 'screens/auth_screens.dart/verify_email_screen.dart';
+import 'screens/chat_screen.dart';
+import 'screens/group_info_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,7 +83,8 @@ class _MainState extends State<Main> {
       builder: (context, snapshot) {
         // if user is logged in
         if (snapshot.hasData) {
-          return const HomeScreen();
+          return VerifyEmailScreen();
+          // return const HomeScreen();
 
           // if user is NOT logged in
         } else {

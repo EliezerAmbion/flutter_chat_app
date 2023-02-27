@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
-import '../helpers/helper_widgets.dart';
-import '../providers/auth_provider.dart';
-import '../widgets/continue_with_widget.dart';
-import '../widgets/custom_field_widget.dart';
-import '../widgets/custom_form_button_widget.dart';
-import '../widgets/user_image_picker_widget.dart';
+import '../../helpers/helper_widgets.dart';
+import '../../providers/auth_provider.dart';
+import '../../widgets/continue_with_widget.dart';
+import '../../widgets/custom_field_widget.dart';
+import '../../widgets/custom_form_button_widget.dart';
+import '../../widgets/user_image_picker_widget.dart';
 
 // import '../widgets/user_image_picker_widget.dart';
 
