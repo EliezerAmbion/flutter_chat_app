@@ -21,7 +21,7 @@ class CustomFormButtonWidget extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Text(
-          text,
+          text.toUpperCase(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline3!.copyWith(
                 color: Theme.of(context).colorScheme.tertiary,

@@ -22,6 +22,18 @@ class CustomFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    OutlineInputBorder customOutlineInputBorder({
+      required Color color,
+      required double width,
+    }) {
+      return OutlineInputBorder(
+        borderSide: BorderSide(
+          color: color,
+          width: width,
+        ),
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Column(
@@ -50,33 +62,27 @@ class CustomFieldWidget extends StatelessWidget {
               floatingLabelStyle: Theme.of(context).textTheme.headline6,
 
               // border unfocused
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+              enabledBorder: customOutlineInputBorder(
+                color: Theme.of(context).colorScheme.primary,
+                width: 1,
               ),
 
               // border focused
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.secondary,
-                  width: 2,
-                ),
+              focusedBorder: customOutlineInputBorder(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 2,
               ),
 
               // error border color
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.error,
-                ),
+              errorBorder: customOutlineInputBorder(
+                color: Theme.of(context).colorScheme.error,
+                width: 1,
               ),
 
               // focused error border color
-              focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.error,
-                  width: 2,
-                ),
+              focusedErrorBorder: customOutlineInputBorder(
+                color: Theme.of(context).colorScheme.error,
+                width: 2,
               ),
 
               errorStyle: const TextStyle(fontSize: 10),

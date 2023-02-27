@@ -71,6 +71,7 @@ class ProfileScreen extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () async {
+                Navigator.pop(context);
                 await FirebaseAuth.instance.signOut();
               },
               child: const Text('Logout'),
