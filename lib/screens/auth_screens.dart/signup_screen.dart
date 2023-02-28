@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
@@ -58,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
     FocusScope.of(context).unfocus();
 
     // NOTE: fix the indicator not popping
-    HelperWidget.showCircularProgressIndicator(context);
+    // HelperWidget.showCircularProgressIndicator(context);
 
     if (_pickedImage == null) {
       HelperWidget.showSnackBar(
@@ -66,7 +67,8 @@ class _SignupScreenState extends State<SignupScreen> {
         message: 'Image can not be empty!',
         backgroundColor: Theme.of(context).colorScheme.error,
       );
-      return Navigator.pop(context);
+      // return Navigator.pop(context);
+      return;
     }
 
     final result = await authProvider.signUp(
@@ -79,19 +81,17 @@ class _SignupScreenState extends State<SignupScreen> {
 
     if (result is! User) {
       if (!mounted) return;
-
       HelperWidget.showSnackBar(
         context: context,
         message: result.toString(),
         backgroundColor: Theme.of(context).colorScheme.error,
       );
-      return Navigator.pop(context);
+      // return Navigator.pop(context);
+      return;
     }
 
-    print('result ==========> ${result}');
-
-    if (!mounted) return;
-    return Navigator.pop(context);
+    // return Navigator.pop(context);
+    return;
   }
 
   @override
@@ -99,6 +99,7 @@ class _SignupScreenState extends State<SignupScreen> {
     _emailController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
+
     super.dispose();
   }
 
@@ -127,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   style: Theme.of(context).textTheme.headline4,
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
 
                 // NOTE: use this if you want to continue to upload an image
                 UserImagePickerWidget(imagePickFn: _imagePickFn),
@@ -190,6 +191,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
 
+                const SizedBox(height: 5),
+
                 // button
                 CustomFormButtonWidget(
                   onPressed: _signup,
@@ -199,10 +202,25 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 30),
 
                 // or Continue with
-                ContinueWithWidget(
-                  togglePages: widget.togglePages,
-                  text: 'Already a Member ',
-                  toggleText: 'Login now!',
+                const ContinueWithWidget(),
+
+                RichText(
+                  text: TextSpan(
+                    text: 'Already a Member? ',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    children: [
+                      TextSpan(
+                        text: 'Login Now!',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.togglePages,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

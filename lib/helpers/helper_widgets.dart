@@ -11,7 +11,6 @@ class HelperWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          // generic message for login
           message,
           textAlign: TextAlign.center,
           style: const TextStyle(fontWeight: FontWeight.bold),
