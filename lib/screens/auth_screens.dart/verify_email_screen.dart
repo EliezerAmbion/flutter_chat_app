@@ -58,7 +58,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         backgroundColor: Theme.of(context).colorScheme.error,
       );
     } catch (error) {
-      print('error ==========> ${error}');
+      print('error in sendVerificationEmail ==========> ${error}');
     }
   }
 

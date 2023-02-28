@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -139,13 +140,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: 'LOGIN',
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 40),
 
                 // or Continue with
-                ContinueWithWidget(
-                  togglePages: widget.togglePages,
-                  text: 'Not a member? ',
-                  toggleText: 'Register now!',
+                const ContinueWithWidget(),
+
+                // not a member?
+                RichText(
+                  text: TextSpan(
+                    text: 'Not a Member? ',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    children: [
+                      TextSpan(
+                        text: 'Register Now!',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.togglePages,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

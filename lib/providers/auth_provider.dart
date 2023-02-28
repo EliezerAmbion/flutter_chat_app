@@ -45,7 +45,6 @@ class AuthProvider with ChangeNotifier {
         email: emailController,
         password: passwordController,
       );
-      print('authResult ==========> ${authResult}');
 
       return _userFromFirebase(authResult.user);
     } on auth.FirebaseAuthException catch (error) {

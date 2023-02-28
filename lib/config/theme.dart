@@ -46,44 +46,44 @@ TextTheme textTheme() {
     headline1: TextStyle(
       fontFamily: 'MontBold',
       color: Colors.black,
-      fontSize: 28,
+      fontSize: 32,
     ),
     headline2: TextStyle(
       fontFamily: 'MontBold',
       color: Colors.black,
-      fontSize: 22,
+      fontSize: 26,
     ),
     headline3: TextStyle(
       fontFamily: 'MontBold',
       color: Colors.black,
-      fontSize: 16,
+      fontSize: 20,
     ),
     headline4: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black,
-      fontSize: 16,
+      fontSize: 20,
     ),
     headline5: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black,
-      fontSize: 15,
+      fontSize: 18,
     ),
     headline6: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black87,
-      fontSize: 14,
+      fontSize: 16,
     ),
 
     // body text theme
     bodyText1: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black87,
-      fontSize: 12,
+      fontSize: 14,
     ),
     bodyText2: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black87,
-      fontSize: 10,
+      fontSize: 12,
     ),
   );
 }
