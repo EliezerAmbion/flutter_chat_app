@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../helpers/helper_widgets.dart';
+import '../../models/user_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/continue_with_widget.dart';
 import '../../widgets/custom_field_widget.dart';
@@ -27,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // sign in user
   void _login() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
@@ -35,24 +38,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
     HelperWidget.showCircularProgressIndicator(context);
 
-    final result =
-        await Provider.of<AuthProvider>(context, listen: false).login(
-      context: context,
-      emailController: _emailController,
-      passwordController: _passwordController,
+    final result = await authProvider.login(
+      emailController: _emailController.text,
+      passwordController: _passwordController.text,
     );
 
-    // if the result returns an error.message
-    if (result != null) {
+    // this means if the result is not a User
+    if (result is! User) {
       if (!mounted) return;
+
       HelperWidget.showSnackBar(
         context: context,
         message: result.toString(),
         backgroundColor: Theme.of(context).colorScheme.error,
       );
 
-      // pop loading circle
-      if (!mounted) return;
       return Navigator.pop(context);
     }
 

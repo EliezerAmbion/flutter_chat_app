@@ -5,6 +5,7 @@ import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
 import '../../helpers/helper_widgets.dart';
+import '../../models/user_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/continue_with_widget.dart';
 import '../../widgets/custom_field_widget.dart';
@@ -48,13 +49,16 @@ class _SignupScreenState extends State<SignupScreen> {
 
   // sign in user
   void _signup() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
     final bool isValid = _formKey.currentState!.validate();
     if (!isValid) return;
 
     // this will close the soft keyboard
     FocusScope.of(context).unfocus();
 
-    // HelperWidget.showCircularProgressIndicator(context);
+    // NOTE: fix the indicator not popping
+    HelperWidget.showCircularProgressIndicator(context);
 
     if (_pickedImage == null) {
       HelperWidget.showSnackBar(
@@ -62,31 +66,32 @@ class _SignupScreenState extends State<SignupScreen> {
         message: 'Image can not be empty!',
         backgroundColor: Theme.of(context).colorScheme.error,
       );
-      return;
+      return Navigator.pop(context);
     }
 
-    final authResult =
-        await Provider.of<AuthProvider>(context, listen: false).signUp(
-      context: context,
-      emailController: _emailController,
-      passwordController: _passwordController,
-      usernameController: _usernameController,
+    final result = await authProvider.signUp(
+      emailController: _emailController.text,
+      passwordController: _passwordController.text,
+      usernameController: _usernameController.text,
       pickedImage: _pickedImage,
       destination: _destination,
     );
 
-    // != null means there is an error
-    if (authResult != null) {
+    if (result is! User) {
       if (!mounted) return;
 
       HelperWidget.showSnackBar(
         context: context,
-        message: authResult.toString(),
+        message: result.toString(),
         backgroundColor: Theme.of(context).colorScheme.error,
       );
-
-      return;
+      return Navigator.pop(context);
     }
+
+    print('result ==========> ${result}');
+
+    if (!mounted) return;
+    return Navigator.pop(context);
   }
 
   @override

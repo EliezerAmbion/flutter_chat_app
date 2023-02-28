@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'config/theme.dart';
 import 'firebase_options.dart';
+import 'models/user_model.dart';
 import 'providers/auth_provider.dart';
 import 'screens/auth_screens.dart/login_screen.dart';
 import 'screens/auth_screens.dart/signup_screen.dart';
@@ -78,12 +78,13 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
+      stream: authProvider.user,
+      builder: (_, AsyncSnapshot<User?> snapshot) {
         // if user is logged in
         if (snapshot.hasData) {
-          return VerifyEmailScreen();
+          return const VerifyEmailScreen();
           // return const HomeScreen();
 
           // if user is NOT logged in
