@@ -36,16 +36,20 @@ class MessagesWidget extends StatelessWidget {
               );
             }
             final groupDocs = groupSnapshot.data!.docs;
+
             return ListView.builder(
               reverse: true,
               itemCount: groupDocs.length,
-              itemBuilder: (context, index) => MessageBubbleWidget(
-                message: groupDocs[index]['text'],
-                isMe: groupDocs[index]['userId'] == userSnapshot.data!.uid,
-                displayName: groupDocs[index]['displayName'],
-                // optional: this is to ensure that flutter is always able to efficiently update data in lists
-                key: ValueKey(groupDocs[index].id),
-              ),
+              itemBuilder: (context, index) {
+                return MessageBubbleWidget(
+                  message: groupDocs[index]['text'],
+                  isMe: groupDocs[index]['userId'] == userSnapshot.data!.uid,
+                  displayName: groupDocs[index]['displayName'],
+                  photoUrl: groupDocs[index]['photoUrl'],
+                  // optional: this is to ensure that flutter is always able to efficiently update data in lists
+                  key: ValueKey(groupDocs[index].id),
+                );
+              },
             );
           },
         );

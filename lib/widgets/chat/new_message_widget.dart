@@ -31,6 +31,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
       'createdAt': FieldValue.serverTimestamp(),
       'userId': user!.uid,
       'displayName': user!.displayName,
+      'photoUrl': user!.photoURL,
     });
 
     FirebaseFirestore.instance.collection('groups').doc(widget.groupId).update({

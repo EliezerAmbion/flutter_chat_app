@@ -28,7 +28,11 @@ class _UserImagePickerWidgetState extends State<UserImagePickerWidget> {
     Navigator.of(context).pop(source);
 
     try {
-      final imageFile = await ImagePicker().pickImage(source: source);
+      final imageFile = await ImagePicker().pickImage(
+        source: source,
+        imageQuality: 50, // max is 100
+        maxWidth: 150,
+      );
 
       if (imageFile == null) {
         return;
