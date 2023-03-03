@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,28 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  init() async {
+    String deviceToken = await getDeviceToken();
+    print('deviceToken ==========> ${deviceToken}');
+  }
+
+  Future getDeviceToken() async {
+    FirebaseMessaging _firebaseMessage = FirebaseMessaging.instance;
+    String? deviceToken = await _firebaseMessage.getToken();
+
+    if (deviceToken == null) {
+      return;
+    }
+
+    return deviceToken;
+  }
 
   // sign in user
   void _login() async {
