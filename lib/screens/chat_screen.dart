@@ -1,13 +1,51 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/chat/messages_widget.dart';
 import '../widgets/chat/new_message_widget.dart';
-import 'group_info_screen.dart';
+import 'group/group_info_screen.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   static const routeName = '/chat-screen';
 
   const ChatScreen({super.key});
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    //Fired when the app is in the foreground
+    FirebaseMessaging.onMessage.listen((message) {
+      print('foreground message title: ${message.notification?.title}');
+      print('foreground message body: ${message.notification?.body}');
+    });
+    //Fired when the app is terminated or in the background
+    FirebaseMessaging.onBackgroundMessage((message) {
+      print('background message title: ${message.notification?.title}');
+      print('background message: ${message.notification?.body}');
+      return Future.delayed(Duration.zero); //Mock Future
+    });
+    super.initState();
+  }
+
+  init() async {
+    String deviceToken = await getDeviceToken();
+    print('deviceToken ==========> $deviceToken');
+  }
+
+  Future getDeviceToken() async {
+    FirebaseMessaging firebaseMessage = FirebaseMessaging.instance;
+    String? deviceToken = await firebaseMessage.getToken();
+
+    if (deviceToken == null) {
+      return;
+    }
+
+    return deviceToken;
+  }
 
   @override
   Widget build(BuildContext context) {

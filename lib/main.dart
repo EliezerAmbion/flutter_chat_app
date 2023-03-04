@@ -6,11 +6,13 @@ import 'config/theme.dart';
 import 'firebase_options.dart';
 import 'models/user_model.dart';
 import 'providers/auth_provider.dart';
+import 'providers/groups_provider.dart';
 import 'screens/auth_screens.dart/login_screen.dart';
 import 'screens/auth_screens.dart/signup_screen.dart';
 import 'screens/auth_screens.dart/verify_email_screen.dart';
 import 'screens/chat_screen.dart';
-import 'screens/group_info_screen.dart';
+import 'screens/group/group_info_screen.dart';
+import 'screens/group/requests_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/search_screen.dart';
@@ -34,6 +36,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => GroupsProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -48,6 +53,7 @@ class MyApp extends StatelessWidget {
           ProfileScreen.routeName: (context) => const ProfileScreen(),
           ChatScreen.routeName: (context) => const ChatScreen(),
           GroupInfoScreen.routeName: (context) => const GroupInfoScreen(),
+          RequestScreen.routeName: (context) => const RequestScreen(),
         },
       ),
     );

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../helpers/helper_widgets.dart';
 import '../providers/auth_provider.dart';
-import '../services/database_service.dart';
+import '../providers/groups_provider.dart';
 import 'custom_field_widget.dart';
 
 class CreateGroupWidget extends StatelessWidget {
@@ -67,8 +67,8 @@ class CreateGroupWidget extends StatelessWidget {
             final currentUser =
                 Provider.of<AuthProvider>(context, listen: false).currentUser;
 
-            // TODO: Create a provider for groups
-            DatabaseService().addGroupCollection(
+            Provider.of<GroupsProvider>(context, listen: false)
+                .addGroupCollection(
               groupName: groupController.text,
               uid: currentUser!.uid,
               displayName: currentUser.displayName!,

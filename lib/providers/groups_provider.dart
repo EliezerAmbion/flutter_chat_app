@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
-class DatabaseService {
+class GroupsProvider with ChangeNotifier {
   Future addGroupCollection({
     required String groupName,
     required String uid,
@@ -34,5 +35,14 @@ class DatabaseService {
     } catch (error) {
       print(error);
     }
+  }
+
+  Future leaveGroup(uid, groupId, groupName, userDisplayName) async {
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'groups': FieldValue.arrayRemove(['${groupId}_$groupName'])
+    });
+    await FirebaseFirestore.instance.collection('groups').doc(groupId).update({
+      'member': FieldValue.arrayRemove(['${uid}_$userDisplayName'])
+    });
   }
 }

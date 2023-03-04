@@ -81,6 +81,7 @@ class AuthProvider with ChangeNotifier {
         'uid': authResult.user!.uid,
         'displayName': usernameController,
         'emailVerified': false,
+        'photoUrl': '',
       });
 
       // set the displayName of user in auth upon signup
@@ -98,6 +99,11 @@ class AuthProvider with ChangeNotifier {
 
           // set the photoUrl of user in auth upon signup
           await authResult.user?.updatePhotoURL(photoURL);
+
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(authResult.user!.uid)
+              .update({'photoUrl': photoURL});
         });
       }
 
