@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/widgets/custom_appbar_widget.dart';
 
 class RequestScreen extends StatelessWidget {
   static const routeName = '/requests';
@@ -8,8 +7,8 @@ class RequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBarWidget(title: 'Requests'),
+    return Scaffold(
+      appBar: AppBar(title: const Text('requests')),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
-import '../widgets/custom_appbar_widget.dart';
+import '../widgets/appbars/home_screen_appbar.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
     const placeHolderImage = AssetImage('assets/images/no-image.jpg');
 
     return Scaffold(
-      appBar: const CustomAppBarWidget(title: 'Profile'),
+      appBar: const HomeScreenAppBarWidget(title: 'Profile'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: Column(

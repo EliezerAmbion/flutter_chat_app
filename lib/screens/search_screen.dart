@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/providers/auth_provider.dart';
-import 'package:flutter_chat_app/providers/groups_provider.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -57,15 +56,15 @@ class _SearchScreenState extends State<SearchScreen> {
           return StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('groups')
-                .where('groupName', isEqualTo: searchedQuery)
-                .snapshots(),
+                .orderBy('groupName')
+                .startAt([searchedQuery]).endAt(
+                    ['$searchedQuery\uf8ff']).snapshots(),
 
-            // NOTE: use this if you want to show the groups as you type
-            // FirebaseFirestore.instance
+            // NOTE: use this if you want to show the groups only after the exact query
+            // stream: FirebaseFirestore.instance
             //     .collection('groups')
-            //     .orderBy('groupName')
-            //     .startAt([searchedQuery]).endAt(
-            //         ['$searchedQuery\uf8ff']).snapshots(),
+            //     .where('groupName', isEqualTo: searchedQuery)
+            //     .snapshots(),
             builder: (context, latestSnapshot) {
               if (latestSnapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -92,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       vertical: 15,
                     ),
                     leading: CircleAvatar(
-                      radius: 30,
+                      radius: 20,
                       child: Text(
                         groupsDocs[index]['groupName']
                             .substring(0, 1)
@@ -129,13 +128,13 @@ class _SearchScreenState extends State<SearchScreen> {
                             icon: Icon(
                               Icons.input_outlined,
                               color: Colors.grey.shade700,
-                              size: 20,
+                              size: 15,
                             ),
                             label: Text(
                               'Request Sent',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyText2!
                                   .copyWith(
                                     color: Colors.grey.shade700,
                                   ),
@@ -161,13 +160,13 @@ class _SearchScreenState extends State<SearchScreen> {
                             icon: Icon(
                               Icons.input,
                               color: Theme.of(context).colorScheme.secondary,
-                              size: 20,
+                              size: 15,
                             ),
                             label: Text(
                               'Request to Join',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyText2!
                                   .copyWith(
                                     color:
                                         Theme.of(context).colorScheme.secondary,

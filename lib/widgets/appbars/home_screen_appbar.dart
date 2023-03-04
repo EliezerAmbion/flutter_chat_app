@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/auth_provider.dart';
-import '../screens/search_screen.dart';
+import '../../providers/auth_provider.dart';
+import '../../screens/search_screen.dart';
 
-class CustomAppBarWidget extends StatelessWidget with PreferredSizeWidget {
+class HomeScreenAppBarWidget extends StatelessWidget with PreferredSizeWidget {
   final String title;
 
-  const CustomAppBarWidget({
+  const HomeScreenAppBarWidget({
     super.key,
     required this.title,
   });
