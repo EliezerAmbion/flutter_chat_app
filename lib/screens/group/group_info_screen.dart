@@ -129,8 +129,13 @@ class GroupInfoScreen extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(RequestScreen.routeName);
+                        Navigator.of(context).pushNamed(
+                          RequestScreen.routeName,
+                          arguments: {
+                            'groupId': groupId,
+                            'groupName': groupName,
+                          },
+                        );
                       },
                       child: const Text('Requests'),
                     ),

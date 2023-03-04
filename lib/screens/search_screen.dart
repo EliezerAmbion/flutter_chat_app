@@ -82,8 +82,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   Map<String, dynamic>? userDocs = userSnapshot.data?.data();
 
-                  final hasJoined =
+                  final hasRequested =
                       userDocs?['groupRequests'].contains(unionName);
+
+                  final hasJoined = userDocs?['groups'].contains(unionName);
 
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(
@@ -107,7 +109,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       'Admin: ${groupsDocs[index]['adminName']}',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    trailing: hasJoined
+                    trailing: hasRequested
                         ? TextButton.icon(
                             onPressed: () async {
                               await FirebaseFirestore.instance
@@ -131,7 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               size: 15,
                             ),
                             label: Text(
-                              'Request Sent',
+                              'Undo',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -140,39 +142,43 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ),
                             ),
                           )
-                        : TextButton.icon(
-                            onPressed: () async {
-                              await FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(uid)
-                                  .update({
-                                'groupRequests':
-                                    FieldValue.arrayUnion([unionName])
-                              });
-                              await FirebaseFirestore.instance
-                                  .collection('groups')
-                                  .doc(groupId)
-                                  .update({
-                                'joinRequests': FieldValue.arrayUnion(
-                                    ['${uid}_$userDisplayName'])
-                              });
-                            },
-                            icon: Icon(
-                              Icons.input,
-                              color: Theme.of(context).colorScheme.secondary,
-                              size: 15,
-                            ),
-                            label: Text(
-                              'Request to Join',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                            ),
-                          ),
+                        : hasJoined
+                            ? Text('Joined')
+                            : TextButton.icon(
+                                onPressed: () async {
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(uid)
+                                      .update({
+                                    'groupRequests':
+                                        FieldValue.arrayUnion([unionName])
+                                  });
+                                  await FirebaseFirestore.instance
+                                      .collection('groups')
+                                      .doc(groupId)
+                                      .update({
+                                    'joinRequests': FieldValue.arrayUnion(
+                                        ['${uid}_$userDisplayName'])
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.input,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  size: 15,
+                                ),
+                                label: Text(
+                                  'Request to Join',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                ),
+                              ),
                   );
                 },
               );

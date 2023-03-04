@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Container(
             margin: const EdgeInsets.only(top: 20),
             child: ListView.builder(
+              itemCount: userData?['groups'].length,
               itemBuilder: (context, index) {
                 String? userGroups = userData?['groups'][index];
                 String? userGroupId = HelperFunction.getId(userGroups);
@@ -133,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 );
               },
-              itemCount: userData?['groups'].length,
             ),
           );
         },
