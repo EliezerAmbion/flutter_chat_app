@@ -78,6 +78,7 @@ class AuthProvider with ChangeNotifier {
           .set({
         'email': emailController,
         'groups': [],
+        'groupRequests': [],
         'uid': authResult.user!.uid,
         'displayName': usernameController,
         'emailVerified': false,

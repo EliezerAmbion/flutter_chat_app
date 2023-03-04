@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/providers/auth_provider.dart';
+import 'package:flutter_chat_app/providers/groups_provider.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -82,7 +83,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   Map<String, dynamic>? userDocs = userSnapshot.data?.data();
 
-                  final hasJoined = userDocs?['groups'].contains(unionName);
+                  final hasJoined =
+                      userDocs?['groupRequests'].contains(unionName);
 
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(
@@ -113,25 +115,27 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .collection('users')
                                   .doc(uid)
                                   .update({
-                                'groups': FieldValue.arrayRemove([unionName])
+                                'groupRequests':
+                                    FieldValue.arrayRemove([unionName])
                               });
                               await FirebaseFirestore.instance
                                   .collection('groups')
                                   .doc(groupId)
                                   .update({
-                                'member': FieldValue.arrayRemove(
+                                'joinRequests': FieldValue.arrayRemove(
                                     ['${uid}_$userDisplayName'])
                               });
                             },
                             icon: Icon(
                               Icons.input_outlined,
                               color: Colors.grey.shade700,
+                              size: 20,
                             ),
                             label: Text(
-                              'Joined',
+                              'Request Sent',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline3!
+                                  .bodyText1!
                                   .copyWith(
                                     color: Colors.grey.shade700,
                                   ),
@@ -143,25 +147,27 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .collection('users')
                                   .doc(uid)
                                   .update({
-                                'groups': FieldValue.arrayUnion([unionName])
+                                'groupRequests':
+                                    FieldValue.arrayUnion([unionName])
                               });
                               await FirebaseFirestore.instance
                                   .collection('groups')
                                   .doc(groupId)
                                   .update({
-                                'member': FieldValue.arrayUnion(
+                                'joinRequests': FieldValue.arrayUnion(
                                     ['${uid}_$userDisplayName'])
                               });
                             },
                             icon: Icon(
                               Icons.input,
                               color: Theme.of(context).colorScheme.secondary,
+                              size: 20,
                             ),
                             label: Text(
-                              'Join',
+                              'Request to Join',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline3!
+                                  .bodyText1!
                                   .copyWith(
                                     color:
                                         Theme.of(context).colorScheme.secondary,

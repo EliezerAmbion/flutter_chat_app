@@ -15,6 +15,7 @@ class GroupsProvider with ChangeNotifier {
         'adminId': uid,
         'adminName': displayName,
         'member': [],
+        'joinRequests': [],
         'groupId': '',
         'recentMessage': '',
         'recentMessageSenderId': '',
@@ -28,7 +29,7 @@ class GroupsProvider with ChangeNotifier {
 
       // Go to users collection and update the group collection
       await FirebaseFirestore.instance.collection("users").doc(uid).update({
-        "groups": FieldValue.arrayUnion(
+        'groups': FieldValue.arrayUnion(
           ["${groupDocRef.id}_$groupName"],
         )
       });
