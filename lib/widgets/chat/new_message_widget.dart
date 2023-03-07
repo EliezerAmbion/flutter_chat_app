@@ -52,9 +52,9 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
         children: [
           Expanded(
             child: TextField(
-              // style: TextStyle(),
               controller: _controller,
               decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 15),
                 labelText: 'Send a message...',
 
                 // label inside

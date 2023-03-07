@@ -188,8 +188,8 @@ class GroupInfoScreen extends StatelessWidget {
                                   color: Colors.teal,
                                 ),
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 15,
+                                  horizontal: 25,
+                                  vertical: 10,
                                 ),
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 20,

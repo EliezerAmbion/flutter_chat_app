@@ -4,7 +4,7 @@ class MessageBubbleWidget extends StatefulWidget {
   final String message;
   final String displayName;
   final bool isMe;
-  final String photoUrl;
+  final String? photoUrl;
 
   const MessageBubbleWidget({
     required super.key,
@@ -72,10 +72,10 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                     child: Text(
                       widget.message,
                       style: widget.isMe
-                          ? Theme.of(context).textTheme.headline4?.copyWith(
+                          ? Theme.of(context).textTheme.headline6?.copyWith(
                                 color: Colors.white,
                               )
-                          : Theme.of(context).textTheme.headline4?.copyWith(
+                          : Theme.of(context).textTheme.headline6?.copyWith(
                                 color: Colors.white,
                               ),
                     ),
@@ -87,11 +87,25 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                     left: widget.isMe ? null : 7,
                     child: CircleAvatar(
                       radius: 15,
-                      backgroundImage: NetworkImage(
-                        widget.photoUrl,
-                      ),
+                      backgroundImage: widget.photoUrl != null
+                          ? NetworkImage(widget.photoUrl!)
+                          : const AssetImage('assets/images/no-image.jpg')
+                              as ImageProvider,
+
+                      // child: ClipOval(
+                      //   child: FadeInImage(
+                      //     placeholder:
+                      //         const AssetImage('assets/images/no-image.jpg'),
+                      //     image: NetworkImage(widget.photoUrl),
+                      //     fit: BoxFit.cover,
+                      //     width: 100,
+                      //     height: 100,
+                      //   ),
+                      // ),
+                      // backgroundImage: NetworkImage(
+                      //   widget.photoUrl,
                     ),
-                  )
+                  ),
                 ],
               ),
               _isTextVisible
