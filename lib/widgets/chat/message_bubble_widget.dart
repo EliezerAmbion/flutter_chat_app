@@ -91,19 +91,6 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                           ? NetworkImage(widget.photoUrl!)
                           : const AssetImage('assets/images/no-image.jpg')
                               as ImageProvider,
-
-                      // child: ClipOval(
-                      //   child: FadeInImage(
-                      //     placeholder:
-                      //         const AssetImage('assets/images/no-image.jpg'),
-                      //     image: NetworkImage(widget.photoUrl),
-                      //     fit: BoxFit.cover,
-                      //     width: 100,
-                      //     height: 100,
-                      //   ),
-                      // ),
-                      // backgroundImage: NetworkImage(
-                      //   widget.photoUrl,
                     ),
                   ),
                 ],

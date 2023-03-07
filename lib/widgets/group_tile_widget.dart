@@ -7,6 +7,7 @@ class GroupTileWidget extends StatelessWidget {
   final String displayName;
   final String groupId;
   final String? recentMessage;
+  final String isMe;
 
   const GroupTileWidget({
     super.key,
@@ -14,6 +15,7 @@ class GroupTileWidget extends StatelessWidget {
     required this.displayName,
     required this.groupId,
     required this.recentMessage,
+    required this.isMe,
   });
 
   @override
@@ -30,7 +32,7 @@ class GroupTileWidget extends StatelessWidget {
         );
       },
       child: Card(
-        elevation: 4,
+        elevation: 6,
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -47,11 +49,23 @@ class GroupTileWidget extends StatelessWidget {
             ),
             title: Text(
               groupName,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline3,
             ),
-            subtitle: Text(
-              recentMessage ?? 'No message yet',
-              style: Theme.of(context).textTheme.bodyText2,
+            subtitle: RichText(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              text: TextSpan(
+                text: isMe,
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                children: [
+                  TextSpan(
+                    text: recentMessage,
+                    style: Theme.of(context).textTheme.bodyText2,
+                  )
+                ],
+              ),
             ),
           ),
         ),

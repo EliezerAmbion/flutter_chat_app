@@ -41,7 +41,6 @@ class GroupInfoScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               showDialog(
-                // barrierDismissible: false,
                 context: context,
                 builder: (context) {
                   return AlertDialog(
@@ -215,9 +214,15 @@ class GroupInfoScreen extends StatelessWidget {
                                                 groupData['member'][index]),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline5,
+                                                .headline3,
                                           ),
-                                          const Text('Admin'),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            'Admin',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6,
+                                          ),
                                         ],
                                       ),
                                     )

@@ -128,8 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       groupName: userGroupName,
                       displayName: userData?['displayName'],
                       groupId: userGroupId,
-                      recentMessage:
-                          '${isCurrentUser ? 'You:' : '$recentMessageSenderName:'} $recentMessage',
+                      isMe: isCurrentUser
+                          ? 'You: '
+                          : '$recentMessageSenderName: ',
+                      recentMessage: recentMessage,
                     );
                   },
                 );
