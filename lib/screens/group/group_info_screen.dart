@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/providers/groups_provider.dart';
@@ -119,6 +120,7 @@ class GroupInfoScreen extends StatelessWidget {
 
           Map<String, dynamic> groupData = latestSnapshot.data.data();
           final bool isRequestShow = currentUser.uid == groupData['adminId'];
+          int groupRequestsLength = groupData['joinRequests'].length;
 
           return Column(
             children: [
@@ -137,7 +139,20 @@ class GroupInfoScreen extends StatelessWidget {
                           },
                         );
                       },
-                      child: const Text('Requests'),
+                      child: Badge(
+                        badgeContent: Text(groupRequestsLength.toString()),
+                        badgeStyle: BadgeStyle(
+                          badgeColor: Theme.of(context).colorScheme.secondary,
+                          padding: const EdgeInsets.all(6),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                            right: 5,
+                            top: 8,
+                          ),
+                          child: Text('Requests'),
+                        ),
+                      ),
                     ),
                   ),
                 ),
