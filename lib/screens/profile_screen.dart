@@ -20,7 +20,16 @@ class ProfileScreen extends StatelessWidget {
     const placeHolderImage = AssetImage('assets/images/no-image.jpg');
 
     return Scaffold(
-      appBar: const HomeScreenAppBarWidget(title: 'Profile'),
+      appBar: AppBar(
+        title: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.black,
+          ),
+          child: const Text('Profile'),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: Column(

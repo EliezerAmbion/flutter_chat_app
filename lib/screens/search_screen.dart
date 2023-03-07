@@ -143,7 +143,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           )
                         : hasJoined
-                            ? Text('Joined')
+                            ? const Text('Joined')
                             : TextButton.icon(
                                 onPressed: () async {
                                   await FirebaseFirestore.instance
