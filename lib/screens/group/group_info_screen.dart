@@ -184,7 +184,8 @@ class GroupInfoScreen extends StatelessWidget {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
-                                  color: Colors.teal,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 25,
@@ -230,47 +231,45 @@ class GroupInfoScreen extends StatelessWidget {
                                 ),
                               ),
                             if (!isAdmin)
-                              SingleChildScrollView(
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                    bottom: 5,
-                                    left: 30,
-                                    right: 30,
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  bottom: 5,
+                                  left: 30,
+                                  right: 30,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: ListTile(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  leading: CircleAvatar(
+                                    radius: 20,
+                                    backgroundImage: photoUrl != null
+                                        ? NetworkImage(photoUrl)
+                                        : const AssetImage(
+                                                'assets/images/no-image.jpg')
+                                            as ImageProvider,
                                   ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 2,
-                                        blurRadius: 5,
-                                        offset: const Offset(0, 3),
-                                      ),
-                                    ],
+                                  title: Text(
+                                    HelperFunction.getName(
+                                        groupData['member'][index]),
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
                                   ),
-                                  child: ListTile(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    leading: CircleAvatar(
-                                      radius: 20,
-                                      backgroundImage: photoUrl != null
-                                          ? NetworkImage(photoUrl)
-                                          : const AssetImage(
-                                                  'assets/images/no-image.jpg')
-                                              as ImageProvider,
-                                    ),
-                                    title: Text(
-                                      HelperFunction.getName(
-                                          groupData['member'][index]),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    ),
-                                    subtitle: Text(
-                                      'Member',
-                                      style:
-                                          Theme.of(context).textTheme.bodyText2,
-                                    ),
+                                  subtitle: Text(
+                                    'Member',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
                                   ),
                                 ),
                               ),

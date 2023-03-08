@@ -141,11 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => createGroup(),
-        child: const Icon(
-          Icons.add,
-        ),
+        icon: const Icon(Icons.add),
+        label: const Text('Add a Group'),
       ),
     );
   }

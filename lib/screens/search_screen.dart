@@ -72,7 +72,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 );
               }
 
-              return ListView.builder(
+              return ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
                 itemCount: latestSnapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   final groupsDocs = latestSnapshot.data!.docs;
@@ -90,7 +93,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 20,
-                      vertical: 15,
+                      vertical: 5,
                     ),
                     leading: CircleAvatar(
                       radius: 20,
