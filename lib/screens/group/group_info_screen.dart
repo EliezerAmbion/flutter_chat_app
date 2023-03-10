@@ -1,13 +1,13 @@
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/providers/groups_provider.dart';
-import 'package:flutter_chat_app/screens/group/requests_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../helpers/helper_functions.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/groups_provider.dart';
 import '../home_screen.dart';
+import 'requests_screen.dart';
 
 class GroupInfoScreen extends StatelessWidget {
   static const routeName = '/group-info';
@@ -37,73 +37,6 @@ class GroupInfoScreen extends StatelessWidget {
           ),
           child: const Text('Group Info'),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    elevation: 4,
-                    title: Text(
-                      'Exit',
-                      style: Theme.of(context).textTheme.headline3,
-                      textAlign: TextAlign.center,
-                    ),
-                    content: Text(
-                      'Are you sure you want to leave this group?',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                    actions: [
-                      // cancel logout
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                        ),
-                        onPressed: () async {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Cancel'),
-                      ),
-
-                      // leave group
-                      Container(
-                        margin: const EdgeInsets.only(right: 20, left: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).errorColor,
-                          ),
-                          onPressed: () async {
-                            // get the groups of specific user
-                            List<dynamic> userGroups =
-                                await authProvider.getUserGroups(uid);
-
-                            if (userGroups.contains('${groupId}_$groupName')) {
-                              await Provider.of<GroupsProvider>(
-                                context,
-                                listen: false,
-                              ).leaveGroup(
-                                uid,
-                                groupId,
-                                groupName,
-                                userDisplayName,
-                              );
-                            }
-
-                            Navigator.of(context)
-                                .pushReplacementNamed(HomeScreen.routeName);
-                          },
-                          child: const Text('Leave'),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            icon: const Icon(Icons.exit_to_app),
-          ),
-        ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -123,38 +56,112 @@ class GroupInfoScreen extends StatelessWidget {
 
           return Column(
             children: [
-              if (isRequestShow)
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          RequestScreen.routeName,
-                          arguments: {
-                            'groupId': groupId,
-                            'groupName': groupName,
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: isRequestShow
+                      ? TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              RequestScreen.routeName,
+                              arguments: {
+                                'groupId': groupId,
+                                'groupName': groupName,
+                              },
+                            );
                           },
-                        );
-                      },
-                      child: Badge(
-                        badgeContent: Text(groupRequestsLength.toString()),
-                        badgeStyle: BadgeStyle(
-                          badgeColor: Theme.of(context).colorScheme.secondary,
-                          padding: const EdgeInsets.all(6),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(
-                            right: 5,
-                            top: 8,
+                          child: Badge(
+                            badgeContent: Text(groupRequestsLength.toString()),
+                            badgeStyle: BadgeStyle(
+                              badgeColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              padding: const EdgeInsets.all(6),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.only(
+                                right: 5,
+                                top: 8,
+                              ),
+                              child: Text('Requests'),
+                            ),
                           ),
-                          child: Text('Requests'),
+                        )
+                      : TextButton.icon(
+                          label: const Text('Leave Group'),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  elevation: 4,
+                                  title: Text(
+                                    'Exit',
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  content: Text(
+                                    'Are you sure you want to leave this group?',
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                  actions: [
+                                    // cancel logout
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Cancel'),
+                                    ),
+
+                                    // leave group
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          right: 20, left: 10),
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              Theme.of(context).errorColor,
+                                        ),
+                                        onPressed: () async {
+                                          // get the groups of specific user
+                                          List<dynamic> userGroups =
+                                              await authProvider
+                                                  .getUserGroups(uid);
+
+                                          if (userGroups.contains(
+                                              '${groupId}_$groupName')) {
+                                            await Provider.of<GroupsProvider>(
+                                              context,
+                                              listen: false,
+                                            ).leaveGroup(
+                                              uid,
+                                              groupId,
+                                              groupName,
+                                              userDisplayName,
+                                            );
+                                          }
+
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(
+                                                  HomeScreen.routeName);
+                                        },
+                                        child: const Text('Leave'),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.exit_to_app),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: groupData['member'].length,
