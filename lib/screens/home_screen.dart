@@ -149,6 +149,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-// comment in master
-// comment in master 2
-// comment in master 3
