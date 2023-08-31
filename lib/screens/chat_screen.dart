@@ -63,3 +63,5 @@ class ChatScreen extends StatelessWidget {
 }
 // comment from testing in main branch
 // comment 2 for rebasing
+// comment 1
+// comment 2
