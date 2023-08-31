@@ -8,7 +8,8 @@ class ChatScreen extends StatelessWidget {
   static const routeName = '/chat-screen';
 
   const ChatScreen({super.key});
-
+ // comment for test rebasing
+  // another comment
   @override
   Widget build(BuildContext context) {
     final groupArgs =
