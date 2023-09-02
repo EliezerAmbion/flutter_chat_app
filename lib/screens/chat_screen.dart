@@ -66,3 +66,4 @@ class ChatScreen extends StatelessWidget {
 // add comment 3 remote master
 // add comment 4 remote master
 // add comment 5 remote master
+// test rebase w/o fetching
