@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as b;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -71,9 +71,9 @@ class GroupInfoScreen extends StatelessWidget {
                               },
                             );
                           },
-                          child: Badge(
+                          child: b.Badge(
                             badgeContent: Text(groupRequestsLength.toString()),
-                            badgeStyle: BadgeStyle(
+                            badgeStyle: b.BadgeStyle(
                               badgeColor:
                                   Theme.of(context).colorScheme.secondary,
                               padding: const EdgeInsets.all(6),

@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../screens/search_screen.dart';
 
-class HomeScreenAppBarWidget extends StatelessWidget with PreferredSizeWidget {
+class HomeScreenAppBarWidget extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
 
   const HomeScreenAppBarWidget({
