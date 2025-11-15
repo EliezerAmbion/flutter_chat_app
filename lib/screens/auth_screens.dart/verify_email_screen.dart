@@ -95,7 +95,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             appBar: AppBar(
               title: Text(
                 'Verify Email',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
             ),
             body: Padding(
@@ -106,7 +106,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   Text(
                     'A Verification Email has been sent to your email',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                   const SizedBox(height: 24),
                   SizedBox(
@@ -118,9 +118,10 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       icon: const Icon(Icons.email_outlined),
                       label: Text(
                         'Resend Email',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              color: Theme.of(context).colorScheme.tertiary,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                ),
                       ),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(16),
@@ -134,7 +135,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     },
                     child: Text(
                       'Cancel',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                 ],

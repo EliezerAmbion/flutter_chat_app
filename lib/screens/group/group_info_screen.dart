@@ -97,14 +97,16 @@ class GroupInfoScreen extends StatelessWidget {
                                   elevation: 4,
                                   title: Text(
                                     'Exit',
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
                                     textAlign: TextAlign.center,
                                   ),
                                   content: Text(
                                     'Are you sure you want to leave this group?',
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
                                   ),
                                   actions: [
                                     // cancel logout
@@ -124,8 +126,9 @@ class GroupInfoScreen extends StatelessWidget {
                                           right: 20, left: 10),
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              Theme.of(context).errorColor,
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .error,
                                         ),
                                         onPressed: () async {
                                           // get the groups of specific user
@@ -222,14 +225,14 @@ class GroupInfoScreen extends StatelessWidget {
                                                 groupData['member'][index]),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline3,
+                                                .displaySmall,
                                           ),
                                           const SizedBox(height: 5),
                                           Text(
                                             'Admin',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .titleLarge,
                                           ),
                                         ],
                                       ),
@@ -270,13 +273,14 @@ class GroupInfoScreen extends StatelessWidget {
                                   title: Text(
                                     HelperFunction.getName(
                                         groupData['member'][index]),
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
                                   ),
                                   subtitle: Text(
                                     'Member',
                                     style:
-                                        Theme.of(context).textTheme.bodyText2,
+                                        Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
                               ),

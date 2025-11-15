@@ -46,7 +46,7 @@ class CustomFieldWidget extends StatelessWidget {
             autofillHints: [autoFill!],
 
             // text style
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineSmall,
 
             decoration: InputDecoration(
               labelText: labelText,
@@ -56,10 +56,10 @@ class CustomFieldWidget extends StatelessWidget {
               ),
 
               // label inside
-              labelStyle: Theme.of(context).textTheme.headline6,
+              labelStyle: Theme.of(context).textTheme.titleLarge,
 
               // label above
-              floatingLabelStyle: Theme.of(context).textTheme.headline6,
+              floatingLabelStyle: Theme.of(context).textTheme.titleLarge,
 
               // border unfocused
               enabledBorder: customOutlineInputBorder(

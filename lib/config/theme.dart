@@ -43,44 +43,44 @@ ElevatedButtonThemeData elevatedButtonTheme() {
 TextTheme textTheme() {
   return const TextTheme(
     // header text theme
-    headline1: TextStyle(
+    displayLarge: TextStyle(
       fontFamily: 'MontBold',
       color: Colors.black,
       fontSize: 32,
     ),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
       fontFamily: 'MontBold',
       color: Colors.black,
       fontSize: 26,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       fontFamily: 'MontBold',
       color: Colors.black,
       fontSize: 20,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black,
       fontSize: 20,
     ),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black,
       fontSize: 18,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black87,
       fontSize: 16,
     ),
 
     // body text theme
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black87,
       fontSize: 14,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       fontFamily: 'MontReg',
       color: Colors.black87,
       fontSize: 12,
@@ -132,44 +132,44 @@ TextTheme textTheme() {
 // TextTheme darkModeTextTheme() {
 //   return const TextTheme(
 //     // header text theme
-//     headline1: TextStyle(
+//     displayLarge: TextStyle(
 //       fontFamily: 'MontBold',
 //       color: Colors.white,
 //       fontSize: 32,
 //     ),
-//     headline2: TextStyle(
+//     displayMedium: TextStyle(
 //       fontFamily: 'MontBold',
 //       color: Colors.white,
 //       fontSize: 24,
 //     ),
-//     headline3: TextStyle(
+//     displaySmall: TextStyle(
 //       fontFamily: 'MontBold',
 //       color: Colors.white,
 //       fontSize: 18,
 //     ),
-//     headline4: TextStyle(
+//     headlineMedium: TextStyle(
 //       fontFamily: 'MontReg',
 //       color: Colors.white,
 //       fontSize: 18,
 //     ),
-//     headline5: TextStyle(
+//     headlineSmall: TextStyle(
 //       fontFamily: 'MontReg',
 //       color: Colors.white,
 //       fontSize: 16,
 //     ),
-//     headline6: TextStyle(
+//     titleLarge: TextStyle(
 //       fontFamily: 'MontReg',
 //       color: Colors.white,
 //       fontSize: 14,
 //     ),
 
 //     // body text theme
-//     bodyText1: TextStyle(
+//     bodyLarge: TextStyle(
 //       fontFamily: 'MontReg',
 //       color: Colors.white,
 //       fontSize: 12,
 //     ),
-//     bodyText2: TextStyle(
+//     bodyMedium: TextStyle(
 //       fontFamily: 'MontReg',
 //       color: Colors.white,
 //       fontSize: 10,

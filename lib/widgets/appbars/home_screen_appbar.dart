@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/screens/profile_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_chat_app/providers/auth_provider.dart' as auth_prov;
 
-import '../../providers/auth_provider.dart';
 import '../../screens/search_screen.dart';
 
 class HomeScreenAppBarWidget extends StatelessWidget
@@ -18,7 +18,7 @@ class HomeScreenAppBarWidget extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     final User? user =
-        Provider.of<AuthProvider>(context, listen: false).currentUser;
+        Provider.of<auth_prov.AuthProvider>(context, listen: false).currentUser;
     final String? currentUserPhotoUrl = user?.photoURL;
     const placeHolderImage = AssetImage('assets/images/no-image.jpg');
 
@@ -31,7 +31,7 @@ class HomeScreenAppBarWidget extends StatelessWidget
         ),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline3!.copyWith(
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
                 color: Theme.of(context).colorScheme.tertiary,
               ),
         ),

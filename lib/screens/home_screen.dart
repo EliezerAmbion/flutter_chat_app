@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/providers/auth_provider.dart' as auth_prov;
 import 'package:provider/provider.dart';
 
 import '../helpers/helper_functions.dart';
-import '../providers/auth_provider.dart';
+// import '../providers/auth_provider.dart';
 import '../widgets/create_group_widget.dart';
 import '../widgets/appbars/home_screen_appbar.dart';
 import '../widgets/group_tile_widget.dart';
@@ -52,12 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 20),
           Text(
             'You don\'t have any groups!',
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.displaySmall,
           ),
           const SizedBox(height: 10),
           Text(
             'You can add one by searching or creating a group.',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           )
         ],
       ),
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final User? user =
-        Provider.of<AuthProvider>(context, listen: false).currentUser;
+        Provider.of<auth_prov.AuthProvider>(context, listen: false).currentUser;
 
     return Scaffold(
       appBar: const HomeScreenAppBarWidget(title: 'Your Groups'),

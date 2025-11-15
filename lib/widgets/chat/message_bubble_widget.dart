@@ -72,10 +72,10 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                     child: Text(
                       widget.message,
                       style: widget.isMe
-                          ? Theme.of(context).textTheme.headline6?.copyWith(
+                          ? Theme.of(context).textTheme.titleLarge?.copyWith(
                                 color: Colors.white,
                               )
-                          : Theme.of(context).textTheme.headline6?.copyWith(
+                          : Theme.of(context).textTheme.titleLarge?.copyWith(
                                 color: Colors.white,
                               ),
                     ),
@@ -100,7 +100,7 @@ class _MessageBubbleWidgetState extends State<MessageBubbleWidget> {
                       padding: const EdgeInsets.only(right: 20.0, left: 20),
                       child: Text(
                         widget.displayName,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     )
                   : Container(),

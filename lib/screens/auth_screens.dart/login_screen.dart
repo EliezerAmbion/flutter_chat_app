@@ -83,14 +83,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 // welcome back message
                 Text(
                   'Welcome back!',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
 
                 const SizedBox(height: 10),
 
                 Text(
                   'Login to continue',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
 
                 const SizedBox(height: 60),
@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       'Forgot Password?',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                 ),
@@ -156,11 +156,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 RichText(
                   text: TextSpan(
                     text: 'Not a Member? ',
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     children: [
                       TextSpan(
                         text: 'Register Now!',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,

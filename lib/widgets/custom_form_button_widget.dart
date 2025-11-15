@@ -23,7 +23,7 @@ class CustomFormButtonWidget extends StatelessWidget {
         child: Text(
           text.toUpperCase(),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline3!.copyWith(
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
                 color: Theme.of(context).colorScheme.tertiary,
               ),
         ),

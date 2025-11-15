@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_chat_app/providers/auth_provider.dart' as auth_prov;
 
-import '../providers/auth_provider.dart';
-import '../widgets/appbars/home_screen_appbar.dart';
+// import '../widgets/appbars/home_screen_appbar.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final User? user =
-        Provider.of<AuthProvider>(context, listen: false).currentUser;
+        Provider.of<auth_prov.AuthProvider>(context, listen: false).currentUser;
     final String? currentUserEmail = user?.email;
     final String? currentUserDisplayName = user?.displayName;
     final String? currentUserPhotoUrl = user?.photoURL;
@@ -54,12 +54,12 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Text(
                   'Username:',
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const Spacer(),
                 Text(
                   currentUserDisplayName ?? 'Loading...',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ],
             ),
@@ -68,12 +68,12 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Text(
                   'Email:',
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const Spacer(),
                 Text(
                   currentUserEmail ?? 'Loading...',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ],
             ),

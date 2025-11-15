@@ -118,14 +118,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 // Lets create an account
                 Text(
                   'Create new Account',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
 
                 const SizedBox(height: 10),
 
                 Text(
                   'Let\'s create one for you!',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
 
                 const SizedBox(height: 20),
@@ -207,11 +207,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 RichText(
                   text: TextSpan(
                     text: 'Already a Member? ',
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     children: [
                       TextSpan(
                         text: 'Login Now!',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,

@@ -144,7 +144,6 @@ class AuthProvider with ChangeNotifier {
       Map<String, dynamic>? userData = userDoc.data()! as Map<String, dynamic>?;
       return userData?['groups'] ?? [];
     } catch (error) {
-      print('error in auth_provider getUserGroups ==========> $error');
       rethrow;
     }
   }

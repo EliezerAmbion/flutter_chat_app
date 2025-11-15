@@ -106,11 +106,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     title: Text(
                       groupsDocs[index]['groupName'],
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.displaySmall,
                     ),
                     subtitle: Text(
                       'Admin: ${groupsDocs[index]['adminName']}',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     trailing: hasRequested
                         ? TextButton.icon(
@@ -139,7 +139,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               'Undo',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(
                                     color: Colors.grey.shade700,
                                   ),
@@ -174,7 +174,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   'Request to Join',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText2!
+                                      .bodyMedium!
                                       .copyWith(
                                         color: Theme.of(context)
                                             .colorScheme

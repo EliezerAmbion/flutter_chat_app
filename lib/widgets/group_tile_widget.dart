@@ -49,20 +49,20 @@ class GroupTileWidget extends StatelessWidget {
             ),
             title: Text(
               groupName,
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.displaySmall,
             ),
             subtitle: RichText(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               text: TextSpan(
                 text: isMe,
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                 children: [
                   TextSpan(
                     text: recentMessage,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   )
                 ],
               ),
