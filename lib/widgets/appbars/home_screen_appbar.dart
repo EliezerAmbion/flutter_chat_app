@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_chat_app/providers/auth_provider.dart' as auth_prov;
-
 import '../../screens/search_screen.dart';
 
 class HomeScreenAppBarWidget extends StatelessWidget

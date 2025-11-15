@@ -26,7 +26,10 @@ class ChatScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: Colors.black,
           ),
-          child: Text(groupName!),
+          child: Text(
+            groupName!,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         actions: [
           IconButton(
